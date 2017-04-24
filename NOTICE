@@ -1,0 +1,11 @@
+FastContext (An optimized implementation of ConText algorithm)
+Copyright 2017 The Department of Biomedical Informatics, University of Utah
+
+This product includes software developed at
+The Department of Biomedical Informatics, University of Utah (http://bmi.utah.edu/).
+
+FastContext were developed under maven framework.
+Copyright © 2017 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+
+JUnit is used in test cases. Its distribution is not included.
+Copyright © 2002-2016 JUnit, Licensed under Eclipse Public License 1.0.

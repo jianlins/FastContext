@@ -15,9 +15,9 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.context.common;
+package edu.utah.bmi.nlp.context.common;
 
-import edu.utah.bmi.context.common.ContextValueSet.TriggerTypes;
+import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
 
 /**
  * @author Jianlin Shi

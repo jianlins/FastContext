@@ -15,7 +15,7 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.nlp;
+package edu.utah.bmi.nlp.core;
 
 /**
  *

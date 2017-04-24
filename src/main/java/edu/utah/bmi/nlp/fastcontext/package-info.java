@@ -15,19 +15,19 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.context.common;
-
 /**
- * Classic ConText Assertions and Determinants.
- * Dynamic generated values can be implemented through external classes-DynamEnumOper.
- * <p/>
- * Drafted by Jianlin Shi on 6/24/15.
+ *
+ * Note:
+ *
+ * Because FastContext does not implement real regular expression. Rather, it implements a few regular expression capability instead.
+ * 1. use \w+ to represent a word (corresponding to any element in the input ArrayList of String or Span
+ * 2. use "&gt; number" (there is a whitespace between them) to represent any digit greater than the given "number"
+ * As a results, you will need consider input digit as single token annotation/word, which is annotated differently in some parsers.
+ * Please referring to the example rule file: "conf/context.csv"
+ *
+ *
+ * @author Jianlin Shi
  */
-public class ContextValueSet {
+package edu.utah.bmi.nlp.fastcontext;
 
 
-    public static enum TriggerTypes {
-        forward, backward, both, terminal, pseudo, positive,trigger
-    }
-
-}

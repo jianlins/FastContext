@@ -15,19 +15,11 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.context.common;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+package edu.utah.bmi.nlp.context.common;
 
 /**
- * Enable this common interface for different implementation evaluation
- * Created by Jianlin Shi on 8/23/16.
+ * @author Jianlin Shi on 8/23/16.
  */
-public interface InitInterface {
-    void initiate(String ruleFile);
+public interface ConTextBasicInterfaceWInit extends ConTextBasicInterface, InitInterface {
 
-    void initiate(ArrayList<String> rules, boolean toLowerCase);
-
-    void initiate(LinkedHashMap<Integer, ContextRule> rules, boolean toLowerCase);
 }

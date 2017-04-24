@@ -15,16 +15,17 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.context.common;
+package edu.utah.bmi.nlp.context.common;
 
-import edu.utah.bmi.nlp.Span;
+import edu.utah.bmi.nlp.core.Span;
 
 /**
  * This is a class to store the span information of either Concept or ConText.
  * <p>
  * "id" is an optional field that can be used to store the rule id information, which is easy to be mapped to a score or rule name.
  * <p>
- * Drafted by Jianlin Shi on 6/24/15.
+ *
+ * @author Jianlin Shi on 6/24/15.
  */
 public class ConTextSpan extends Span {
     public int winBegin, winEnd, ruleId;

@@ -15,26 +15,20 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.fastcontext;
+package edu.utah.bmi.nlp.fastcontext;
 
-import edu.utah.bmi.context.common.*;
-import edu.utah.bmi.context.common.ContextValueSet.TriggerTypes;
-import edu.utah.bmi.context.common.ContextRule;
-import edu.utah.bmi.context.common.ConTextSpan;
-import edu.utah.bmi.nlp.Span;
+import edu.utah.bmi.nlp.context.common.ConTextAdvancedInterface;
+import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
+import edu.utah.bmi.nlp.context.common.ContextRule;
+import edu.utah.bmi.nlp.context.common.ConTextSpan;
+import edu.utah.bmi.nlp.core.Span;
 
 import java.util.*;
 
 /**
- * Process the tunedcontext information.
+ * This class take context token/Annotation ArrayList as input, process the ConText algorithm.
  *
  * @author Jianlin Shi
- * @return ArrayList<String>, which consists three elements, Negation String, Temporality String
- * and Experiencer String.
- * String is defined in ContextValueSet.String ( @see ContextValueSet#ContextValueSet())
- * @see #processContext(ArrayList, int, int, int)
- * <p/>
- * This class take context token/Annotation ArrayList as input, process the FastContext algorithm,
  */
 public class FastContext implements ConTextAdvancedInterface {
     protected ContextRules contextRules;
@@ -60,12 +54,12 @@ public class FastContext implements ConTextAdvancedInterface {
         contextRules = new ContextRules(ruleFile);
     }
 
-    public void initiate(ArrayList<String> ruleslist) {
-        contextRules = new ContextRules(ruleslist);
+    public void initiate(ArrayList<String> rulesList) {
+        contextRules = new ContextRules(rulesList);
     }
 
-    public void initiate(ArrayList<String> ruleslist, boolean lowerCase) {
-        contextRules = new ContextRules(ruleslist);
+    public void initiate(ArrayList<String> rulesList, boolean lowerCase) {
+        contextRules = new ContextRules(rulesList);
         contextRules.setCaseInsensitive(lowerCase);
     }
 
@@ -135,8 +129,8 @@ public class FastContext implements ConTextAdvancedInterface {
         LinkedHashMap<String, ConTextSpan> matchedPostRules = new LinkedHashMap<String, ConTextSpan>();
         matchedPreRules.clear();
         matchedPostRules.clear();
-        contextRules.processRules(preContext, 0, matchedPreRules, true);
-        contextRules.processRules(postContext, 0, matchedPostRules, false);
+        contextRules.processRules(preContext, 0, matchedPreRules);
+        contextRules.processRules(postContext, 0, matchedPostRules);
         if (debug) {
             System.out.println("pre context matches:");
             for (Map.Entry<String, ConTextSpan> ent : matchedPreRules.entrySet()) {
@@ -165,7 +159,7 @@ public class FastContext implements ConTextAdvancedInterface {
     protected void applyConTexts(HashMap<String, ConTextSpan> matchedRules, LinkedHashMap<String, ConTextSpan> contexts, TriggerTypes direction, int conceptBegin) {
         for (Map.Entry<String, ConTextSpan> ent : matchedRules.entrySet()) {
             ContextRule matchedRule = contextRules.rules.get(ent.getValue().ruleId);
-            if (matchedRule.triggerType == TriggerTypes.positive && (matchedRule.direction == direction || matchedRule.direction == TriggerTypes.both)) {
+            if (matchedRule.triggerType == TriggerTypes.trigger && (matchedRule.direction == direction || matchedRule.direction == TriggerTypes.both)) {
                 if (direction == TriggerTypes.forward || direction == TriggerTypes.both) {
                     if (conceptBegin - ent.getValue().begin <= matchedRule.windowSize)
                         contexts.put(matchedRule.modifier, ent.getValue());

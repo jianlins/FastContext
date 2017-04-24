@@ -7,24 +7,15 @@
     <artifactId>fastcontext</artifactId>
     <version>1.0</version>
     <name>FastContext (An optimized implementation of ConText algorithm)</name>
-    <url>https://github.com/jianlins/RuSH</url>
+    <url>https://github.com/jianlins/FastContext</url>
     <scm>
-        <connection>https://github.com/jianlins/RuSH.git</connection>
-        <url>scm:git:git@github.com:jianlins/RuSH.git</url>
-        <developerConnection>scm:git:git@github.com:jianlins/RuSH.git</developerConnection>
+        <connection>https://github.com/jianlins/FastContext.git</connection>
+        <url>scm:git:git@github.com:jianlins/FastContext.git</url>
+        <developerConnection>scm:git:git@github.com:jianlins/FastContext.git</developerConnection>
     </scm>
-    <description>RuSH is an efficient, reliable, and easy adaptable rule-based sentence segmentation solution. It is
-        specifically designed to handle the telegraphic written text in clinical note. It leverages a nested hash table
-        to execute simultaneous rule processing, which reduces the impact of the rule-base growth on execution time and
-        eliminates the effect of rule order on accuracy.
-
-        If you wish to cite RuSH in a publication, please use:
-
-        Jianlin Shi ; Danielle Mowery ; Kristina M. Doing-Harris ; John F. Hurdle.RuSH: a Rule-based Segmentation Tool
-        Using Hashing for Extremely Accurate Sentence Segmentation of Clinical Text. AMIA Annu Symp Proc. 2016: 1587.
-
-        The full text can be found at:
-        https://knowledge.amia.org/amia-63300-1.3360278/t005-1.3362920/f005-1.3362921/2495498-1.3363244/2495498-1.3363247?timeStamp=1479743941616
+    <description>FastContext is an optimized Java implementation of ConText algorithm
+        (https://www.ncbi.nlm.nih.gov/pubmed/23920642). It runs two orders of magnitude faster than previous two
+        popular implementations: JavaConText and GeneralConText.
     </description>
     <licenses>
         <license>
@@ -50,8 +41,28 @@
             <email>kdoing-harris@westminstercollege.edu</email>
         </contributor>
         <contributor>
+            <name>Sean Igo</name>
+            <email>samwibatt@gmail.com</email>
+        </contributor>
+        <contributor>
+            <name>Guy Divita</name>
+            <email>Guy.Divita@hsc.utah.edu</email>
+        </contributor>
+        <contributor>
+            <name>Olga Patterson</name>
+            <email>olga.patterson@utah.edu</email>
+        </contributor>
+        <contributor>
+            <name>Melissa Castine</name>
+            <email>mec175@pitt.edu</email>
+        </contributor>
+        <contributor>
             <name>John F. Hurdle</name>
             <email>john.hurdle@utah.edu</email>
+        </contributor>
+        <contributor>
+            <name>Wendy Chapman</name>
+            <email>wendy.chapman@utah.edu</email>
         </contributor>
     </contributors>
 

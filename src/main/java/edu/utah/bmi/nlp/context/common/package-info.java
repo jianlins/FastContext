@@ -15,11 +15,10 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.context.common;
-
 /**
- * Created by Jianlin Shi on 8/23/16.
+ * This package defines most common classes/interfaces. The interfaces allows different implementations to be used or
+ * evaluated easily in the same way as long as they all implement the same interfaces.
+ *
+ * @author Jianlin Shi on 6/24/15.
  */
-public interface ConTextBasicInterfaceWInit extends ConTextBasicInterface, InitInterface {
-
-}
+package edu.utah.bmi.nlp.context.common;

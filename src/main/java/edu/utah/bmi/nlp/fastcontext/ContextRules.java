@@ -15,12 +15,12 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.fastcontext;
+package edu.utah.bmi.nlp.fastcontext;
 
-import edu.utah.bmi.context.common.ConTextSpan;
-import edu.utah.bmi.context.common.ContextRule;
-import edu.utah.bmi.context.common.ContextValueSet.TriggerTypes;
-import edu.utah.bmi.context.common.IOUtil;
+import edu.utah.bmi.nlp.context.common.ConTextSpan;
+import edu.utah.bmi.nlp.context.common.ContextRule;
+import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
+import edu.utah.bmi.nlp.context.common.IOUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,10 +34,6 @@ import java.util.regex.Pattern;
  * process the rulesMap
  *
  * @author Jianlin Shi
- *         The results will be added to the input HashMap<Determinants,Span>, because there might be more than one applicable rule.
- *         -The Span ( @see Span#Span(int, int) ) stores the span information of the evidence support the corresponding Determinants
- *         -Determinants are defined in ContextValueSet.Determinants ( @see ContextValueSet#ContextValueSet()), which is corresponding
- *         to the last two elements in each rule defined in the rule CSV file.
  */
 @SuppressWarnings("rawtypes")
 public class ContextRules {
@@ -100,9 +96,8 @@ public class ContextRules {
 
 
     /**
-     * @param rule
-     * @return true: if the rule is added
-     * false: if the rule is a duplicate
+     * @param rule Parsed context rule from String
+     * @return true: if the rule is added; false: if the rule is a duplicate
      */
     private boolean addRule(ContextRule rule) {
         // use to store the HashMap sub-chain that have the key chain that meet
@@ -150,13 +145,13 @@ public class ContextRules {
         return true;
     }
 
+
     /**
-     * @param contextTokens
-     * @param startposition
-     * @param matches
+     * @param contextTokens The context tokens in an ArrayList of String
+     * @param startposition Keep track of the position where matching starts
+     * @param matches       Storing the matched context spans
      */
-    public void processRules(ArrayList<String> contextTokens, int startposition, LinkedHashMap<String, ConTextSpan> matches,
-                             boolean preferRight) {
+    public void processRules(ArrayList<String> contextTokens, int startposition, LinkedHashMap<String, ConTextSpan> matches) {
         // use the first "startposition" to remember the original start matching
         // position.
         // use the 2nd one to remember the start position in which recursion.
@@ -166,48 +161,44 @@ public class ContextRules {
             }
         for (int i = startposition; i < contextTokens.size(); i++) {
             // System.out.println(contextTokens.get(i));
-            processRules(contextTokens, rulesMap, i, i, matches, preferRight);
+            processRules(contextTokens, rulesMap, i, i, matches);
         }
 
     }
 
     /**
-     * @param contextTokens
-     * @param rule
-     * @param matchBegin
-     * @param startPosition
-     * @param matches       K: determinant
-     *                      V: position of the last token that matches the rule in the input
-     *                      ArrayList
-     * @param preferRight
+     * @param contextTokens   The context tokens in an ArrayList of String
+     * @param rule            Constructed Rules Map
+     * @param matchBegin      Keep track of the begin position of matched span
+     * @param currentPosition Keep track of the position where matching starts
+     * @param matches         Storing the matched context spans
      */
-    private void processRules(ArrayList<String> contextTokens, HashMap rule, int matchBegin, int startPosition,
-                              LinkedHashMap<String, ConTextSpan> matches, boolean preferRight) {
+    private void processRules(ArrayList<String> contextTokens, HashMap rule, int matchBegin, int currentPosition,
+                              LinkedHashMap<String, ConTextSpan> matches) {
         // when reach the end of the tunedcontext, end the iteration
-        if (startPosition < contextTokens.size()) {
+        if (currentPosition < contextTokens.size()) {
             // start processing the tunedcontext tokens
-            String thisToken = contextTokens.get(startPosition);
+            String thisToken = contextTokens.get(currentPosition);
 //			System.out.println("thisToken-"+thisToken+"<");
             if (rule.containsKey("\\w+")) {
-                processRules(contextTokens, (HashMap) rule.get("\\w+"), matchBegin, startPosition + 1, matches, preferRight);
+                processRules(contextTokens, (HashMap) rule.get("\\w+"), matchBegin, currentPosition + 1, matches);
             }
             if (rule.containsKey("\\W+") && isUpperCase(thisToken)) {
-                processRules(contextTokens, (HashMap) rule.get("\\W+"), matchBegin, startPosition + 1, matches, preferRight);
+                processRules(contextTokens, (HashMap) rule.get("\\W+"), matchBegin, currentPosition + 1, matches);
             }
             // if the end of a rule is met
             if (rule.containsKey(END)) {
-                addDeterminants(rule, matches, matchBegin, startPosition, preferRight);
+                addDeterminants(rule, matches, matchBegin, currentPosition);
             }
             // if the current token match the element of a rule
             if (rule.containsKey(thisToken)) {
-                processRules(contextTokens, (HashMap) rule.get(thisToken), matchBegin, startPosition + 1, matches,
-                        preferRight);
+                processRules(contextTokens, (HashMap) rule.get(thisToken), matchBegin, currentPosition + 1, matches);
             }
             if (rule.containsKey(">") && Character.isDigit(thisToken.charAt(0))) {
-                processDigits(contextTokens, (HashMap) rule.get(">"), matchBegin, startPosition, matches, preferRight);
+                processDigits(contextTokens, (HashMap) rule.get(">"), matchBegin, currentPosition, matches);
             }
-        } else if (startPosition == contextTokens.size() && rule.containsKey(END)) {
-            addDeterminants(rule, matches, matchBegin, startPosition, preferRight);
+        } else if (currentPosition == contextTokens.size() && rule.containsKey(END)) {
+            addDeterminants(rule, matches, matchBegin, currentPosition);
         }
     }
 
@@ -217,15 +208,15 @@ public class ContextRules {
      * matching
      * rulesMap
      *
-     * @param contextTokens
-     * @param rule
-     * @param matchBegin
-     * @param i
-     * @param matches
+     * @param contextTokens   The context tokens in an ArrayList of String
+     * @param rule            Constructed Rules Map
+     * @param matchBegin      Keep track of the begin position of matched span
+     * @param currentPosition Keep track of the position where matching starts
+     * @param matches         Storing the matched context spans
      */
-    private void processDigits(ArrayList<String> contextTokens, HashMap rule, int matchBegin, int i,
-                               LinkedHashMap<String, ConTextSpan> matches, boolean preferRight) {
-        mt = pdigit.matcher(contextTokens.get(i));
+    private void processDigits(ArrayList<String> contextTokens, HashMap rule, int matchBegin, int currentPosition,
+                               LinkedHashMap<String, ConTextSpan> matches) {
+        mt = pdigit.matcher(contextTokens.get(currentPosition));
         if (mt.find()) {
             int thisDigit;
 //			prevent length over limit
@@ -240,15 +231,13 @@ public class ContextRules {
                 if (thisDigit > ruleDigit) {
                     if (mt.group(2) == null) {
                         // if this token is a number
-                        processRules(contextTokens, (HashMap) rule.get(ruleDigit + ""), matchBegin, i + 1, matches,
-                                preferRight);
+                        processRules(contextTokens, (HashMap) rule.get(ruleDigit + ""), matchBegin, currentPosition + 1, matches);
                     } else {
                         // thisToken is like "30-days"
                         HashMap ruletmp = (HashMap) rule.get(ruleDigit + "");
                         String subtoken = mt.group(2).substring(1);
                         if (ruletmp.containsKey(subtoken)) {
-                            processRules(contextTokens, (HashMap) ruletmp.get(subtoken), matchBegin, i + 1, matches,
-                                    preferRight);
+                            processRules(contextTokens, (HashMap) ruletmp.get(subtoken), matchBegin, currentPosition + 1, matches);
                         }
                     }
                 }
@@ -269,14 +258,13 @@ public class ContextRules {
      * 3. else if prefer left determinant, choose the determinant with the
      * smallest begin.
      *
-     * @param rule
-     * @param matches
-     * @param matchBegin
-     * @param i
-     * @param preferRight
+     * @param rule            Constructed Rules Map
+     * @param matches         Storing the matched context spans
+     * @param matchBegin      Keep track of the begin position of matched span
+     * @param currentPosition Keep track of the position where matching starts
+     *
      */
-    private void addDeterminants(HashMap rule, LinkedHashMap<String, ConTextSpan> matches, int matchBegin, int i,
-                                 boolean preferRight) {
+    private void addDeterminants(HashMap rule, LinkedHashMap<String, ConTextSpan> matches, int matchBegin, int currentPosition) {
         HashMap<String, ?> matchedRules = (HashMap<String, ?>) rule.get(END);
 
 //        int id = (Integer) rule.values().iterator().next();
@@ -286,7 +274,7 @@ public class ContextRules {
             ConTextSpan originalSpan = null;
             int id = (Integer) matchedRules.get(key);
             char matchedDirection = key.charAt(0);
-            ConTextSpan currentSpan = new ConTextSpan(matchBegin, i - 1, id);
+            ConTextSpan currentSpan = new ConTextSpan(matchBegin, currentPosition - 1, id);
             if (matches.containsKey(key)) {
                 originalSpan = matches.get(key);
                 switch (matchedDirection) {
@@ -307,16 +295,15 @@ public class ContextRules {
                 }
 
                 ContextRule matchedRule = rules.get(id);
-//                TODO need more test on the window size adjustment
                 //  adjust context window, for later version that support combining modifiers with shared context window terminals
                 if (originalSpan.begin != -1 && (matchedDirection == 'f')) {
-                    if (matchedRule.triggerType == TriggerTypes.terminal) {
+                    if (matchedRule.triggerType == TriggerTypes.termination) {
                         currentSpan.winBegin = originalSpan.winBegin > currentSpan.end ? originalSpan.winBegin : currentSpan.end;
                     } else {
                         currentSpan.winBegin = originalSpan.winBegin;
                     }
                 } else if (originalSpan.end != -1 && (matchedDirection == 'b')) {
-                    if (matchedRule.triggerType == TriggerTypes.terminal) {
+                    if (matchedRule.triggerType == TriggerTypes.termination) {
                         currentSpan.winEnd = originalSpan.winEnd < currentSpan.winEnd ? originalSpan.winEnd : currentSpan.begin;
                     } else {
                         currentSpan.winEnd = originalSpan.winEnd;

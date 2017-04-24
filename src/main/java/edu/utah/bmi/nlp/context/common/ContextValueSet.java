@@ -15,10 +15,21 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.context.common;
+package edu.utah.bmi.nlp.context.common;
 
 /**
- * Created by Jianlin Shi on 8/23/16.
+ * <p>
+ * Classic ConText Assertions and Determinants.
+ * Dynamic generated values can be implemented through external classes-DynamEnumOper.
+ * </p>
+ *
+ * @author Jianlin Shi on 6/24/15.
  */
-public interface ConTextAdvancedInterfaceWInit extends ConTextAdvancedInterface, ConTextBasicInterfaceWInit {
+public class ContextValueSet {
+
+
+    public enum TriggerTypes {
+        forward, backward, both, termination, pseudo, trigger
+    }
+
 }

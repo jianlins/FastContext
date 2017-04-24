@@ -16,9 +16,9 @@
  *  ******************************************************************************
  */
 
-package edu.utah.bmi.fastcontext;
+package edu.utah.bmi.nlp.fastcontext;
 
-import edu.utah.bmi.context.common.ConTextSpan;
+import edu.utah.bmi.nlp.context.common.ConTextSpan;
 import org.junit.Test;
 
 import java.util.*;
@@ -32,31 +32,45 @@ public class TestFastContext {
     @Test
     public void test1() {
         ArrayList<String> rules = new ArrayList<>();
-        rules.add("hx of|forward|positive|neg|30");
-        rules.add("presented with|forward|terminal|neg|30");
+        rules.add("hx of|forward|trigger|historical|30");
+        rules.add("presented with|forward|termination|historical|30");
         ContextRules cr = new ContextRules(rules);
         String input = "with previous hx of anxiety/depression, HTN who presented with encephalopathy followi";
         ArrayList<String> sent = new ArrayList<String>();
         sent.addAll(Arrays.asList(input.split("\\s+")));
         LinkedHashMap<String, ConTextSpan> matches = new LinkedHashMap<String, ConTextSpan>();
-        cr.processRules(sent, 0, matches, true);
-        ConTextSpan conTextSpan = matches.get("forward_neg");
+        cr.processRules(sent, 0, matches);
+        ConTextSpan conTextSpan = matches.get("forward_historical");
         assert (conTextSpan.begin == 7 && conTextSpan.end == 8 && conTextSpan.ruleId == 2);
     }
 
     @Test
     public void test2() {
         ArrayList<String> rules = new ArrayList<>();
-        rules.add("hx of|forward|positive|neg|30");
-        rules.add("presented with|forward|terminal|neg|30");
+        rules.add("hx of|forward|trigger|historical|30");
+        rules.add("presented with|forward|termination|historical|30");
         FastContext fc = new FastContext(rules, true);
         String input = "previous hx of anxiety/depression, HTN who presented with encephalopathy following suspected intentional medication overdose/toxicity, suicidal attempt, alcohol intoxication.";
         ArrayList<String> sent = new ArrayList<String>();
         sent.addAll(Arrays.asList(input.split("\\s+")));
         LinkedHashMap<String, ConTextSpan> matches = new LinkedHashMap<String, ConTextSpan>();
         matches = fc.processContextWEvidence(sent, 3, 3, 30);
-        ConTextSpan conTextSpan = matches.get("neg");
+        ConTextSpan conTextSpan = matches.get("historical");
         assert (conTextSpan.begin == 1 && conTextSpan.end == 2 && conTextSpan.ruleId == 1);
+        matches = fc.processContextWEvidence(sent, 9, 9, 30);
+        assert (matches.size() == 0);
+    }
+
+    @Test
+    public void test3(){
+        FastContext fc = new FastContext("conf/context.csv");
+        String input = "previous hx of anxiety/depression, HTN who presented with encephalopathy following suspected intentional medication overdose/toxicity, suicidal attempt, alcohol intoxication.";
+        ArrayList<String> sent = new ArrayList<String>();
+        sent.addAll(Arrays.asList(input.split("\\s+")));
+        LinkedHashMap<String, ConTextSpan> matches = new LinkedHashMap<String, ConTextSpan>();
+        matches = fc.processContextWEvidence(sent, 3, 3, 30);
+        ConTextSpan conTextSpan = matches.get("historical");
+        assert (conTextSpan.begin == 1 && conTextSpan.end == 1 && conTextSpan.ruleId == 614);
         matches = fc.processContextWEvidence(sent, 9, 9, 30);
         assert (matches.size() == 0);
     }

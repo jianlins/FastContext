@@ -15,18 +15,10 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
+package edu.utah.bmi.nlp.context.common;
+
 /**
- *
- * Note:
- * Because FastContext does not implement real regular expression. Rather, it implements a few regular expression capability instead.
- *  1. use \w+ to represent a word (corresponding to any input element in the ArrayList<String> or ArrayList<Annotation>)
- *  2. use "> number" (there is a whitespace between them) to represent any digit greater than the given "number"
- *     As a results, you will need consider input digit as single token annotation/word, which is annotated differently in some parsers.
- * Please referring to the example rule file: "conf/context.csv"
- *
- * @author Jianlin Shi
- *
+ * @author  Jianlin Shi on 8/23/16.
  */
-package edu.utah.bmi.fastcontext;
-
-
+public interface ConTextAdvancedInterfaceWInit extends ConTextAdvancedInterface, ConTextBasicInterfaceWInit {
+}

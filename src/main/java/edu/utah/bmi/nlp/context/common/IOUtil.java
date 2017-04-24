@@ -15,19 +15,19 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
-package edu.utah.bmi.context.common;
+package edu.utah.bmi.nlp.context.common;
 
 import edu.utah.blulab.domainontology.DomainOntology;
 import edu.utah.blulab.domainontology.LexicalItem;
 import edu.utah.blulab.domainontology.Modifier;
-import edu.utah.bmi.context.common.ContextValueSet.TriggerTypes;
+import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
- * Created by Jianlin_Shi on 7/28/15.
+ * @author Jianlin_Shi on 7/28/15.
  */
 public class IOUtil {
     private static int defaultWindowSize = 8;
@@ -65,12 +65,12 @@ public class IOUtil {
             ArrayList<Modifier> modifierDictionary = domain.createModifierDictionary();
             for (Modifier modifier : modifierDictionary) {
                 String modifierName = modifier.getModName();
-                id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.positive, modifier.getItems());
+                id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.trigger, modifier.getItems());
                 for (Modifier pseudos : modifier.getPseudos()) {
                     id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.pseudo, pseudos.getItems());
                 }
                 for (Modifier terminations : modifier.getClosures()) {
-                    id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.terminal, terminations.getItems());
+                    id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.termination, terminations.getItems());
                 }
             }
         } catch (Exception e) {
@@ -141,7 +141,7 @@ public class IOUtil {
             while ((line = reader.readLine()) != null) {
                 id++;
                 line = line.trim();
-                if (line.length() == 0 || line.charAt(0)=='#')
+                if (line.length() == 0 || line.charAt(0) == '#')
                     continue;
                 rules.put(id, convertStringToRule(line, splitter, id));
             }

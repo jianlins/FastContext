@@ -1,587 +1,605 @@
-#rule string|direction|trigger type|modifier|window size
-> 0 -month of|forward|positive|hist|30
-> 0 -months of|forward|positive|hist|30
-> 0 -year of|forward|positive|hist|30
-> 0 -years of|forward|positive|hist|30
-> 0 month ago|backward|positive|hist|30
-> 0 month of|forward|positive|hist|30
-> 0 months ago|backward|positive|hist|30
-> 0 months of|forward|positive|hist|30
-> 0 year ago|backward|positive|hist|30
-> 0 year of|forward|positive|hist|30
-> 0 years ago|backward|positive|hist|30
-> 0 years of|forward|positive|hist|30
-> 0 yrs ago|backward|positive|hist|30
-> 1 -week of|forward|positive|hist|30
-> 1 -weeks of|forward|positive|hist|30
-> 1 week ago|backward|positive|hist|30
-> 1 week of|forward|positive|hist|30
-> 1 weeks ago|backward|positive|hist|30
-> 1 weeks of|forward|positive|hist|30
-> 13 -day of|forward|positive|hist|30
-> 13 -days of|forward|positive|hist|30
-> 13 day of|forward|positive|hist|30
-> 13 days of|forward|positive|hist|30
-\w+ no|backward|terminal|negated|10
-\w+ no|forward|positive|negated|10
-absence of a|backward|terminal|negated|10
-absence of a|forward|positive|negated|10
-absence of|backward|terminal|negated|10
-absence of|forward|positive|negated|10
-adequate to rule her out for|backward|terminal|negated|10
-adequate to rule her out for|forward|positive|negated|10
-adequate to rule her out|backward|terminal|negated|10
-adequate to rule her out|forward|positive|negated|10
-adequate to rule him out for|backward|terminal|negated|10
-adequate to rule him out for|forward|positive|negated|10
-adequate to rule him out|backward|terminal|negated|10
-adequate to rule him out|forward|positive|negated|10
-adequate to rule out for|backward|terminal|negated|10
-adequate to rule out for|forward|positive|negated|10
-adequate to rule out|backward|terminal|negated|10
-adequate to rule out|forward|positive|negated|10
-adequate to rule the patient out against|backward|terminal|negated|10
-adequate to rule the patient out against|forward|positive|negated|10
-adequate to rule the patient out for|backward|terminal|negated|10
-adequate to rule the patient out for|forward|positive|negated|10
-adequate to rule the patient out|backward|terminal|negated|10
-adequate to rule the patient out|forward|positive|negated|10
-after|both|pseudo|uncertain|30
-although|forward|terminal|negated|10
-#Shock, resolved unknown etiology, Patient presents with encephalopathy, non focal neurologic exam, CN nerve exam WNL.
-presents with|forward|terminal|negated|10
-presented with|forward|terminal|negated|10
-presents with|forward|terminal|historical|10
-presented with|forward|terminal|historical|10
+#   ******************************************************************************
+#   * Copyright  2017  Department of Biomedical Informatics, University of Utah
+#   * <p>
+#   * Licensed under the Apache License, Version 2.0 (the "License");
+#   * you may not use this file except in compliance with the License.
+#   * You may obtain a copy of the License at
+#   * <p>
+#   * http://www.apache.org/licenses/LICENSE-2.0
+#   * <p>
+#   * Unless required by applicable law or agreed to in writing, software
+#   * distributed under the License is distributed on an "AS IS" BASIS,
+#   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   * See the License for the specific language governing permissions and
+#   * limitations under the License.
+#   ******************************************************************************
+#   Special thanks to Olga Patterson and Guy Divita for contributing rules as part of this rule set
 
-and \w+ \w+ shown|forward|terminal|negated|10
-and \w+ \w+ shows|forward|terminal|negated|10
-and \w+ \w+ show|forward|terminal|negated|10
-and \w+ shown|forward|terminal|negated|10
-and \w+ shows|forward|terminal|negated|10
-and \w+ show|forward|terminal|negated|10
-and did|forward|terminal|negated|10
-and he had|forward|terminal|negated|10
-and he was noted to have|forward|terminal|negated|10
-and he was|forward|terminal|negated|10
-and noted to have|forward|terminal|negated|10
-and she had|forward|terminal|negated|10
-and she was noted to have|forward|terminal|negated|10
-and she was|forward|terminal|negated|10
-and the patient had|forward|terminal|negated|10
-and the patient was|forward|terminal|negated|10
-and with only|forward|terminal|negated|10
-any other|backward|terminal|negated|10
-any other|forward|positive|negated|10
+
+#rule string|direction|trigger type|modifier|window size
+> 0 -month of|forward|trigger|hist|30
+> 0 -months of|forward|trigger|hist|30
+> 0 -year of|forward|trigger|hist|30
+> 0 -years of|forward|trigger|hist|30
+> 0 month ago|backward|trigger|hist|30
+> 0 month of|forward|trigger|hist|30
+> 0 months ago|backward|trigger|hist|30
+> 0 months of|forward|trigger|hist|30
+> 0 year ago|backward|trigger|hist|30
+> 0 year of|forward|trigger|hist|30
+> 0 years ago|backward|trigger|hist|30
+> 0 years of|forward|trigger|hist|30
+> 0 yrs ago|backward|trigger|hist|30
+> 1 -week of|forward|trigger|hist|30
+> 1 -weeks of|forward|trigger|hist|30
+> 1 week ago|backward|trigger|hist|30
+> 1 week of|forward|trigger|hist|30
+> 1 weeks ago|backward|trigger|hist|30
+> 1 weeks of|forward|trigger|hist|30
+> 13 -day of|forward|trigger|hist|30
+> 13 -days of|forward|trigger|hist|30
+> 13 day of|forward|trigger|hist|30
+> 13 days of|forward|trigger|hist|30
+\w+ no|backward|termination|negated|10
+\w+ no|forward|trigger|negated|10
+absence of a|backward|termination|negated|10
+absence of a|forward|trigger|negated|10
+absence of|backward|termination|negated|10
+absence of|forward|trigger|negated|10
+adequate to rule her out for|backward|termination|negated|10
+adequate to rule her out for|forward|trigger|negated|10
+adequate to rule her out|backward|termination|negated|10
+adequate to rule her out|forward|trigger|negated|10
+adequate to rule him out for|backward|termination|negated|10
+adequate to rule him out for|forward|trigger|negated|10
+adequate to rule him out|backward|termination|negated|10
+adequate to rule him out|forward|trigger|negated|10
+adequate to rule out for|backward|termination|negated|10
+adequate to rule out for|forward|trigger|negated|10
+adequate to rule out|backward|termination|negated|10
+adequate to rule out|forward|trigger|negated|10
+adequate to rule the patient out against|backward|termination|negated|10
+adequate to rule the patient out against|forward|trigger|negated|10
+adequate to rule the patient out for|backward|termination|negated|10
+adequate to rule the patient out for|forward|trigger|negated|10
+adequate to rule the patient out|backward|termination|negated|10
+adequate to rule the patient out|forward|trigger|negated|10
+after|both|pseudo|uncertain|30
+although|forward|termination|negated|10
+#Shock, resolved unknown etiology, Patient presents with encephalopathy, non focal neurologic exam, CN nerve exam WNL.
+presents with|forward|termination|negated|10
+presented with|forward|termination|negated|10
+presents with|forward|termination|historical|10
+presented with|forward|termination|historical|10
+
+and \w+ \w+ shown|forward|termination|negated|10
+and \w+ \w+ shows|forward|termination|negated|10
+and \w+ \w+ show|forward|termination|negated|10
+and \w+ shown|forward|termination|negated|10
+and \w+ shows|forward|termination|negated|10
+and \w+ show|forward|termination|negated|10
+and did|forward|termination|negated|10
+and he had|forward|termination|negated|10
+and he was noted to have|forward|termination|negated|10
+and he was|forward|termination|negated|10
+and noted to have|forward|termination|negated|10
+and she had|forward|termination|negated|10
+and she was noted to have|forward|termination|negated|10
+and she was|forward|termination|negated|10
+and the patient had|forward|termination|negated|10
+and the patient was|forward|termination|negated|10
+and with only|forward|termination|negated|10
+any other|backward|termination|negated|10
+any other|forward|trigger|negated|10
 #window size
-#any|forward|positive|negated|13
-apart from|forward|terminal|negated|10
-appears to|forward|positive|uncertain|30
-are negative|backward|positive|negated|10
-are negative|forward|terminal|negated|10
-are no longer|backward|positive|negated|10
-are no longer|forward|terminal|negated|10
-are ruled out|backward|positive|negated|10
-are ruled out|forward|terminal|negated|10
-are stopped|backward|positive|negated|10
-are stopped|forward|terminal|negated|10
-as a  for|forward|terminal|negated|10
-as a cause for|forward|terminal|negated|10
-as a cause of|forward|terminal|negated|10
-as a etiology for|forward|terminal|negated|10
-as a etiology of|forward|terminal|negated|10
-as a reason for|forward|terminal|negated|10
-as a reason of|forward|terminal|negated|10
-as a secondary cause for|forward|terminal|negated|10
-as a secondary cause of|forward|terminal|negated|10
-as a secondary etiology for|forward|terminal|negated|10
-as a secondary etiology of|forward|terminal|negated|10
-as a secondary origin for|forward|terminal|negated|10
-as a secondary origin of|forward|terminal|negated|10
-as a secondary reason for|forward|terminal|negated|10
-as a secondary reason of|forward|terminal|negated|10
-as a secondary source for|forward|terminal|negated|10
-as a secondary source of|forward|terminal|negated|10
-as a source for|forward|terminal|negated|10
-as a source of|forward|terminal|negated|10
-as an cause for|forward|terminal|negated|10
-as an cause of|forward|terminal|negated|10
-as an etiology for|forward|terminal|negated|10
-as an etiology of|forward|terminal|negated|10
-as an origin for|forward|terminal|negated|10
-as an origin of|forward|terminal|negated|10
-as an reason for|forward|terminal|negated|10
-as an reason of|forward|terminal|negated|10
-as an secondary cause for|forward|terminal|negated|10
-as an secondary cause of|forward|terminal|negated|10
-as an secondary etiology for|forward|terminal|negated|10
-as an secondary etiology of|forward|terminal|negated|10
-as an secondary origin for|forward|terminal|negated|10
-as an secondary origin of|forward|terminal|negated|10
-as an secondary reason for|forward|terminal|negated|10
-as an secondary reason of|forward|terminal|negated|10
-as an secondary source for|forward|terminal|negated|10
-as an secondary source of|forward|terminal|negated|10
-as an source for|forward|terminal|negated|10
-as an source of|forward|terminal|negated|10
-as has|forward|terminal|negated|10
-as needed|forward|positive|conditional|30
-as the cause for|forward|terminal|negated|10
-as the cause of|forward|terminal|negated|10
-as the etiology for|forward|terminal|negated|10
-as the etiology of|forward|terminal|negated|10
-as the origin for|forward|terminal|negated|10
-as the origin of|forward|terminal|negated|10
-as the reason for|forward|terminal|negated|10
-as the reason of|forward|terminal|negated|10
-as the secondary cause for|forward|terminal|negated|10
-as the secondary cause of|forward|terminal|negated|10
-as the secondary etiology for|forward|terminal|negated|10
-as the secondary etiology of|forward|terminal|negated|10
-as the secondary origin for|forward|terminal|negated|10
-as the secondary origin of|forward|terminal|negated|10
-as the secondary reason for|forward|terminal|negated|10
-as the secondary reason of|forward|terminal|negated|10
-as the secondary source for|forward|terminal|negated|10
-as the secondary source of|forward|terminal|negated|10
-as the source for|forward|terminal|negated|10
-as the source of|forward|terminal|negated|10
-as well as any|backward|terminal|negated|10
-as well as any|forward|positive|negated|10
-aside from|forward|terminal|negated|10
+#any|forward|trigger|negated|13
+apart from|forward|termination|negated|10
+appears to|forward|trigger|uncertain|30
+are negative|backward|trigger|negated|10
+are negative|forward|termination|negated|10
+are no longer|backward|trigger|negated|10
+are no longer|forward|termination|negated|10
+are ruled out|backward|trigger|negated|10
+are ruled out|forward|termination|negated|10
+are stopped|backward|trigger|negated|10
+are stopped|forward|termination|negated|10
+as a  for|forward|termination|negated|10
+as a cause for|forward|termination|negated|10
+as a cause of|forward|termination|negated|10
+as a etiology for|forward|termination|negated|10
+as a etiology of|forward|termination|negated|10
+as a reason for|forward|termination|negated|10
+as a reason of|forward|termination|negated|10
+as a secondary cause for|forward|termination|negated|10
+as a secondary cause of|forward|termination|negated|10
+as a secondary etiology for|forward|termination|negated|10
+as a secondary etiology of|forward|termination|negated|10
+as a secondary origin for|forward|termination|negated|10
+as a secondary origin of|forward|termination|negated|10
+as a secondary reason for|forward|termination|negated|10
+as a secondary reason of|forward|termination|negated|10
+as a secondary source for|forward|termination|negated|10
+as a secondary source of|forward|termination|negated|10
+as a source for|forward|termination|negated|10
+as a source of|forward|termination|negated|10
+as an cause for|forward|termination|negated|10
+as an cause of|forward|termination|negated|10
+as an etiology for|forward|termination|negated|10
+as an etiology of|forward|termination|negated|10
+as an origin for|forward|termination|negated|10
+as an origin of|forward|termination|negated|10
+as an reason for|forward|termination|negated|10
+as an reason of|forward|termination|negated|10
+as an secondary cause for|forward|termination|negated|10
+as an secondary cause of|forward|termination|negated|10
+as an secondary etiology for|forward|termination|negated|10
+as an secondary etiology of|forward|termination|negated|10
+as an secondary origin for|forward|termination|negated|10
+as an secondary origin of|forward|termination|negated|10
+as an secondary reason for|forward|termination|negated|10
+as an secondary reason of|forward|termination|negated|10
+as an secondary source for|forward|termination|negated|10
+as an secondary source of|forward|termination|negated|10
+as an source for|forward|termination|negated|10
+as an source of|forward|termination|negated|10
+as has|forward|termination|negated|10
+as needed|forward|trigger|conditional|30
+as the cause for|forward|termination|negated|10
+as the cause of|forward|termination|negated|10
+as the etiology for|forward|termination|negated|10
+as the etiology of|forward|termination|negated|10
+as the origin for|forward|termination|negated|10
+as the origin of|forward|termination|negated|10
+as the reason for|forward|termination|negated|10
+as the reason of|forward|termination|negated|10
+as the secondary cause for|forward|termination|negated|10
+as the secondary cause of|forward|termination|negated|10
+as the secondary etiology for|forward|termination|negated|10
+as the secondary etiology of|forward|termination|negated|10
+as the secondary origin for|forward|termination|negated|10
+as the secondary origin of|forward|termination|negated|10
+as the secondary reason for|forward|termination|negated|10
+as the secondary reason of|forward|termination|negated|10
+as the secondary source for|forward|termination|negated|10
+as the secondary source of|forward|termination|negated|10
+as the source for|forward|termination|negated|10
+as the source of|forward|termination|negated|10
+as well as any|backward|termination|negated|10
+as well as any|forward|trigger|negated|10
+aside from|forward|termination|negated|10
 as|both|pseudo|uncertain|30
 at that time|both|pseudo|uncertain|30
 at this time|both|pseudo|uncertain|30
-attempted|both|terminal|historical|30
-attempted|both|terminal|nonpatient|30
-attempt|both|terminal|historical|30
-attempt|both|terminal|nonpatient|30
-aunt's|forward|positive|nonpatient|30
-aunt|forward|positive|nonpatient|30
-be ruled out for|forward|positive|uncertain|30
-be ruled out|backward|positive|uncertain|30
-be stopped|backward|positive|negated|10
-be stopped|forward|terminal|negated|10
-because|both|terminal|conditional|30
-being ruled out|backward|positive|uncertain|30
-beyond|forward|terminal|negated|10
-biopsy of|forward|terminal|negated|10
-borderline|forward|positive|uncertain|30
-brother's|forward|positive|nonpatient|30
-brothers|forward|positive|nonpatient|30
-brother|forward|positive|nonpatient|30
-but|forward|terminal|negated|10
+attempted|both|termination|historical|30
+attempted|both|termination|nonpatient|30
+attempt|both|termination|historical|30
+attempt|both|termination|nonpatient|30
+aunt's|forward|trigger|nonpatient|30
+aunt|forward|trigger|nonpatient|30
+be ruled out for|forward|trigger|uncertain|30
+be ruled out|backward|trigger|uncertain|30
+be stopped|backward|trigger|negated|10
+be stopped|forward|termination|negated|10
+because|both|termination|conditional|30
+being ruled out|backward|trigger|uncertain|30
+beyond|forward|termination|negated|10
+biopsy of|forward|termination|negated|10
+borderline|forward|trigger|uncertain|30
+brother's|forward|trigger|nonpatient|30
+brothers|forward|trigger|nonpatient|30
+brother|forward|trigger|nonpatient|30
+but|forward|termination|negated|10
 ##
-but|backward|terminal|negated|10
-by \w+ family|both|terminal|historical|30
-by \w+ family|both|terminal|nonpatient|30
-by family|both|terminal|historical|30
-by family|both|terminal|nonpatient|30
-by the|forward|terminal|negated|10
+but|backward|termination|negated|10
+by \w+ family|both|termination|historical|30
+by \w+ family|both|termination|nonpatient|30
+by family|both|termination|historical|30
+by family|both|termination|nonpatient|30
+by the|forward|termination|negated|10
 c w|both|pseudo|uncertain|30
-can be ruled out for|forward|positive|uncertain|30
-can be ruled out|backward|positive|uncertain|30
-can rule her out against|backward|terminal|negated|10
-can rule her out against|forward|positive|negated|10
-can rule her out for|backward|terminal|negated|10
-can rule her out for|forward|positive|negated|10
-can rule her out|backward|terminal|negated|10
-can rule her out|forward|positive|negated|10
-can rule him out against|backward|terminal|negated|10
-can rule him out against|forward|positive|negated|10
-can rule him out for|backward|terminal|negated|10
-can rule him out for|forward|positive|negated|10
-can rule him out|backward|terminal|negated|10
-can rule him out|forward|positive|negated|10
-can rule out against|backward|terminal|negated|10
-can rule out against|forward|positive|negated|10
-can rule out for|backward|terminal|negated|10
-can rule out for|forward|positive|negated|10
-can rule out|backward|terminal|negated|10
-can rule out|forward|positive|negated|10
-can rule the patient out|backward|terminal|negated|10
-can rule the patient out|forward|positive|negated|10
-can rule the patinet out against|backward|terminal|negated|10
-can rule the patinet out against|forward|positive|negated|10
-can rule the patinet out for|backward|terminal|negated|10
-can rule the patinet out for|forward|positive|negated|10
-cannot be completely excluded|backward|positive|uncertain|30
-cannot be excluded|backward|positive|uncertain|30
-cannot be fully excluded|backward|positive|uncertain|30
-cannot see|backward|terminal|negated|10
-cannot see|forward|positive|negated|10
-cannot|backward|terminal|negated|10
-cannot|forward|positive|negated|10
-cause for|forward|terminal|negated|10
-cause of|forward|terminal|negated|10
-causes for|forward|terminal|negated|10
-causes of|forward|terminal|negated|10
-checked for|backward|terminal|negated|10
-checked for|forward|positive|negated|10
-clear of|backward|terminal|negated|10
-clear of|forward|positive|negated|10
-come back for|forward|positive|conditional|30
-come back to|forward|positive|conditional|30
-complains|both|terminal|historical|30
-complains|both|terminal|nonpatient|30
-concern for|forward|positive|uncertain|30
-concerned about|forward|positive|uncertain|30
-concerned for|forward|positive|uncertain|30
-concerning for|forward|positive|uncertain|30
+can be ruled out for|forward|trigger|uncertain|30
+can be ruled out|backward|trigger|uncertain|30
+can rule her out against|backward|termination|negated|10
+can rule her out against|forward|trigger|negated|10
+can rule her out for|backward|termination|negated|10
+can rule her out for|forward|trigger|negated|10
+can rule her out|backward|termination|negated|10
+can rule her out|forward|trigger|negated|10
+can rule him out against|backward|termination|negated|10
+can rule him out against|forward|trigger|negated|10
+can rule him out for|backward|termination|negated|10
+can rule him out for|forward|trigger|negated|10
+can rule him out|backward|termination|negated|10
+can rule him out|forward|trigger|negated|10
+can rule out against|backward|termination|negated|10
+can rule out against|forward|trigger|negated|10
+can rule out for|backward|termination|negated|10
+can rule out for|forward|trigger|negated|10
+can rule out|backward|termination|negated|10
+can rule out|forward|trigger|negated|10
+can rule the patient out|backward|termination|negated|10
+can rule the patient out|forward|trigger|negated|10
+can rule the patinet out against|backward|termination|negated|10
+can rule the patinet out against|forward|trigger|negated|10
+can rule the patinet out for|backward|termination|negated|10
+can rule the patinet out for|forward|trigger|negated|10
+cannot be completely excluded|backward|trigger|uncertain|30
+cannot be excluded|backward|trigger|uncertain|30
+cannot be fully excluded|backward|trigger|uncertain|30
+cannot see|backward|termination|negated|10
+cannot see|forward|trigger|negated|10
+cannot|backward|termination|negated|10
+cannot|forward|trigger|negated|10
+cause for|forward|termination|negated|10
+cause of|forward|termination|negated|10
+causes for|forward|termination|negated|10
+causes of|forward|termination|negated|10
+checked for|backward|termination|negated|10
+checked for|forward|trigger|negated|10
+clear of|backward|termination|negated|10
+clear of|forward|trigger|negated|10
+come back for|forward|trigger|conditional|30
+come back to|forward|trigger|conditional|30
+complains|both|termination|historical|30
+complains|both|termination|nonpatient|30
+concern for|forward|trigger|uncertain|30
+concerned about|forward|trigger|uncertain|30
+concerned for|forward|trigger|uncertain|30
+concerning for|forward|trigger|uncertain|30
 consistent with|both|pseudo|uncertain|30
-could be either|forward|positive|uncertain|30
-could be|backward|positive|uncertain|30
-could be ruled out|terminal|positive|uncertain|30
-could be ruled out for|forward|positive|uncertain|30
-could be ruled out|backward|positive|uncertain|30
-currently|both|terminal|historical|30
-currently|both|terminal|nonpatient|30
-dad called|both|terminal|historical|30
-dad called|both|terminal|nonpatient|30
-dad's|forward|positive|nonpatient|30
-dad|forward|positive|nonpatient|30
-daughter called|both|terminal|historical|30
-daughter called|both|terminal|nonpatient|30
-daughter reported|both|terminal|historical|30
-daughter reported|both|terminal|nonpatient|30
-daughter reports|both|terminal|historical|30
-daughter reports|both|terminal|nonpatient|30
-daughters|forward|positive|nonpatient|30
-daughter|forward|positive|nonpatient|30
-decided|both|terminal|historical|30
-decided|both|terminal|nonpatient|30
-decides|both|terminal|historical|30
-decides|both|terminal|nonpatient|30
-decide|both|terminal|historical|30
-decide|both|terminal|nonpatient|30
-declined|backward|terminal|negated|10
-declined|forward|positive|negated|10
-declines|backward|terminal|negated|10
-declines|forward|positive|negated|10
-denied active|backward|terminal|negated|10
-denied active|forward|positive|negated|10
-denied any abnormal|backward|terminal|negated|10
-denied any abnormal|forward|positive|negated|10
-denied any change in the|backward|terminal|negated|10
-denied any change in the|forward|positive|negated|10
-denied any changes in the|backward|terminal|negated|10
-denied any changes in the|forward|positive|negated|10
-denied any current|backward|terminal|negated|10
-denied any current|forward|positive|negated|10
-denied any high risk|backward|terminal|negated|10
-denied any high risk|forward|positive|negated|10
-denied any high-risk|backward|terminal|negated|10
-denied any high-risk|forward|positive|negated|10
-denied any history of|backward|terminal|negated|10
-denied any history of|forward|positive|negated|10
-denied any other|backward|terminal|negated|10
-denied any other|forward|positive|negated|10
-denied any problems of|backward|terminal|negated|10
-denied any problems of|forward|positive|negated|10
-denied any problems|backward|terminal|negated|10
-denied any problems|forward|positive|negated|10
-denied any recent|backward|terminal|negated|10
-denied any recent|forward|positive|negated|10
-denied any significant|backward|terminal|negated|10
-denied any significant|forward|positive|negated|10
-denied any symptom of|backward|terminal|negated|10
-denied any symptom of|forward|positive|negated|10
-denied any symptoms of|backward|terminal|negated|10
-denied any symptoms of|forward|positive|negated|10
-denied any|backward|terminal|negated|10
-denied any|forward|positive|negated|10
-denied current|backward|terminal|negated|10
-denied current|forward|positive|negated|10
-denied ever|backward|terminal|negated|10
-denied ever|forward|positive|negated|10
-denied other symptoms of|backward|terminal|negated|10
-denied other symptoms of|forward|positive|negated|10
-denied problems with|backward|terminal|negated|10
-denied problems with|forward|positive|negated|10
-denied symptoms of|backward|terminal|negated|10
-denied symptoms of|forward|positive|negated|10
-denied that there was any current|backward|terminal|negated|10
-denied that there was any current|forward|positive|negated|10
-denied that there was any history of|backward|terminal|negated|10
-denied that there was any history of|forward|positive|negated|10
-denied that there was any|backward|terminal|negated|10
-denied that there was any|forward|positive|negated|10
-denied that there was ever history of|backward|terminal|negated|10
-denied that there was ever history of|forward|positive|negated|10
-denied that there was ever|backward|terminal|negated|10
-denied that there was ever|forward|positive|negated|10
-denied that there was history of|backward|terminal|negated|10
-denied that there was history of|forward|positive|negated|10
-denied that there was problems of|backward|terminal|negated|10
-denied that there was problems of|forward|positive|negated|10
-denied that there was problems|backward|terminal|negated|10
-denied that there was problems|forward|positive|negated|10
-denied that there were any history of|backward|terminal|negated|10
-denied that there were any history of|forward|positive|negated|10
-denied that there were any|backward|terminal|negated|10
-denied that there were any|forward|positive|negated|10
-denied that there were ever history of|backward|terminal|negated|10
-denied that there were ever history of|forward|positive|negated|10
-denied that there were ever|backward|terminal|negated|10
-denied that there were ever|forward|positive|negated|10
-denied that there were history of|backward|terminal|negated|10
-denied that there were history of|forward|positive|negated|10
-denied that there were problems of|backward|terminal|negated|10
-denied that there were problems of|forward|positive|negated|10
-denied that there were problems|backward|terminal|negated|10
-denied that there were problems|forward|positive|negated|10
-denied this|backward|terminal|negated|10
-denied this|forward|positive|negated|10
-denied use of other|backward|terminal|negated|10
-denied use of other|forward|positive|negated|10
-denied use of|backward|terminal|negated|10
-denied use of|forward|positive|negated|10
-denied|backward|terminal|negated|10
-denied|forward|positive|negated|10
-denies active|backward|terminal|negated|10
-denies active|forward|positive|negated|10
-denies any abnormal|backward|terminal|negated|10
-denies any abnormal|forward|positive|negated|10
-denies any change in the|backward|terminal|negated|10
-denies any change in the|forward|positive|negated|10
-denies any changes in the|backward|terminal|negated|10
-denies any changes in the|forward|positive|negated|10
-denies any current|backward|terminal|negated|10
-denies any current|forward|positive|negated|10
-denies any high risk|backward|terminal|negated|10
-denies any high risk|forward|positive|negated|10
-denies any high-risk|backward|terminal|negated|10
-denies any high-risk|forward|positive|negated|10
-denies any history of|backward|terminal|negated|10
-denies any history of|forward|positive|negated|10
-denies any other|backward|terminal|negated|10
-denies any other|forward|positive|negated|10
-denies any problems of|backward|terminal|negated|10
-denies any problems of|forward|positive|negated|10
-denies any problems with|backward|terminal|negated|10
-denies any problems with|forward|positive|negated|10
-denies any problems|backward|terminal|negated|10
-denies any problems|forward|positive|negated|10
-denies any recent|backward|terminal|negated|10
-denies any recent|forward|positive|negated|10
-denies any significant|backward|terminal|negated|10
-denies any significant|forward|positive|negated|10
-denies any symptom of|backward|terminal|negated|10
-denies any symptom of|forward|positive|negated|10
-denies any symptoms of|backward|terminal|negated|10
-denies any symptoms of|forward|positive|negated|10
-denies any undue|backward|terminal|negated|10
-denies any undue|forward|positive|negated|10
-denies any|backward|terminal|negated|10
-denies any|forward|positive|negated|10
-denies current|backward|terminal|negated|10
-denies current|forward|positive|negated|10
-denies ever|backward|terminal|negated|10
-denies ever|forward|positive|negated|10
-denies problems with|backward|terminal|negated|10
-denies problems with|forward|positive|negated|10
-denies significant|backward|terminal|negated|10
-denies significant|forward|positive|negated|10
-denies symptoms of|backward|terminal|negated|10
-denies symptoms of|forward|positive|negated|10
-denies there was any current|backward|terminal|negated|10
-denies there was any current|forward|positive|negated|10
-denies there was any history of|backward|terminal|negated|10
-denies there was any history of|forward|positive|negated|10
-denies there was any recent|backward|terminal|negated|10
-denies there was any recent|forward|positive|negated|10
-denies there was any|backward|terminal|negated|10
-denies there was any|forward|positive|negated|10
-denies there was ever history of|backward|terminal|negated|10
-denies there was ever history of|forward|positive|negated|10
-denies there was ever|backward|terminal|negated|10
-denies there was ever|forward|positive|negated|10
-denies there was history of|backward|terminal|negated|10
-denies there was history of|forward|positive|negated|10
-denies there was problems of|backward|terminal|negated|10
-denies there was problems of|forward|positive|negated|10
-denies there was problems|backward|terminal|negated|10
-denies there was problems|forward|positive|negated|10
-denies there were any history of|backward|terminal|negated|10
-denies there were any history of|forward|positive|negated|10
-denies there were any|backward|terminal|negated|10
-denies there were any|forward|positive|negated|10
-denies there were ever history of|backward|terminal|negated|10
-denies there were ever history of|forward|positive|negated|10
-denies there were ever|backward|terminal|negated|10
-denies there were ever|forward|positive|negated|10
-denies there were history of|backward|terminal|negated|10
-denies there were history of|forward|positive|negated|10
-denies there were problems of|backward|terminal|negated|10
-denies there were problems of|forward|positive|negated|10
-denies there were problems|backward|terminal|negated|10
-denies there were problems|forward|positive|negated|10
-denies this|backward|terminal|negated|10
-denies this|forward|positive|negated|10
-denies true|backward|terminal|negated|10
-denies true|forward|positive|negated|10
-denies use of other|backward|terminal|negated|10
-denies use of other|forward|positive|negated|10
-denies use of|backward|terminal|negated|10
-denies use of|forward|positive|negated|10
-denies|backward|terminal|negated|10
+could be either|forward|trigger|uncertain|30
+could be|backward|trigger|uncertain|30
+could be ruled out|termination|trigger|uncertain|30
+could be ruled out for|forward|trigger|uncertain|30
+could be ruled out|backward|trigger|uncertain|30
+currently|both|termination|historical|30
+currently|both|termination|nonpatient|30
+dad called|both|termination|historical|30
+dad called|both|termination|nonpatient|30
+dad's|forward|trigger|nonpatient|30
+dad|forward|trigger|nonpatient|30
+daughter called|both|termination|historical|30
+daughter called|both|termination|nonpatient|30
+daughter reported|both|termination|historical|30
+daughter reported|both|termination|nonpatient|30
+daughter reports|both|termination|historical|30
+daughter reports|both|termination|nonpatient|30
+daughters|forward|trigger|nonpatient|30
+daughter|forward|trigger|nonpatient|30
+decided|both|termination|historical|30
+decided|both|termination|nonpatient|30
+decides|both|termination|historical|30
+decides|both|termination|nonpatient|30
+decide|both|termination|historical|30
+decide|both|termination|nonpatient|30
+declined|backward|termination|negated|10
+declined|forward|trigger|negated|10
+declines|backward|termination|negated|10
+declines|forward|trigger|negated|10
+denied active|backward|termination|negated|10
+denied active|forward|trigger|negated|10
+denied any abnormal|backward|termination|negated|10
+denied any abnormal|forward|trigger|negated|10
+denied any change in the|backward|termination|negated|10
+denied any change in the|forward|trigger|negated|10
+denied any changes in the|backward|termination|negated|10
+denied any changes in the|forward|trigger|negated|10
+denied any current|backward|termination|negated|10
+denied any current|forward|trigger|negated|10
+denied any high risk|backward|termination|negated|10
+denied any high risk|forward|trigger|negated|10
+denied any high-risk|backward|termination|negated|10
+denied any high-risk|forward|trigger|negated|10
+denied any history of|backward|termination|negated|10
+denied any history of|forward|trigger|negated|10
+denied any other|backward|termination|negated|10
+denied any other|forward|trigger|negated|10
+denied any problems of|backward|termination|negated|10
+denied any problems of|forward|trigger|negated|10
+denied any problems|backward|termination|negated|10
+denied any problems|forward|trigger|negated|10
+denied any recent|backward|termination|negated|10
+denied any recent|forward|trigger|negated|10
+denied any significant|backward|termination|negated|10
+denied any significant|forward|trigger|negated|10
+denied any symptom of|backward|termination|negated|10
+denied any symptom of|forward|trigger|negated|10
+denied any symptoms of|backward|termination|negated|10
+denied any symptoms of|forward|trigger|negated|10
+denied any|backward|termination|negated|10
+denied any|forward|trigger|negated|10
+denied current|backward|termination|negated|10
+denied current|forward|trigger|negated|10
+denied ever|backward|termination|negated|10
+denied ever|forward|trigger|negated|10
+denied other symptoms of|backward|termination|negated|10
+denied other symptoms of|forward|trigger|negated|10
+denied problems with|backward|termination|negated|10
+denied problems with|forward|trigger|negated|10
+denied symptoms of|backward|termination|negated|10
+denied symptoms of|forward|trigger|negated|10
+denied that there was any current|backward|termination|negated|10
+denied that there was any current|forward|trigger|negated|10
+denied that there was any history of|backward|termination|negated|10
+denied that there was any history of|forward|trigger|negated|10
+denied that there was any|backward|termination|negated|10
+denied that there was any|forward|trigger|negated|10
+denied that there was ever history of|backward|termination|negated|10
+denied that there was ever history of|forward|trigger|negated|10
+denied that there was ever|backward|termination|negated|10
+denied that there was ever|forward|trigger|negated|10
+denied that there was history of|backward|termination|negated|10
+denied that there was history of|forward|trigger|negated|10
+denied that there was problems of|backward|termination|negated|10
+denied that there was problems of|forward|trigger|negated|10
+denied that there was problems|backward|termination|negated|10
+denied that there was problems|forward|trigger|negated|10
+denied that there were any history of|backward|termination|negated|10
+denied that there were any history of|forward|trigger|negated|10
+denied that there were any|backward|termination|negated|10
+denied that there were any|forward|trigger|negated|10
+denied that there were ever history of|backward|termination|negated|10
+denied that there were ever history of|forward|trigger|negated|10
+denied that there were ever|backward|termination|negated|10
+denied that there were ever|forward|trigger|negated|10
+denied that there were history of|backward|termination|negated|10
+denied that there were history of|forward|trigger|negated|10
+denied that there were problems of|backward|termination|negated|10
+denied that there were problems of|forward|trigger|negated|10
+denied that there were problems|backward|termination|negated|10
+denied that there were problems|forward|trigger|negated|10
+denied this|backward|termination|negated|10
+denied this|forward|trigger|negated|10
+denied use of other|backward|termination|negated|10
+denied use of other|forward|trigger|negated|10
+denied use of|backward|termination|negated|10
+denied use of|forward|trigger|negated|10
+denied|backward|termination|negated|10
+denied|forward|trigger|negated|10
+denies active|backward|termination|negated|10
+denies active|forward|trigger|negated|10
+denies any abnormal|backward|termination|negated|10
+denies any abnormal|forward|trigger|negated|10
+denies any change in the|backward|termination|negated|10
+denies any change in the|forward|trigger|negated|10
+denies any changes in the|backward|termination|negated|10
+denies any changes in the|forward|trigger|negated|10
+denies any current|backward|termination|negated|10
+denies any current|forward|trigger|negated|10
+denies any high risk|backward|termination|negated|10
+denies any high risk|forward|trigger|negated|10
+denies any high-risk|backward|termination|negated|10
+denies any high-risk|forward|trigger|negated|10
+denies any history of|backward|termination|negated|10
+denies any history of|forward|trigger|negated|10
+denies any other|backward|termination|negated|10
+denies any other|forward|trigger|negated|10
+denies any problems of|backward|termination|negated|10
+denies any problems of|forward|trigger|negated|10
+denies any problems with|backward|termination|negated|10
+denies any problems with|forward|trigger|negated|10
+denies any problems|backward|termination|negated|10
+denies any problems|forward|trigger|negated|10
+denies any recent|backward|termination|negated|10
+denies any recent|forward|trigger|negated|10
+denies any significant|backward|termination|negated|10
+denies any significant|forward|trigger|negated|10
+denies any symptom of|backward|termination|negated|10
+denies any symptom of|forward|trigger|negated|10
+denies any symptoms of|backward|termination|negated|10
+denies any symptoms of|forward|trigger|negated|10
+denies any undue|backward|termination|negated|10
+denies any undue|forward|trigger|negated|10
+denies any|backward|termination|negated|10
+denies any|forward|trigger|negated|10
+denies current|backward|termination|negated|10
+denies current|forward|trigger|negated|10
+denies ever|backward|termination|negated|10
+denies ever|forward|trigger|negated|10
+denies problems with|backward|termination|negated|10
+denies problems with|forward|trigger|negated|10
+denies significant|backward|termination|negated|10
+denies significant|forward|trigger|negated|10
+denies symptoms of|backward|termination|negated|10
+denies symptoms of|forward|trigger|negated|10
+denies there was any current|backward|termination|negated|10
+denies there was any current|forward|trigger|negated|10
+denies there was any history of|backward|termination|negated|10
+denies there was any history of|forward|trigger|negated|10
+denies there was any recent|backward|termination|negated|10
+denies there was any recent|forward|trigger|negated|10
+denies there was any|backward|termination|negated|10
+denies there was any|forward|trigger|negated|10
+denies there was ever history of|backward|termination|negated|10
+denies there was ever history of|forward|trigger|negated|10
+denies there was ever|backward|termination|negated|10
+denies there was ever|forward|trigger|negated|10
+denies there was history of|backward|termination|negated|10
+denies there was history of|forward|trigger|negated|10
+denies there was problems of|backward|termination|negated|10
+denies there was problems of|forward|trigger|negated|10
+denies there was problems|backward|termination|negated|10
+denies there was problems|forward|trigger|negated|10
+denies there were any history of|backward|termination|negated|10
+denies there were any history of|forward|trigger|negated|10
+denies there were any|backward|termination|negated|10
+denies there were any|forward|trigger|negated|10
+denies there were ever history of|backward|termination|negated|10
+denies there were ever history of|forward|trigger|negated|10
+denies there were ever|backward|termination|negated|10
+denies there were ever|forward|trigger|negated|10
+denies there were history of|backward|termination|negated|10
+denies there were history of|forward|trigger|negated|10
+denies there were problems of|backward|termination|negated|10
+denies there were problems of|forward|trigger|negated|10
+denies there were problems|backward|termination|negated|10
+denies there were problems|forward|trigger|negated|10
+denies this|backward|termination|negated|10
+denies this|forward|trigger|negated|10
+denies true|backward|termination|negated|10
+denies true|forward|trigger|negated|10
+denies use of other|backward|termination|negated|10
+denies use of other|forward|trigger|negated|10
+denies use of|backward|termination|negated|10
+denies use of|forward|trigger|negated|10
+denies|backward|termination|negated|10
 ##
-denies|forward|positive|negated|30
-denise|backward|terminal|negated|10
-denise|forward|positive|negated|10
-denying|backward|terminal|negated|10
-denying|forward|positive|negated|10
-deny|backward|terminal|negated|10
-deny|forward|positive|negated|10
-did have|forward|terminal|negated|10
-did not have any episodes of|backward|terminal|negated|10
-did not have any episodes of|forward|positive|negated|10
-did not have any more episodes of|backward|terminal|negated|10
-did not have any more episodes of|forward|positive|negated|10
-did not have any problems with|backward|terminal|negated|10
-did not have any problems with|forward|positive|negated|10
-did not observe a|backward|terminal|negated|10
-did not observe a|forward|positive|negated|10
-did not rule out|backward|positive|uncertain|30
-did rule her out against|backward|terminal|negated|10
-did rule her out against|forward|positive|negated|10
-did rule her out for|backward|terminal|negated|10
-did rule her out for|forward|positive|negated|10
-did rule her out|backward|terminal|negated|10
-did rule her out|forward|positive|negated|10
-did rule him out against|backward|terminal|negated|10
-did rule him out against|forward|positive|negated|10
-did rule him out for|backward|terminal|negated|10
-did rule him out for|forward|positive|negated|10
-did rule him out|backward|terminal|negated|10
-did rule him out|forward|positive|negated|10
-did rule out against|backward|terminal|negated|10
-did rule out against|forward|positive|negated|10
-did rule out for|backward|terminal|negated|10
-did rule out for|forward|positive|negated|10
-did rule out|backward|terminal|negated|10
-did rule out|forward|positive|negated|10
-did rule the patient out against|backward|terminal|negated|10
-did rule the patient out against|forward|positive|negated|10
-did rule the patient out for|backward|terminal|negated|10
-did rule the patient out for|forward|positive|negated|10
-did rule the patient out|backward|terminal|negated|10
-did rule the patient out|forward|positive|negated|10
-did show|forward|terminal|negated|10
-didn't express any|backward|terminal|negated|10
-didn't express any|forward|positive|negated|10
-didn't expressed any|backward|terminal|negated|10
-didn't expressed any|forward|positive|negated|10
-didn't have any problems with|backward|terminal|negated|10
-didn't have any problems with|forward|positive|negated|10
-didn't report any problems with|backward|terminal|negated|10
-didn't report any problems with|forward|positive|negated|10
-didn't report any|backward|terminal|negated|10
-didn't report any|forward|positive|negated|10
-does have|forward|terminal|negated|10
-differential also includes|forward|positive|uncertain|30
-differential diagnoses also includes|forward|positive|uncertain|30
-differential diagnoses includes|forward|positive|uncertain|30
-differential includes|forward|positive|uncertain|30
-does not appear to have any bizarre|backward|terminal|negated|10
-does not appear to have any bizarre|forward|positive|negated|10
-does not appear to have any issues of|backward|terminal|negated|10
-does not appear to have any issues of|forward|positive|negated|10
-does not appear to have any issues with|backward|terminal|negated|10
-does not appear to have any issues with|forward|positive|negated|10
-does not appear to have any|backward|terminal|negated|10
-does not appear to have any|forward|positive|negated|10
-does not express|backward|terminal|negated|10
-does not express|forward|positive|negated|10
-does not use|backward|terminal|negated|10
-does not use|forward|positive|negated|10
-does not usually|backward|terminal|negated|10
-does not usually|forward|positive|negated|10
-does not|backward|terminal|negated|10
-does not|forward|positive|negated|10
-doesn't look like|backward|terminal|negated|10
-doesn't look like|forward|positive|negated|10
-doubt|forward|positive|uncertain|30
-due to|forward|terminal|negated|10
-ecchymoses to|forward|terminal|negated|10
-ed|both|terminal|historical|30
-emergency department|both|terminal|historical|30
-etiology for|forward|terminal|negated|10
-etiology of|forward|terminal|negated|10
-exacerbation from|forward|terminal|negated|10
-exam to assess|forward|positive|uncertain|30
-examination assess|forward|positive|uncertain|30
-examination to assess|forward|positive|uncertain|30
-examinations to assess|forward|positive|uncertain|30
-exams to assess|forward|positive|uncertain|30
-except|forward|terminal|negated|10
-f/h|forward|positive|nonpatient|30
-fails to reveal|backward|terminal|negated|10
-fails to reveal|forward|positive|negated|10
+denies|forward|trigger|negated|30
+denise|backward|termination|negated|10
+denise|forward|trigger|negated|10
+denying|backward|termination|negated|10
+denying|forward|trigger|negated|10
+deny|backward|termination|negated|10
+deny|forward|trigger|negated|10
+did have|forward|termination|negated|10
+did not have any episodes of|backward|termination|negated|10
+did not have any episodes of|forward|trigger|negated|10
+did not have any more episodes of|backward|termination|negated|10
+did not have any more episodes of|forward|trigger|negated|10
+did not have any problems with|backward|termination|negated|10
+did not have any problems with|forward|trigger|negated|10
+did not observe a|backward|termination|negated|10
+did not observe a|forward|trigger|negated|10
+did not rule out|backward|trigger|uncertain|30
+did rule her out against|backward|termination|negated|10
+did rule her out against|forward|trigger|negated|10
+did rule her out for|backward|termination|negated|10
+did rule her out for|forward|trigger|negated|10
+did rule her out|backward|termination|negated|10
+did rule her out|forward|trigger|negated|10
+did rule him out against|backward|termination|negated|10
+did rule him out against|forward|trigger|negated|10
+did rule him out for|backward|termination|negated|10
+did rule him out for|forward|trigger|negated|10
+did rule him out|backward|termination|negated|10
+did rule him out|forward|trigger|negated|10
+did rule out against|backward|termination|negated|10
+did rule out against|forward|trigger|negated|10
+did rule out for|backward|termination|negated|10
+did rule out for|forward|trigger|negated|10
+did rule out|backward|termination|negated|10
+did rule out|forward|trigger|negated|10
+did rule the patient out against|backward|termination|negated|10
+did rule the patient out against|forward|trigger|negated|10
+did rule the patient out for|backward|termination|negated|10
+did rule the patient out for|forward|trigger|negated|10
+did rule the patient out|backward|termination|negated|10
+did rule the patient out|forward|trigger|negated|10
+did show|forward|termination|negated|10
+didn't express any|backward|termination|negated|10
+didn't express any|forward|trigger|negated|10
+didn't expressed any|backward|termination|negated|10
+didn't expressed any|forward|trigger|negated|10
+didn't have any problems with|backward|termination|negated|10
+didn't have any problems with|forward|trigger|negated|10
+didn't report any problems with|backward|termination|negated|10
+didn't report any problems with|forward|trigger|negated|10
+didn't report any|backward|termination|negated|10
+didn't report any|forward|trigger|negated|10
+does have|forward|termination|negated|10
+differential also includes|forward|trigger|uncertain|30
+differential diagnoses also includes|forward|trigger|uncertain|30
+differential diagnoses includes|forward|trigger|uncertain|30
+differential includes|forward|trigger|uncertain|30
+does not appear to have any bizarre|backward|termination|negated|10
+does not appear to have any bizarre|forward|trigger|negated|10
+does not appear to have any issues of|backward|termination|negated|10
+does not appear to have any issues of|forward|trigger|negated|10
+does not appear to have any issues with|backward|termination|negated|10
+does not appear to have any issues with|forward|trigger|negated|10
+does not appear to have any|backward|termination|negated|10
+does not appear to have any|forward|trigger|negated|10
+does not express|backward|termination|negated|10
+does not express|forward|trigger|negated|10
+does not use|backward|termination|negated|10
+does not use|forward|trigger|negated|10
+does not usually|backward|termination|negated|10
+does not usually|forward|trigger|negated|10
+does not|backward|termination|negated|10
+does not|forward|trigger|negated|10
+doesn't look like|backward|termination|negated|10
+doesn't look like|forward|trigger|negated|10
+doubt|forward|trigger|uncertain|30
+due to|forward|termination|negated|10
+ecchymoses to|forward|termination|negated|10
+ed|both|termination|historical|30
+emergency department|both|termination|historical|30
+etiology for|forward|termination|negated|10
+etiology of|forward|termination|negated|10
+exacerbation from|forward|termination|negated|10
+exam to assess|forward|trigger|uncertain|30
+examination assess|forward|trigger|uncertain|30
+examination to assess|forward|trigger|uncertain|30
+examinations to assess|forward|trigger|uncertain|30
+exams to assess|forward|trigger|uncertain|30
+except|forward|termination|negated|10
+f/h|forward|trigger|nonpatient|30
+fails to reveal|backward|termination|negated|10
+fails to reveal|forward|trigger|negated|10
 false negative|both|pseudo|negated|10
-fam hx|forward|positive|nonpatient|30
-family found|both|terminal|historical|30
-family found|both|terminal|nonpatient|30
-family history|forward|positive|nonpatient|30
-family said|both|terminal|historical|30
-family said|both|terminal|nonpatient|30
-family stated|both|terminal|historical|30
-family stated|both|terminal|nonpatient|30
-family told|both|terminal|historical|30
-family told|both|terminal|nonpatient|30
-family|forward|positive|nonpatient|30
-father called|both|terminal|historical|30
-father called|both|terminal|nonpatient|30
-father's|forward|positive|nonpatient|30
-father|forward|positive|nonpatient|30
-fh|forward|positive|nonpatient|30
+fam hx|forward|trigger|nonpatient|30
+family found|both|termination|historical|30
+family found|both|termination|nonpatient|30
+family history|forward|trigger|nonpatient|30
+family said|both|termination|historical|30
+family said|both|termination|nonpatient|30
+family stated|both|termination|historical|30
+family stated|both|termination|nonpatient|30
+family told|both|termination|historical|30
+family told|both|termination|nonpatient|30
+family|forward|trigger|nonpatient|30
+father called|both|termination|historical|30
+father called|both|termination|nonpatient|30
+father's|forward|trigger|nonpatient|30
+father|forward|trigger|nonpatient|30
+fh|forward|trigger|nonpatient|30
 final report indication|both|pseudo|uncertain|30
-for presumed|forward|positive|uncertain|30
+for presumed|forward|trigger|uncertain|30
 free air|both|pseudo|negated|10
 free fluid|both|pseudo|negated|10
-free of|backward|terminal|negated|10
-free of|forward|positive|negated|10
+free of|backward|termination|negated|10
+free of|forward|trigger|negated|10
 free t|both|pseudo|negated|10
 free wall|both|pseudo|negated|10
 free water|both|pseudo|negated|10
-free|backward|positive|negated|10
+free|backward|trigger|negated|10
 from|both|pseudo|uncertain|30
 given \w+ history|both|pseudo|uncertain|30
-given her history|forward|terminal|negated|10
-given his history|forward|terminal|negated|10
+given her history|forward|termination|negated|10
+given his history|forward|termination|negated|10
 given patient s history|both|pseudo|uncertain|30
-given that|forward|terminal|negated|10
-given the fact|forward|terminal|negated|10
-given the history|forward|terminal|negated|10
-given the severity of|forward|terminal|negated|10
+given that|forward|termination|negated|10
+given the fact|forward|termination|negated|10
+given the history|forward|termination|negated|10
+given the severity of|forward|termination|negated|10
 gram negative|both|pseudo|negated|10
-grandfather's|forward|positive|nonpatient|30
-grandfather|forward|positive|nonpatient|30
-grandmother's|forward|positive|nonpatient|30
-grandmother|forward|positive|nonpatient|30
-h o|forward|positive|historical|30
-h o|forward|positive|nonpatient|30
-had a negative \w+ for|backward|terminal|negated|10
-had a negative \w+ for|forward|positive|negated|10
-has a negative \w+ for|backward|terminal|negated|10
-has a negative \w+ for|forward|positive|negated|10
-has been negative|backward|positive|negated|10
-has been negative|forward|terminal|negated|10
-has been ruled out|backward|positive|negated|10
-has been ruled out|forward|terminal|negated|10
-has not had any problems with|backward|terminal|negated|10
-has not had any problems with|forward|positive|negated|10
-has not had any problems|backward|terminal|negated|10
-has not had any problems|forward|positive|negated|10
-has not had any|backward|terminal|negated|10
-has not had any|forward|positive|negated|10
-have a negative \w+ for|backward|terminal|negated|10
-have a negative \w+ for|forward|positive|negated|10
-have been ruled out|backward|positive|negated|10
-have been ruled out|forward|terminal|negated|10
-he continued to|forward|terminal|negated|10
-her old|forward|terminal|negated|10
-his old|forward|terminal|negated|10
+grandfather's|forward|trigger|nonpatient|30
+grandfather|forward|trigger|nonpatient|30
+grandmother's|forward|trigger|nonpatient|30
+grandmother|forward|trigger|nonpatient|30
+h o|forward|trigger|historical|30
+h o|forward|trigger|nonpatient|30
+had a negative \w+ for|backward|termination|negated|10
+had a negative \w+ for|forward|trigger|negated|10
+has a negative \w+ for|backward|termination|negated|10
+has a negative \w+ for|forward|trigger|negated|10
+has been negative|backward|trigger|negated|10
+has been negative|forward|termination|negated|10
+has been ruled out|backward|trigger|negated|10
+has been ruled out|forward|termination|negated|10
+has not had any problems with|backward|termination|negated|10
+has not had any problems with|forward|trigger|negated|10
+has not had any problems|backward|termination|negated|10
+has not had any problems|forward|trigger|negated|10
+has not had any|backward|termination|negated|10
+has not had any|forward|trigger|negated|10
+have a negative \w+ for|backward|termination|negated|10
+have a negative \w+ for|forward|trigger|negated|10
+have been ruled out|backward|trigger|negated|10
+have been ruled out|forward|termination|negated|10
+he continued to|forward|termination|negated|10
+her old|forward|termination|negated|10
+his old|forward|termination|negated|10
 history and examination|both|pseudo|historical|30
 history and physical|both|pseudo|historical|30
 history and|both|pseudo|historical|30
@@ -592,746 +610,746 @@ history physical|both|pseudo|historical|30
 history taking|both|pseudo|historical|30
 
 ##
-#history|forward|positive|historical|30
-however|forward|terminal|negated|10
-ho|forward|positive|historical|30
-hx|forward|positive|historical|30
+#history|forward|trigger|historical|30
+however|forward|termination|negated|10
+ho|forward|trigger|historical|30
+hx|forward|trigger|historical|30
 if negative|both|pseudo|conditional|30
-if|forward|positive|conditional|30
+if|forward|trigger|conditional|30
 in her|both|pseudo|uncertain|30
 in his|both|pseudo|uncertain|30
-in the past|both|positive|historical|30
-in the setting of|forward|terminal|negated|10
-inconsistent with|backward|terminal|negated|10
-inconsistent with|forward|positive|negated|10
-indication|forward|positive|uncertain|30
-is negative|backward|positive|negated|10
-is negative|forward|terminal|negated|10
-is neg|backward|positive|negated|10
-is neg|forward|terminal|negated|10
-is no longer|backward|positive|negated|10
-is no longer|forward|terminal|negated|10
-is not|backward|terminal|negated|10
-is not|forward|positive|negated|10
-is ruled out|backward|positive|negated|10
-is ruled out|forward|terminal|negated|10
-is stopped|backward|positive|negated|10
-is stopped|forward|terminal|negated|10
-is to be ruled out for|forward|positive|uncertain|30
-is to be ruled out|backward|positive|uncertain|30
-isn't|backward|terminal|negated|10
-isn't|forward|positive|negated|10
-lack of|backward|terminal|negated|10
-lack of|forward|positive|negated|10
-lacked|backward|terminal|negated|10
-lacked|forward|positive|negated|10
-last > 0 month ago|backward|positive|hist|30
-last > 0 months ago|backward|positive|hist|30
-last > 0 year ago|backward|positive|hist|30
-last > 0 years ago|backward|positive|hist|30
-last > 0 yrs ago|backward|positive|hist|30
-last > 1 week ago|backward|positive|hist|30
-last > 1 weeks ago|backward|positive|hist|30
-last april|backward|positive|hist|30
-last august|backward|positive|hist|30
-last december|backward|positive|hist|30
-last fall|backward|positive|hist|30
-last february|backward|positive|hist|30
-last january|backward|positive|hist|30
-last july|backward|positive|hist|30
-last june|backward|positive|hist|30
-last march|backward|positive|hist|30
-last may|backward|positive|hist|30
-last november|backward|positive|hist|30
-last october|backward|positive|hist|30
-last september|backward|positive|hist|30
-last spring|backward|positive|hist|30
-last summer|backward|positive|hist|30
-last winter|backward|positive|hist|30
-likely component of|forward|terminal|negated|10
-likely contributors to|forward|terminal|negated|10
-likely from|forward|terminal|negated|10
-likely in setting of|forward|terminal|negated|10
+in the past|both|trigger|historical|30
+in the setting of|forward|termination|negated|10
+inconsistent with|backward|termination|negated|10
+inconsistent with|forward|trigger|negated|10
+indication|forward|trigger|uncertain|30
+is negative|backward|trigger|negated|10
+is negative|forward|termination|negated|10
+is neg|backward|trigger|negated|10
+is neg|forward|termination|negated|10
+is no longer|backward|trigger|negated|10
+is no longer|forward|termination|negated|10
+is not|backward|termination|negated|10
+is not|forward|trigger|negated|10
+is ruled out|backward|trigger|negated|10
+is ruled out|forward|termination|negated|10
+is stopped|backward|trigger|negated|10
+is stopped|forward|termination|negated|10
+is to be ruled out for|forward|trigger|uncertain|30
+is to be ruled out|backward|trigger|uncertain|30
+isn't|backward|termination|negated|10
+isn't|forward|trigger|negated|10
+lack of|backward|termination|negated|10
+lack of|forward|trigger|negated|10
+lacked|backward|termination|negated|10
+lacked|forward|trigger|negated|10
+last > 0 month ago|backward|trigger|hist|30
+last > 0 months ago|backward|trigger|hist|30
+last > 0 year ago|backward|trigger|hist|30
+last > 0 years ago|backward|trigger|hist|30
+last > 0 yrs ago|backward|trigger|hist|30
+last > 1 week ago|backward|trigger|hist|30
+last > 1 weeks ago|backward|trigger|hist|30
+last april|backward|trigger|hist|30
+last august|backward|trigger|hist|30
+last december|backward|trigger|hist|30
+last fall|backward|trigger|hist|30
+last february|backward|trigger|hist|30
+last january|backward|trigger|hist|30
+last july|backward|trigger|hist|30
+last june|backward|trigger|hist|30
+last march|backward|trigger|hist|30
+last may|backward|trigger|hist|30
+last november|backward|trigger|hist|30
+last october|backward|trigger|hist|30
+last september|backward|trigger|hist|30
+last spring|backward|trigger|hist|30
+last summer|backward|trigger|hist|30
+last winter|backward|trigger|hist|30
+likely component of|forward|termination|negated|10
+likely contributors to|forward|termination|negated|10
+likely from|forward|termination|negated|10
+likely in setting of|forward|termination|negated|10
 likely reflecting|both|pseudo|uncertain|30
-likely|forward|positive|uncertain|30
-look for any|forward|positive|conditional|30
-look for|forward|positive|conditional|30
+likely|forward|trigger|uncertain|30
+look for any|forward|trigger|conditional|30
+look for|forward|trigger|conditional|30
 markedly|both|pseudo|uncertain|30
 may be \w+ underestimated|both|pseudo|uncertain|30
 may be contributing|both|pseudo|uncertain|30
-may be due to|forward|positive|uncertain|30
+may be due to|forward|trigger|uncertain|30
 may be related to|both|pseudo|uncertain|30
-may be ruled out for|forward|positive|uncertain|30
-may be ruled out|backward|positive|uncertain|30
+may be ruled out for|forward|trigger|uncertain|30
+may be ruled out|backward|trigger|uncertain|30
 may be underestimated|both|pseudo|uncertain|30
 may be unmasking|both|pseudo|uncertain|30
-may be|forward|positive|uncertain|30
-may have been preceded by|forward|positive|uncertain|30
-may have|forward|positive|uncertain|30
-may represent|forward|positive|uncertain|30
-might be ruled out for|forward|positive|uncertain|30
-might be ruled out|backward|positive|uncertain|30
-might be|forward|positive|uncertain|30
-mildly|forward|terminal|negated|10
-mild|forward|terminal|negated|10
-mom called|both|terminal|historical|30
-mom called|both|terminal|nonpatient|30
-mom's|forward|positive|nonpatient|30
-mom|forward|positive|nonpatient|30
-monitor \w+ for|forward|positive|conditional|30
-monitor the \w+ for|forward|positive|conditional|30
-mother called|both|terminal|historical|30
-mother called|both|terminal|nonpatient|30
-mother's|forward|positive|nonpatient|30
-mother|forward|positive|nonpatient|30
-must be ruled out for|forward|positive|uncertain|30
-must be ruled out|backward|positive|uncertain|30
-n o|backward|terminal|negated|10
-n o|forward|positive|negated|10
-neg for|backward|terminal|negated|10
-neg for|forward|positive|negated|10
-neg.|backward|positive|negated|10
-neg.|forward|terminal|negated|10
-negative for|backward|terminal|negated|10
-negative for|forward|positive|negated|10
-neg|backward|positive|negated|10
-neg|forward|terminal|negated|10
-neighbor called|both|terminal|historical|30
-neighbor called|both|terminal|nonpatient|30
-neighbors called|both|terminal|historical|30
-neighbors called|both|terminal|nonpatient|30
-neighbors|forward|positive|nonpatient|30
-neighbor|forward|positive|nonpatient|30
-neighbour called|both|terminal|historical|30
-neighbour called|both|terminal|nonpatient|30
-neighbours called|both|terminal|historical|30
-neighbours called|both|terminal|nonpatient|30
-neighbours|forward|positive|nonpatient|30
-neighbour|forward|positive|nonpatient|30
-never any|backward|terminal|negated|10
-never any|forward|positive|negated|10
-never developed|backward|terminal|negated|10
-never developed|forward|positive|negated|10
-never had|backward|terminal|negated|10
-never had|forward|positive|negated|10
-nevertheless|forward|terminal|negated|10
-no \w+ evid of|backward|terminal|negated|10
-no \w+ evid of|forward|positive|negated|10
-no \w+ evid to suggest|backward|terminal|negated|10
-no \w+ evid to suggest|forward|positive|negated|10
-no \w+ evid to|backward|terminal|negated|10
-no \w+ evid to|forward|positive|negated|10
-no \w+ evidence of|backward|terminal|negated|10
-no \w+ evidence of|forward|positive|negated|10
-no \w+ evidence to suggest|backward|terminal|negated|10
-no \w+ evidence to suggest|forward|positive|negated|10
-no \w+ evidence to|backward|terminal|negated|10
-no \w+ evidence to|forward|positive|negated|10
-no \w+ evidence|backward|terminal|negated|10
-no \w+ evidence|forward|positive|negated|10
-no \w+ evid|backward|terminal|negated|10
-no \w+ evid|forward|positive|negated|10
-no \w+ was given|forward|terminal|negated|10
-no abnormal|backward|terminal|negated|10
-no abnormal|forward|positive|negated|10
-no acute|backward|terminal|negated|10
-no acute|forward|positive|negated|10
-no additional significant|backward|terminal|negated|10
-no additional significant|forward|positive|negated|10
-no apparent|backward|terminal|negated|10
-no apparent|forward|positive|negated|10
-no cause of|backward|terminal|negated|10
-no cause of|forward|positive|negated|10
+may be|forward|trigger|uncertain|30
+may have been preceded by|forward|trigger|uncertain|30
+may have|forward|trigger|uncertain|30
+may represent|forward|trigger|uncertain|30
+might be ruled out for|forward|trigger|uncertain|30
+might be ruled out|backward|trigger|uncertain|30
+might be|forward|trigger|uncertain|30
+mildly|forward|termination|negated|10
+mild|forward|termination|negated|10
+mom called|both|termination|historical|30
+mom called|both|termination|nonpatient|30
+mom's|forward|trigger|nonpatient|30
+mom|forward|trigger|nonpatient|30
+monitor \w+ for|forward|trigger|conditional|30
+monitor the \w+ for|forward|trigger|conditional|30
+mother called|both|termination|historical|30
+mother called|both|termination|nonpatient|30
+mother's|forward|trigger|nonpatient|30
+mother|forward|trigger|nonpatient|30
+must be ruled out for|forward|trigger|uncertain|30
+must be ruled out|backward|trigger|uncertain|30
+n o|backward|termination|negated|10
+n o|forward|trigger|negated|10
+neg for|backward|termination|negated|10
+neg for|forward|trigger|negated|10
+neg.|backward|trigger|negated|10
+neg.|forward|termination|negated|10
+negative for|backward|termination|negated|10
+negative for|forward|trigger|negated|10
+neg|backward|trigger|negated|10
+neg|forward|termination|negated|10
+neighbor called|both|termination|historical|30
+neighbor called|both|termination|nonpatient|30
+neighbors called|both|termination|historical|30
+neighbors called|both|termination|nonpatient|30
+neighbors|forward|trigger|nonpatient|30
+neighbor|forward|trigger|nonpatient|30
+neighbour called|both|termination|historical|30
+neighbour called|both|termination|nonpatient|30
+neighbours called|both|termination|historical|30
+neighbours called|both|termination|nonpatient|30
+neighbours|forward|trigger|nonpatient|30
+neighbour|forward|trigger|nonpatient|30
+never any|backward|termination|negated|10
+never any|forward|trigger|negated|10
+never developed|backward|termination|negated|10
+never developed|forward|trigger|negated|10
+never had|backward|termination|negated|10
+never had|forward|trigger|negated|10
+nevertheless|forward|termination|negated|10
+no \w+ evid of|backward|termination|negated|10
+no \w+ evid of|forward|trigger|negated|10
+no \w+ evid to suggest|backward|termination|negated|10
+no \w+ evid to suggest|forward|trigger|negated|10
+no \w+ evid to|backward|termination|negated|10
+no \w+ evid to|forward|trigger|negated|10
+no \w+ evidence of|backward|termination|negated|10
+no \w+ evidence of|forward|trigger|negated|10
+no \w+ evidence to suggest|backward|termination|negated|10
+no \w+ evidence to suggest|forward|trigger|negated|10
+no \w+ evidence to|backward|termination|negated|10
+no \w+ evidence to|forward|trigger|negated|10
+no \w+ evidence|backward|termination|negated|10
+no \w+ evidence|forward|trigger|negated|10
+no \w+ evid|backward|termination|negated|10
+no \w+ evid|forward|trigger|negated|10
+no \w+ was given|forward|termination|negated|10
+no abnormal|backward|termination|negated|10
+no abnormal|forward|trigger|negated|10
+no acute|backward|termination|negated|10
+no acute|forward|trigger|negated|10
+no additional significant|backward|termination|negated|10
+no additional significant|forward|trigger|negated|10
+no apparent|backward|termination|negated|10
+no apparent|forward|trigger|negated|10
+no cause of|backward|termination|negated|10
+no cause of|forward|trigger|negated|10
 no change|both|pseudo|negated|10
-no complaints of|backward|terminal|negated|10
-no complaints of|forward|positive|negated|10
-no current|backward|terminal|negated|10
-no current|forward|positive|negated|10
+no complaints of|backward|termination|negated|10
+no complaints of|forward|trigger|negated|10
+no current|backward|termination|negated|10
+no current|forward|trigger|negated|10
 no definite change|both|pseudo|negated|10
-no e/o|backward|terminal|negated|10
-no e/o|forward|positive|negated|10
-no e o|backward|terminal|negated|10
-no e o|forward|positive|negated|10
-no evidence of|backward|terminal|negated|10
-no evidence of|forward|positive|negated|10
-no evidence to suggest|backward|terminal|negated|10
-no evidence to suggest|forward|positive|negated|10
-no evidence|backward|terminal|negated|10
-no evidence|forward|positive|negated|10
-no findings of|backward|terminal|negated|10
-no findings of|forward|positive|negated|10
-no findings to indicate|backward|terminal|negated|10
-no findings to indicate|forward|positive|negated|10
-no findings to suggest|backward|terminal|negated|10
-no findings to suggest|forward|positive|negated|10
-no h o|backward|terminal|negated|10
-no h o|forward|positive|negated|10
-no history of|backward|terminal|negated|10
-no history of|forward|positive|negated|10
-no hx of|backward|terminal|negated|10
-no hx of|forward|positive|negated|10
+no e/o|backward|termination|negated|10
+no e/o|forward|trigger|negated|10
+no e o|backward|termination|negated|10
+no e o|forward|trigger|negated|10
+no evidence of|backward|termination|negated|10
+no evidence of|forward|trigger|negated|10
+no evidence to suggest|backward|termination|negated|10
+no evidence to suggest|forward|trigger|negated|10
+no evidence|backward|termination|negated|10
+no evidence|forward|trigger|negated|10
+no findings of|backward|termination|negated|10
+no findings of|forward|trigger|negated|10
+no findings to indicate|backward|termination|negated|10
+no findings to indicate|forward|trigger|negated|10
+no findings to suggest|backward|termination|negated|10
+no findings to suggest|forward|trigger|negated|10
+no h o|backward|termination|negated|10
+no h o|forward|trigger|negated|10
+no history of|backward|termination|negated|10
+no history of|forward|trigger|negated|10
+no hx of|backward|termination|negated|10
+no hx of|forward|trigger|negated|10
 no increase|both|pseudo|negated|10
-no indication of|backward|terminal|negated|10
-no indication of|forward|positive|negated|10
-no indications of|backward|terminal|negated|10
-no indications of|forward|positive|negated|10
+no indication of|backward|termination|negated|10
+no indication of|forward|trigger|negated|10
+no indications of|backward|termination|negated|10
+no indications of|forward|trigger|negated|10
 no interval change|both|pseudo|negated|10
-no known history of|backward|terminal|negated|10
-no known history of|forward|positive|negated|10
-no known hx of|backward|terminal|negated|10
-no known hx of|forward|positive|negated|10
-no longer present|backward|positive|negated|10
-no longer present|forward|terminal|negated|10
-no longer|backward|terminal|negated|10
-no longer|forward|positive|negated|10
-no major|backward|terminal|negated|10
-no major|forward|positive|negated|10
-no mammographic evidence of|backward|terminal|negated|10
-no mammographic evidence of|forward|positive|negated|10
-no mention of|backward|terminal|negated|10
-no mention of|forward|positive|negated|10
-no new evidence|backward|terminal|negated|10
-no new evidence|forward|positive|negated|10
-no new|backward|terminal|negated|10
-no new|forward|positive|negated|10
-no other evidence|backward|terminal|negated|10
-no other evidence|forward|positive|negated|10
-no other symptoms of|backward|terminal|negated|10
-no other symptoms of|forward|positive|negated|10
-no other|backward|terminal|negated|10
-no other|forward|positive|negated|10
-no problems with '|backward|terminal|negated|10
-no problems with '|forward|positive|negated|10
-no radiographic evidence of|backward|terminal|negated|10
-no radiographic evidence of|forward|positive|negated|10
-no recurrent|backward|terminal|negated|10
-no recurrent|forward|positive|negated|10
-no reported mention|backward|terminal|negated|10
-no reported mention|forward|positive|negated|10
-no reported|backward|terminal|negated|10
-no reported|forward|positive|negated|10
-no residual|backward|terminal|negated|10
-no residual|forward|positive|negated|10
-no sign of|backward|terminal|negated|10
-no sign of|forward|positive|negated|10
+no known history of|backward|termination|negated|10
+no known history of|forward|trigger|negated|10
+no known hx of|backward|termination|negated|10
+no known hx of|forward|trigger|negated|10
+no longer present|backward|trigger|negated|10
+no longer present|forward|termination|negated|10
+no longer|backward|termination|negated|10
+no longer|forward|trigger|negated|10
+no major|backward|termination|negated|10
+no major|forward|trigger|negated|10
+no mammographic evidence of|backward|termination|negated|10
+no mammographic evidence of|forward|trigger|negated|10
+no mention of|backward|termination|negated|10
+no mention of|forward|trigger|negated|10
+no new evidence|backward|termination|negated|10
+no new evidence|forward|trigger|negated|10
+no new|backward|termination|negated|10
+no new|forward|trigger|negated|10
+no other evidence|backward|termination|negated|10
+no other evidence|forward|trigger|negated|10
+no other symptoms of|backward|termination|negated|10
+no other symptoms of|forward|trigger|negated|10
+no other|backward|termination|negated|10
+no other|forward|trigger|negated|10
+no problems with '|backward|termination|negated|10
+no problems with '|forward|trigger|negated|10
+no radiographic evidence of|backward|termination|negated|10
+no radiographic evidence of|forward|trigger|negated|10
+no recurrent|backward|termination|negated|10
+no recurrent|forward|trigger|negated|10
+no reported mention|backward|termination|negated|10
+no reported mention|forward|trigger|negated|10
+no reported|backward|termination|negated|10
+no reported|forward|trigger|negated|10
+no residual|backward|termination|negated|10
+no residual|forward|trigger|negated|10
+no sign of|backward|termination|negated|10
+no sign of|forward|trigger|negated|10
 no significant change|both|pseudo|negated|10
 no significant interval change|both|pseudo|negated|10
-no significant|backward|terminal|negated|10
-no significant|forward|positive|negated|10
-no signs of|backward|terminal|negated|10
-no signs of|forward|positive|negated|10
-no signs or symptoms of|backward|terminal|negated|10
-no signs or symptoms of|forward|positive|negated|10
-no sign|backward|terminal|negated|10
-no sign|forward|positive|negated|10
-no suggestion of|backward|terminal|negated|10
-no suggestion of|forward|positive|negated|10
+no significant|backward|termination|negated|10
+no significant|forward|trigger|negated|10
+no signs of|backward|termination|negated|10
+no signs of|forward|trigger|negated|10
+no signs or symptoms of|backward|termination|negated|10
+no signs or symptoms of|forward|trigger|negated|10
+no sign|backward|termination|negated|10
+no sign|forward|trigger|negated|10
+no suggestion of|backward|termination|negated|10
+no suggestion of|forward|trigger|negated|10
 no suspicious change|both|pseudo|negated|10
-no suspicious|backward|terminal|negated|10
-no suspicious|forward|positive|negated|10
-no sxs of|backward|terminal|negated|10
-no sxs of|forward|positive|negated|10
-no visable|backward|terminal|negated|10
-no visable|forward|positive|negated|10
-non diagnostic|backward|positive|negated|10
-non diagnostic|forward|terminal|negated|10
-none|backward|terminal|negated|10
-none|forward|positive|negated|10
-nor all|backward|terminal|negated|10
-nor all|forward|positive|negated|10
-nor any|backward|terminal|negated|10
-nor any|forward|positive|negated|10
-nor|backward|terminal|negated|10
-nor|forward|positive|negated|10
-not a current|backward|terminal|negated|10
-not a current|forward|positive|negated|10
-not appear|backward|terminal|negated|10
-not appear|forward|positive|negated|10
-not appreciate|backward|terminal|negated|10
-not appreciate|forward|positive|negated|10
-not associated with|backward|terminal|negated|10
-not associated with|forward|positive|negated|10
-not attempted given|forward|terminal|negated|10
-not been ruled out|backward|positive|uncertain|30
+no suspicious|backward|termination|negated|10
+no suspicious|forward|trigger|negated|10
+no sxs of|backward|termination|negated|10
+no sxs of|forward|trigger|negated|10
+no visable|backward|termination|negated|10
+no visable|forward|trigger|negated|10
+non diagnostic|backward|trigger|negated|10
+non diagnostic|forward|termination|negated|10
+none|backward|termination|negated|10
+none|forward|trigger|negated|10
+nor all|backward|termination|negated|10
+nor all|forward|trigger|negated|10
+nor any|backward|termination|negated|10
+nor any|forward|trigger|negated|10
+nor|backward|termination|negated|10
+nor|forward|trigger|negated|10
+not a current|backward|termination|negated|10
+not a current|forward|trigger|negated|10
+not appear|backward|termination|negated|10
+not appear|forward|trigger|negated|10
+not appreciate|backward|termination|negated|10
+not appreciate|forward|trigger|negated|10
+not associated with|backward|termination|negated|10
+not associated with|forward|trigger|negated|10
+not attempted given|forward|termination|negated|10
+not been ruled out|backward|trigger|uncertain|30
 not cause|both|pseudo|negated|10
 not certain if|both|pseudo|negated|10
 not certain whether|both|pseudo|negated|10
-not complain of|backward|terminal|negated|10
-not complain of|forward|positive|negated|10
-not current|backward|terminal|negated|10
-not current|forward|positive|negated|10
-not demonstrate|backward|terminal|negated|10
-not demonstrate|forward|positive|negated|10
+not complain of|backward|termination|negated|10
+not complain of|forward|trigger|negated|10
+not current|backward|termination|negated|10
+not current|forward|trigger|negated|10
+not demonstrate|backward|termination|negated|10
+not demonstrate|forward|trigger|negated|10
 not drain|both|pseudo|negated|10
-not exhibit|backward|terminal|negated|10
-not exhibit|forward|positive|negated|10
+not exhibit|backward|termination|negated|10
+not exhibit|forward|trigger|negated|10
 not extend|both|pseudo|negated|10
-not feel|backward|terminal|negated|10
-not feel|forward|positive|negated|10
-not had|backward|terminal|negated|10
-not had|forward|positive|negated|10
-not have evidence of|backward|terminal|negated|10
-not have evidence of|forward|positive|negated|10
-not have|backward|terminal|negated|10
-not have|forward|positive|negated|10
-not in acute|backward|terminal|negated|10
-not in acute|forward|positive|negated|10
+not feel|backward|termination|negated|10
+not feel|forward|trigger|negated|10
+not had|backward|termination|negated|10
+not had|forward|trigger|negated|10
+not have evidence of|backward|termination|negated|10
+not have evidence of|forward|trigger|negated|10
+not have|backward|termination|negated|10
+not have|forward|trigger|negated|10
+not in acute|backward|termination|negated|10
+not in acute|forward|trigger|negated|10
 not interested|both|pseudo|negated|10
-not in|backward|terminal|negated|10
-not in|forward|positive|negated|10
-not know of|backward|terminal|negated|10
-not know of|forward|positive|negated|10
-not known to have|backward|terminal|negated|10
-not known to have|forward|positive|negated|10
+not in|backward|termination|negated|10
+not in|forward|trigger|negated|10
+not know of|backward|termination|negated|10
+not know of|forward|trigger|negated|10
+not known to have|backward|termination|negated|10
+not known to have|forward|trigger|negated|10
 not necessarily|both|pseudo|negated|10
 not only|both|pseudo|negated|10
 not on|both|pseudo|negated|10
-not reveal|backward|terminal|negated|10
-not reveal|forward|positive|negated|10
-not ruled out|backward|positive|uncertain|30
-not see|backward|terminal|negated|10
-not see|forward|positive|negated|10
+not reveal|backward|termination|negated|10
+not reveal|forward|trigger|negated|10
+not ruled out|backward|trigger|uncertain|30
+not see|backward|termination|negated|10
+not see|forward|trigger|negated|10
 not solve|both|pseudo|negated|10
-not to be|backward|terminal|negated|10
-not to be|forward|positive|negated|10
-noted|both|terminal|historical|30
-noted|both|terminal|nonpatient|30
-not|backward|terminal|negated|10
-not|forward|positive|negated|10
-now resolved|backward|positive|negated|10
-now resolved|forward|terminal|negated|10
-no|backward|terminal|negated|10
-no|forward|positive|negated|10
-origin for|forward|terminal|negated|10
-origin of|forward|terminal|negated|10
-origins for|forward|terminal|negated|10
-origins of|forward|terminal|negated|10
-other possibilities of|forward|terminal|negated|10
-ought to be ruled out for|forward|positive|uncertain|30
-ought to be ruled out|backward|positive|uncertain|30
-past history|forward|positive|historical|30
-past medical history|forward|positive|historical|30
-patient continued to|forward|terminal|negated|10
-patient was not|backward|terminal|negated|10
-patient was not|forward|positive|negated|10
-patient's|both|terminal|historical|30
-patient's|both|terminal|nonpatient|30
-patient|both|terminal|historical|30
-patient|both|terminal|nonpatient|30
+not to be|backward|termination|negated|10
+not to be|forward|trigger|negated|10
+noted|both|termination|historical|30
+noted|both|termination|nonpatient|30
+not|backward|termination|negated|10
+not|forward|trigger|negated|10
+now resolved|backward|trigger|negated|10
+now resolved|forward|termination|negated|10
+no|backward|termination|negated|10
+no|forward|trigger|negated|10
+origin for|forward|termination|negated|10
+origin of|forward|termination|negated|10
+origins for|forward|termination|negated|10
+origins of|forward|termination|negated|10
+other possibilities of|forward|termination|negated|10
+ought to be ruled out for|forward|trigger|uncertain|30
+ought to be ruled out|backward|trigger|uncertain|30
+past history|forward|trigger|historical|30
+past medical history|forward|trigger|historical|30
+patient continued to|forward|termination|negated|10
+patient was not|backward|termination|negated|10
+patient was not|forward|trigger|negated|10
+patient's|both|termination|historical|30
+patient's|both|termination|nonpatient|30
+patient|both|termination|historical|30
+patient|both|termination|nonpatient|30
 poor history|both|pseudo|historical|30
-possibility of|forward|positive|uncertain|30
-possible|forward|positive|conditional|30
-possible|forward|positive|uncertain|30
-possibly|forward|positive|uncertain|30
-poss|forward|positive|uncertain|30
-presenting|both|terminal|historical|30
-presenting|both|terminal|nonpatient|30
-presents|both|terminal|historical|30
-presents|both|terminal|nonpatient|30
-presumably|forward|positive|uncertain|30
-presumed to|forward|positive|uncertain|30
-prior to|forward|terminal|negated|10
-prn|forward|positive|conditional|30
-probable|forward|positive|uncertain|30
-probably|forward|positive|uncertain|30
-prophylaxis|backward|positive|conditional|10
-pt|both|terminal|historical|30
-pt|both|terminal|nonpatient|30
-question was|forward|positive|uncertain|30
-questioned|forward|positive|uncertain|30
-r o|forward|positive|uncertain|30
-rather than|backward|terminal|negated|10
-rather than|forward|positive|negated|10
-reason for|forward|terminal|negated|10
-reason of|forward|terminal|negated|10
-reasons for|forward|terminal|negated|10
-reasons of|forward|terminal|negated|10
-reported|both|terminal|historical|30
-reported|both|terminal|nonpatient|30
-reports|both|terminal|historical|30
-reports|both|terminal|nonpatient|30
-resolved|backward|terminal|negated|10
-resolved|forward|positive|negated|10
-return|forward|positive|conditional|30
-risk of|forward|positive|conditional|30
-roommate called|both|terminal|historical|30
-roommate called|both|terminal|nonpatient|30
-roommates called|both|terminal|historical|30
-roommates called|both|terminal|nonpatient|30
-roommates|forward|positive|nonpatient|30
-roommate|forward|positive|nonpatient|30
-ro|forward|positive|uncertain|30
-rule her out for|forward|positive|uncertain|30
-rule her out|forward|positive|uncertain|30
-rule him out for|forward|positive|uncertain|30
-rule him out|forward|positive|uncertain|30
-rule out for|forward|positive|uncertain|30
-rule out|forward|positive|uncertain|30
-rule the patient out|forward|positive|uncertain|30
-rule the patinet out for|forward|positive|uncertain|30
-ruled her out against|backward|terminal|negated|10
-ruled her out against|forward|positive|negated|10
-ruled her out for|backward|terminal|negated|10
-ruled her out for|forward|positive|negated|10
-ruled her out|backward|terminal|negated|10
-ruled her out|forward|positive|negated|10
-ruled him out against|backward|terminal|negated|10
-ruled him out against|forward|positive|negated|10
-ruled him out for|backward|terminal|negated|10
-ruled him out for|forward|positive|negated|10
-ruled him out|backward|terminal|negated|10
-ruled him out|forward|positive|negated|10
-ruled out against|backward|terminal|negated|10
-ruled out against|forward|positive|negated|10
-ruled out for|backward|terminal|negated|10
-ruled out for|forward|positive|negated|10
-ruled out|backward|terminal|negated|10
-ruled out|forward|positive|negated|10
-ruled the patient out against|backward|terminal|negated|10
-ruled the patient out against|forward|positive|negated|10
-ruled the patient out for|backward|terminal|negated|10
-ruled the patient out for|forward|positive|negated|10
-ruled the patient out|backward|terminal|negated|10
-ruled the patient out|forward|positive|negated|10
-rules her out for|backward|terminal|negated|10
-rules her out for|forward|positive|negated|10
-rules her out|backward|terminal|negated|10
-rules her out|forward|positive|negated|10
-rules him out for|backward|terminal|negated|10
-rules him out for|forward|positive|negated|10
-rules him out|backward|terminal|negated|10
-rules him out|forward|positive|negated|10
-rules out for|backward|terminal|negated|10
-rules out for|forward|positive|negated|10
-rules out|backward|terminal|negated|10
-rules out|forward|positive|negated|10
-rules the patient out for|backward|terminal|negated|10
-rules the patient out for|forward|positive|negated|10
-rules the patient out|backward|terminal|negated|10
-rules the patient out|forward|positive|negated|10
+possibility of|forward|trigger|uncertain|30
+possible|forward|trigger|conditional|30
+possible|forward|trigger|uncertain|30
+possibly|forward|trigger|uncertain|30
+poss|forward|trigger|uncertain|30
+presenting|both|termination|historical|30
+presenting|both|termination|nonpatient|30
+presents|both|termination|historical|30
+presents|both|termination|nonpatient|30
+presumably|forward|trigger|uncertain|30
+presumed to|forward|trigger|uncertain|30
+prior to|forward|termination|negated|10
+prn|forward|trigger|conditional|30
+probable|forward|trigger|uncertain|30
+probably|forward|trigger|uncertain|30
+prophylaxis|backward|trigger|conditional|10
+pt|both|termination|historical|30
+pt|both|termination|nonpatient|30
+question was|forward|trigger|uncertain|30
+questioned|forward|trigger|uncertain|30
+r o|forward|trigger|uncertain|30
+rather than|backward|termination|negated|10
+rather than|forward|trigger|negated|10
+reason for|forward|termination|negated|10
+reason of|forward|termination|negated|10
+reasons for|forward|termination|negated|10
+reasons of|forward|termination|negated|10
+reported|both|termination|historical|30
+reported|both|termination|nonpatient|30
+reports|both|termination|historical|30
+reports|both|termination|nonpatient|30
+resolved|backward|termination|negated|10
+resolved|forward|trigger|negated|10
+return|forward|trigger|conditional|30
+risk of|forward|trigger|conditional|30
+roommate called|both|termination|historical|30
+roommate called|both|termination|nonpatient|30
+roommates called|both|termination|historical|30
+roommates called|both|termination|nonpatient|30
+roommates|forward|trigger|nonpatient|30
+roommate|forward|trigger|nonpatient|30
+ro|forward|trigger|uncertain|30
+rule her out for|forward|trigger|uncertain|30
+rule her out|forward|trigger|uncertain|30
+rule him out for|forward|trigger|uncertain|30
+rule him out|forward|trigger|uncertain|30
+rule out for|forward|trigger|uncertain|30
+rule out|forward|trigger|uncertain|30
+rule the patient out|forward|trigger|uncertain|30
+rule the patinet out for|forward|trigger|uncertain|30
+ruled her out against|backward|termination|negated|10
+ruled her out against|forward|trigger|negated|10
+ruled her out for|backward|termination|negated|10
+ruled her out for|forward|trigger|negated|10
+ruled her out|backward|termination|negated|10
+ruled her out|forward|trigger|negated|10
+ruled him out against|backward|termination|negated|10
+ruled him out against|forward|trigger|negated|10
+ruled him out for|backward|termination|negated|10
+ruled him out for|forward|trigger|negated|10
+ruled him out|backward|termination|negated|10
+ruled him out|forward|trigger|negated|10
+ruled out against|backward|termination|negated|10
+ruled out against|forward|trigger|negated|10
+ruled out for|backward|termination|negated|10
+ruled out for|forward|trigger|negated|10
+ruled out|backward|termination|negated|10
+ruled out|forward|trigger|negated|10
+ruled the patient out against|backward|termination|negated|10
+ruled the patient out against|forward|trigger|negated|10
+ruled the patient out for|backward|termination|negated|10
+ruled the patient out for|forward|trigger|negated|10
+ruled the patient out|backward|termination|negated|10
+ruled the patient out|forward|trigger|negated|10
+rules her out for|backward|termination|negated|10
+rules her out for|forward|trigger|negated|10
+rules her out|backward|termination|negated|10
+rules her out|forward|trigger|negated|10
+rules him out for|backward|termination|negated|10
+rules him out for|forward|trigger|negated|10
+rules him out|backward|termination|negated|10
+rules him out|forward|trigger|negated|10
+rules out for|backward|termination|negated|10
+rules out for|forward|trigger|negated|10
+rules out|backward|termination|negated|10
+rules out|forward|trigger|negated|10
+rules the patient out for|backward|termination|negated|10
+rules the patient out for|forward|trigger|negated|10
+rules the patient out|backward|termination|negated|10
+rules the patient out|forward|trigger|negated|10
 s p|both|pseudo|uncertain|30
-secondary to|forward|terminal|negated|10
-secondary|forward|terminal|negated|10
-she continued to|forward|terminal|negated|10
-should be ruled out for|forward|positive|uncertain|30
-should be ruled out|backward|positive|uncertain|30
-should he|forward|positive|conditional|30
-should she|forward|positive|conditional|30
-should the patient|forward|positive|conditional|30
-should there|forward|positive|conditional|30
-show a question of|forward|positive|uncertain|30
-shown a question of|forward|positive|uncertain|30
-since april|backward|positive|hist|30
-since august|backward|positive|hist|30
-since december|backward|positive|hist|30
-since fall|backward|positive|hist|30
-since february|backward|positive|hist|30
-since january|backward|positive|hist|30
-since july|backward|positive|hist|30
-since june|backward|positive|hist|30
-since march|backward|positive|hist|30
-since may|backward|positive|hist|30
-since november|backward|positive|hist|30
-since october|backward|positive|hist|30
-since september|backward|positive|hist|30
-since spring|backward|positive|hist|30
-since summer|backward|positive|hist|30
-since winter|backward|positive|hist|30
-sister's|forward|positive|nonpatient|30
-sisters|forward|positive|nonpatient|30
-sister|forward|positive|nonpatient|30
-sister called|both|terminal|historical|30
-sister called|both|terminal|nonpatient|30
-sister reported|both|terminal|historical|30
-sister reported|both|terminal|nonpatient|30
-sister reports|both|terminal|historical|30
-sister reports|both|terminal|nonpatient|30
+secondary to|forward|termination|negated|10
+secondary|forward|termination|negated|10
+she continued to|forward|termination|negated|10
+should be ruled out for|forward|trigger|uncertain|30
+should be ruled out|backward|trigger|uncertain|30
+should he|forward|trigger|conditional|30
+should she|forward|trigger|conditional|30
+should the patient|forward|trigger|conditional|30
+should there|forward|trigger|conditional|30
+show a question of|forward|trigger|uncertain|30
+shown a question of|forward|trigger|uncertain|30
+since april|backward|trigger|hist|30
+since august|backward|trigger|hist|30
+since december|backward|trigger|hist|30
+since fall|backward|trigger|hist|30
+since february|backward|trigger|hist|30
+since january|backward|trigger|hist|30
+since july|backward|trigger|hist|30
+since june|backward|trigger|hist|30
+since march|backward|trigger|hist|30
+since may|backward|trigger|hist|30
+since november|backward|trigger|hist|30
+since october|backward|trigger|hist|30
+since september|backward|trigger|hist|30
+since spring|backward|trigger|hist|30
+since summer|backward|trigger|hist|30
+since winter|backward|trigger|hist|30
+sister's|forward|trigger|nonpatient|30
+sisters|forward|trigger|nonpatient|30
+sister|forward|trigger|nonpatient|30
+sister called|both|termination|historical|30
+sister called|both|termination|nonpatient|30
+sister reported|both|termination|historical|30
+sister reported|both|termination|nonpatient|30
+sister reports|both|termination|historical|30
+sister reports|both|termination|nonpatient|30
 social history|both|pseudo|historical|30
-son called|both|terminal|historical|30
-son called|both|terminal|nonpatient|30
-son reported|both|terminal|historical|30
-son reported|both|terminal|nonpatient|30
-son reports|both|terminal|historical|30
-son reports|both|terminal|nonpatient|30
-sons|forward|positive|nonpatient|30
-son|forward|positive|nonpatient|30
-source for|forward|terminal|negated|10
-source of|forward|terminal|negated|10
-sources for|forward|terminal|negated|10
-sources of|forward|terminal|negated|10
-speaking with family|both|terminal|historical|30
-speaking with family|both|terminal|nonpatient|30
-spoke with family|both|terminal|historical|30
-spoke with family|both|terminal|nonpatient|30
-states|both|terminal|historical|30
-states|both|terminal|nonpatient|30
+son called|both|termination|historical|30
+son called|both|termination|nonpatient|30
+son reported|both|termination|historical|30
+son reported|both|termination|nonpatient|30
+son reports|both|termination|historical|30
+son reports|both|termination|nonpatient|30
+sons|forward|trigger|nonpatient|30
+son|forward|trigger|nonpatient|30
+source for|forward|termination|negated|10
+source of|forward|termination|negated|10
+sources for|forward|termination|negated|10
+sources of|forward|termination|negated|10
+speaking with family|both|termination|historical|30
+speaking with family|both|termination|nonpatient|30
+spoke with family|both|termination|historical|30
+spoke with family|both|termination|nonpatient|30
+states|both|termination|historical|30
+states|both|termination|nonpatient|30
 status post|both|pseudo|uncertain|30
-still|forward|terminal|negated|10
+still|forward|termination|negated|10
 stopped taking|both|pseudo|negated|10
-studies to assess|forward|positive|uncertain|30
-study to assess|forward|positive|uncertain|30
+studies to assess|forward|trigger|uncertain|30
+study to assess|forward|trigger|uncertain|30
 sudden onset of|both|pseudo|historical|30
-sufficient to rule her out against|backward|terminal|negated|10
-sufficient to rule her out against|forward|positive|negated|10
-sufficient to rule her out for|backward|terminal|negated|10
-sufficient to rule her out for|forward|positive|negated|10
-sufficient to rule her out|backward|terminal|negated|10
-sufficient to rule her out|forward|positive|negated|10
-sufficient to rule him out against|backward|terminal|negated|10
-sufficient to rule him out against|forward|positive|negated|10
-sufficient to rule him out for|backward|terminal|negated|10
-sufficient to rule him out for|forward|positive|negated|10
-sufficient to rule him out|backward|terminal|negated|10
-sufficient to rule him out|forward|positive|negated|10
-sufficient to rule out against|backward|terminal|negated|10
-sufficient to rule out against|forward|positive|negated|10
-sufficient to rule out for|backward|terminal|negated|10
-sufficient to rule out for|forward|positive|negated|10
-sufficient to rule out|backward|terminal|negated|10
-sufficient to rule out|forward|positive|negated|10
-sufficient to rule the patient out against|backward|terminal|negated|10
-sufficient to rule the patient out against|forward|positive|negated|10
-sufficient to rule the patient out for|backward|terminal|negated|10
-sufficient to rule the patient out for|forward|positive|negated|10
-sufficient to rule the patient out|backward|terminal|negated|10
-sufficient to rule the patient out|forward|positive|negated|10
-suggestive of|forward|positive|uncertain|30
-suggest|forward|positive|uncertain|30
-suspected|forward|positive|uncertain|30
-suspicion for|forward|positive|uncertain|30
-suspicious for|forward|positive|uncertain|30
-talked with family|both|terminal|historical|30
-talked with family|both|terminal|nonpatient|30
-talking with family|both|terminal|historical|30
-talking with family|both|terminal|nonpatient|30
-the presumed|forward|positive|uncertain|30
-though|forward|terminal|negated|10
-to evaluate for any|forward|positive|uncertain|30
-to exclude|backward|terminal|negated|10
-to exclude|forward|positive|negated|10
-to prevent|forward|positive|conditional|30
-today|both|terminal|historical|30
-today|both|terminal|nonpatient|30
+sufficient to rule her out against|backward|termination|negated|10
+sufficient to rule her out against|forward|trigger|negated|10
+sufficient to rule her out for|backward|termination|negated|10
+sufficient to rule her out for|forward|trigger|negated|10
+sufficient to rule her out|backward|termination|negated|10
+sufficient to rule her out|forward|trigger|negated|10
+sufficient to rule him out against|backward|termination|negated|10
+sufficient to rule him out against|forward|trigger|negated|10
+sufficient to rule him out for|backward|termination|negated|10
+sufficient to rule him out for|forward|trigger|negated|10
+sufficient to rule him out|backward|termination|negated|10
+sufficient to rule him out|forward|trigger|negated|10
+sufficient to rule out against|backward|termination|negated|10
+sufficient to rule out against|forward|trigger|negated|10
+sufficient to rule out for|backward|termination|negated|10
+sufficient to rule out for|forward|trigger|negated|10
+sufficient to rule out|backward|termination|negated|10
+sufficient to rule out|forward|trigger|negated|10
+sufficient to rule the patient out against|backward|termination|negated|10
+sufficient to rule the patient out against|forward|trigger|negated|10
+sufficient to rule the patient out for|backward|termination|negated|10
+sufficient to rule the patient out for|forward|trigger|negated|10
+sufficient to rule the patient out|backward|termination|negated|10
+sufficient to rule the patient out|forward|trigger|negated|10
+suggestive of|forward|trigger|uncertain|30
+suggest|forward|trigger|uncertain|30
+suspected|forward|trigger|uncertain|30
+suspicion for|forward|trigger|uncertain|30
+suspicious for|forward|trigger|uncertain|30
+talked with family|both|termination|historical|30
+talked with family|both|termination|nonpatient|30
+talking with family|both|termination|historical|30
+talking with family|both|termination|nonpatient|30
+the presumed|forward|trigger|uncertain|30
+though|forward|termination|negated|10
+to evaluate for any|forward|trigger|uncertain|30
+to exclude|backward|termination|negated|10
+to exclude|forward|trigger|negated|10
+to prevent|forward|trigger|conditional|30
+today|both|termination|historical|30
+today|both|termination|nonpatient|30
 treatment of|both|pseudo|uncertain|30
-trigger event for|forward|terminal|negated|10
-uncle's|forward|positive|nonpatient|30
+trigger event for|forward|termination|negated|10
+uncle's|forward|trigger|nonpatient|30
 unclear dose|both|pseudo|uncertain|30
-unclear|forward|positive|uncertain|30
-uncle|forward|positive|nonpatient|30
-unlikely|backward|positive|negated|10
-unlikely|forward|terminal|negated|10
-unremarkable for|backward|terminal|negated|10
-unremarkable for|forward|positive|negated|10
-use|forward|positive|conditional|30
-w/o evidence of|backward|terminal|negated|10
-w/o evidence of|forward|positive|negated|10
-w/o evidence|backward|terminal|negated|10
-w/o evidence|forward|positive|negated|10
-w/o|backward|terminal|negated|10
-w/o|forward|positive|negated|10
-w o evidence of|backward|terminal|negated|10
-w o evidence of|forward|positive|negated|10
-w o evidence|backward|terminal|negated|10
-w o evidence|forward|positive|negated|10
-w o|backward|terminal|negated|10
-w o|forward|positive|negated|10
-wants to|forward|positive|conditional|30
-was found negative|backward|positive|negated|10
-was found negative|forward|terminal|negated|10
-was found|both|terminal|historical|30
-was found|both|terminal|nonpatient|30
-was initially suspected|backward|positive|uncertain|30
-was instructed|both|terminal|historical|30
-was instructed|both|terminal|nonpatient|30
-was negative|backward|positive|negated|10
-was negative|forward|terminal|negated|10
-was noted to be negative|backward|positive|negated|10
-was noted to be negative|forward|terminal|negated|10
-was not|backward|terminal|negated|10
-was not|forward|positive|negated|10
-was ruled out|backward|positive|negated|10
-was ruled out|forward|terminal|negated|10
-was stopped by|forward|terminal|negated|10
-was stopped due to|forward|terminal|negated|10
-was stopped|backward|positive|negated|10
-was stopped|forward|terminal|negated|10
-was suspected|backward|positive|uncertain|30
-wasn't|backward|terminal|negated|10
-wasn't|forward|positive|negated|10
-were instructed|both|terminal|historical|30
-were instructed|both|terminal|nonpatient|30
-were stopped|backward|positive|negated|10
-were stopped|forward|terminal|negated|10
-were totally|forward|terminal|negated|10
-what must be ruled out is|forward|positive|uncertain|30
-whether or not|forward|positive|uncertain|30
+unclear|forward|trigger|uncertain|30
+uncle|forward|trigger|nonpatient|30
+unlikely|backward|trigger|negated|10
+unlikely|forward|termination|negated|10
+unremarkable for|backward|termination|negated|10
+unremarkable for|forward|trigger|negated|10
+use|forward|trigger|conditional|30
+w/o evidence of|backward|termination|negated|10
+w/o evidence of|forward|trigger|negated|10
+w/o evidence|backward|termination|negated|10
+w/o evidence|forward|trigger|negated|10
+w/o|backward|termination|negated|10
+w/o|forward|trigger|negated|10
+w o evidence of|backward|termination|negated|10
+w o evidence of|forward|trigger|negated|10
+w o evidence|backward|termination|negated|10
+w o evidence|forward|trigger|negated|10
+w o|backward|termination|negated|10
+w o|forward|trigger|negated|10
+wants to|forward|trigger|conditional|30
+was found negative|backward|trigger|negated|10
+was found negative|forward|termination|negated|10
+was found|both|termination|historical|30
+was found|both|termination|nonpatient|30
+was initially suspected|backward|trigger|uncertain|30
+was instructed|both|termination|historical|30
+was instructed|both|termination|nonpatient|30
+was negative|backward|trigger|negated|10
+was negative|forward|termination|negated|10
+was noted to be negative|backward|trigger|negated|10
+was noted to be negative|forward|termination|negated|10
+was not|backward|termination|negated|10
+was not|forward|trigger|negated|10
+was ruled out|backward|trigger|negated|10
+was ruled out|forward|termination|negated|10
+was stopped by|forward|termination|negated|10
+was stopped due to|forward|termination|negated|10
+was stopped|backward|trigger|negated|10
+was stopped|forward|termination|negated|10
+was suspected|backward|trigger|uncertain|30
+wasn't|backward|termination|negated|10
+wasn't|forward|trigger|negated|10
+were instructed|both|termination|historical|30
+were instructed|both|termination|nonpatient|30
+were stopped|backward|trigger|negated|10
+were stopped|forward|termination|negated|10
+were totally|forward|termination|negated|10
+what must be ruled out is|forward|trigger|uncertain|30
+whether or not|forward|trigger|uncertain|30
 whether or not|forward|pseudo|negated|30
-which|both|terminal|historical|30
-which|both|terminal|nonpatient|30
-while|forward|terminal|negated|10
-who are not present|forward|terminal|negated|10
-will be ruled out for|forward|positive|uncertain|30
-will be ruled out|backward|positive|uncertain|30
-with \w+ dad|both|terminal|historical|30
-with \w+ dad|both|terminal|nonpatient|30
-with \w+ daughter|both|terminal|historical|30
-with \w+ daughter|both|terminal|nonpatient|30
-with \w+ father|both|terminal|historical|30
-with \w+ father|both|terminal|nonpatient|30
-with \w+ mom|both|terminal|historical|30
-with \w+ mom|both|terminal|nonpatient|30
-with \w+ mother|both|terminal|historical|30
-with \w+ mother|both|terminal|nonpatient|30
-with \w+ son|both|terminal|historical|30
-with \w+ son|both|terminal|nonpatient|30
-with a question of|forward|positive|uncertain|30
-with no|backward|terminal|negated|10
-with no|forward|positive|negated|10
-without \w+ evidence|backward|terminal|negated|10
-without \w+ evidence|forward|positive|negated|10
-without abnormal|backward|terminal|negated|10
-without abnormal|forward|positive|negated|10
-without active|backward|terminal|negated|10
-without active|forward|positive|negated|10
-without additional|backward|terminal|negated|10
-without additional|forward|positive|negated|10
-without any evidence of|backward|terminal|negated|10
-without any evidence of|forward|positive|negated|10
-without any|backward|terminal|negated|10
-without any|forward|positive|negated|10
-without an|backward|terminal|negated|10
-without an|forward|positive|negated|10
-without apparent|backward|terminal|negated|10
-without apparent|forward|positive|negated|10
-without audible|backward|terminal|negated|10
-without audible|forward|positive|negated|10
-without a|backward|terminal|negated|10
-without a|forward|positive|negated|10
-without becoming|backward|terminal|negated|10
-without becoming|forward|positive|negated|10
-without being|backward|terminal|negated|10
-without being|forward|positive|negated|10
-without causing|backward|terminal|negated|10
-without causing|forward|positive|negated|10
+which|both|termination|historical|30
+which|both|termination|nonpatient|30
+while|forward|termination|negated|10
+who are not present|forward|termination|negated|10
+will be ruled out for|forward|trigger|uncertain|30
+will be ruled out|backward|trigger|uncertain|30
+with \w+ dad|both|termination|historical|30
+with \w+ dad|both|termination|nonpatient|30
+with \w+ daughter|both|termination|historical|30
+with \w+ daughter|both|termination|nonpatient|30
+with \w+ father|both|termination|historical|30
+with \w+ father|both|termination|nonpatient|30
+with \w+ mom|both|termination|historical|30
+with \w+ mom|both|termination|nonpatient|30
+with \w+ mother|both|termination|historical|30
+with \w+ mother|both|termination|nonpatient|30
+with \w+ son|both|termination|historical|30
+with \w+ son|both|termination|nonpatient|30
+with a question of|forward|trigger|uncertain|30
+with no|backward|termination|negated|10
+with no|forward|trigger|negated|10
+without \w+ evidence|backward|termination|negated|10
+without \w+ evidence|forward|trigger|negated|10
+without abnormal|backward|termination|negated|10
+without abnormal|forward|trigger|negated|10
+without active|backward|termination|negated|10
+without active|forward|trigger|negated|10
+without additional|backward|termination|negated|10
+without additional|forward|trigger|negated|10
+without any evidence of|backward|termination|negated|10
+without any evidence of|forward|trigger|negated|10
+without any|backward|termination|negated|10
+without any|forward|trigger|negated|10
+without an|backward|termination|negated|10
+without an|forward|trigger|negated|10
+without apparent|backward|termination|negated|10
+without apparent|forward|trigger|negated|10
+without audible|backward|termination|negated|10
+without audible|forward|trigger|negated|10
+without a|backward|termination|negated|10
+without a|forward|trigger|negated|10
+without becoming|backward|termination|negated|10
+without becoming|forward|trigger|negated|10
+without being|backward|termination|negated|10
+without being|forward|trigger|negated|10
+without causing|backward|termination|negated|10
+without causing|forward|trigger|negated|10
 without difficulties|both|pseudo|uncertain|30
 without difficulty|both|pseudo|negated|10
 without difficulty|both|pseudo|uncertain|30
 without diff|both|pseudo|uncertain|30
-without evidence of|backward|terminal|negated|10
-without evidence of|forward|positive|negated|10
-without evidence|backward|terminal|negated|10
-without evidence|forward|positive|negated|10
-without experiencing|backward|terminal|negated|10
-without experiencing|forward|positive|negated|10
-without further|backward|terminal|negated|10
-without further|forward|positive|negated|10
-without gross|backward|terminal|negated|10
-without gross|forward|positive|negated|10
-without having|backward|terminal|negated|10
-without having|forward|positive|negated|10
-without increased|backward|terminal|negated|10
-without increased|forward|positive|negated|10
-without indication of|backward|terminal|negated|10
-without indication of|forward|positive|negated|10
-without left|backward|terminal|negated|10
-without left|forward|positive|negated|10
-without major|backward|terminal|negated|10
-without major|forward|positive|negated|10
-without maximally|backward|terminal|negated|10
-without maximally|forward|positive|negated|10
-without mention of|backward|terminal|negated|10
-without mention of|forward|positive|negated|10
-without much|backward|terminal|negated|10
-without much|forward|positive|negated|10
-without new|backward|terminal|negated|10
-without new|forward|positive|negated|10
-without noted|backward|terminal|negated|10
-without noted|forward|positive|negated|10
-without noticed|backward|terminal|negated|10
-without noticed|forward|positive|negated|10
-without not|forward|positive|uncertain|30
-without no|forward|positive|uncertain|30
-without obvious|backward|terminal|negated|10
-without obvious|forward|positive|negated|10
-without other|backward|terminal|negated|10
-without other|forward|positive|negated|10
-without painful|backward|terminal|negated|10
-without painful|forward|positive|negated|10
-without paraspinal|backward|terminal|negated|10
-without paraspinal|forward|positive|negated|10
-without peripheral|backward|terminal|negated|10
-without peripheral|forward|positive|negated|10
-without purulent|backward|terminal|negated|10
-without purulent|forward|positive|negated|10
-without reported|backward|terminal|negated|10
-without reported|forward|positive|negated|10
-without right|backward|terminal|negated|10
-without right|forward|positive|negated|10
-without sign of|backward|terminal|negated|10
-without sign of|forward|positive|negated|10
-without significant|backward|terminal|negated|10
-without significant|forward|positive|negated|10
-without signs of|backward|terminal|negated|10
-without signs of|forward|positive|negated|10
-without some|backward|terminal|negated|10
-without some|forward|positive|negated|10
-without success|backward|positive|negated|10
-without success|forward|terminal|negated|10
-without the|backward|terminal|negated|10
-without the|forward|positive|negated|10
-without upward|backward|terminal|negated|10
-without upward|forward|positive|negated|10
-without using|backward|terminal|negated|10
-without using|forward|positive|negated|10
-without visible|backward|terminal|negated|10
-without visible|forward|positive|negated|10
-without vital|backward|terminal|negated|10
-without vital|forward|positive|negated|10
-without which|backward|terminal|negated|10
-without which|forward|positive|negated|10
-without|backward|terminal|negated|10
-without|forward|positive|negated|10
-worried about|forward|positive|uncertain|30
-worrisome for|forward|positive|uncertain|30
-yet|forward|terminal|negated|10
+without evidence of|backward|termination|negated|10
+without evidence of|forward|trigger|negated|10
+without evidence|backward|termination|negated|10
+without evidence|forward|trigger|negated|10
+without experiencing|backward|termination|negated|10
+without experiencing|forward|trigger|negated|10
+without further|backward|termination|negated|10
+without further|forward|trigger|negated|10
+without gross|backward|termination|negated|10
+without gross|forward|trigger|negated|10
+without having|backward|termination|negated|10
+without having|forward|trigger|negated|10
+without increased|backward|termination|negated|10
+without increased|forward|trigger|negated|10
+without indication of|backward|termination|negated|10
+without indication of|forward|trigger|negated|10
+without left|backward|termination|negated|10
+without left|forward|trigger|negated|10
+without major|backward|termination|negated|10
+without major|forward|trigger|negated|10
+without maximally|backward|termination|negated|10
+without maximally|forward|trigger|negated|10
+without mention of|backward|termination|negated|10
+without mention of|forward|trigger|negated|10
+without much|backward|termination|negated|10
+without much|forward|trigger|negated|10
+without new|backward|termination|negated|10
+without new|forward|trigger|negated|10
+without noted|backward|termination|negated|10
+without noted|forward|trigger|negated|10
+without noticed|backward|termination|negated|10
+without noticed|forward|trigger|negated|10
+without not|forward|trigger|uncertain|30
+without no|forward|trigger|uncertain|30
+without obvious|backward|termination|negated|10
+without obvious|forward|trigger|negated|10
+without other|backward|termination|negated|10
+without other|forward|trigger|negated|10
+without painful|backward|termination|negated|10
+without painful|forward|trigger|negated|10
+without paraspinal|backward|termination|negated|10
+without paraspinal|forward|trigger|negated|10
+without peripheral|backward|termination|negated|10
+without peripheral|forward|trigger|negated|10
+without purulent|backward|termination|negated|10
+without purulent|forward|trigger|negated|10
+without reported|backward|termination|negated|10
+without reported|forward|trigger|negated|10
+without right|backward|termination|negated|10
+without right|forward|trigger|negated|10
+without sign of|backward|termination|negated|10
+without sign of|forward|trigger|negated|10
+without significant|backward|termination|negated|10
+without significant|forward|trigger|negated|10
+without signs of|backward|termination|negated|10
+without signs of|forward|trigger|negated|10
+without some|backward|termination|negated|10
+without some|forward|trigger|negated|10
+without success|backward|trigger|negated|10
+without success|forward|termination|negated|10
+without the|backward|termination|negated|10
+without the|forward|trigger|negated|10
+without upward|backward|termination|negated|10
+without upward|forward|trigger|negated|10
+without using|backward|termination|negated|10
+without using|forward|trigger|negated|10
+without visible|backward|termination|negated|10
+without visible|forward|trigger|negated|10
+without vital|backward|termination|negated|10
+without vital|forward|trigger|negated|10
+without which|backward|termination|negated|10
+without which|forward|trigger|negated|10
+without|backward|termination|negated|10
+without|forward|trigger|negated|10
+worried about|forward|trigger|uncertain|30
+worrisome for|forward|trigger|uncertain|30
+yet|forward|termination|negated|10
 ##
-given|forward|terminal|uncertain|4
+given|forward|termination|uncertain|4
 ##
-given|forward|terminal|conditional|4
+given|forward|termination|conditional|4
 ##
-with resolution of|forward|positive|negated|5
+with resolution of|forward|trigger|negated|5
 ##
-call|forward|positive|negated|5
+call|forward|trigger|negated|5
 ##
-negative|forward|positive|negated|10
+negative|forward|trigger|negated|10
 ## if tokenize include punctuations
-w / o evidence of|backward|terminal|negated|10
-w / o evidence of|forward|positive|negated|10
-w / o evidence|backward|terminal|negated|10
-w / o evidence|forward|positive|negated|10
-w / o|backward|terminal|negated|10
-w / o|forward|positive|negated|10
-f / h|forward|positive|nonpatient|30
-h / o|forward|positive|historical|30
-h / o|forward|positive|nonpatient|30
-no e / o|backward|terminal|negated|10
-no e / o|forward|positive|negated|10
-no h / o|backward|terminal|negated|10
-no h / o|forward|positive|negated|10
-r / o|forward|positive|uncertain|30
-> 13 - day of|forward|positive|hist|30
-> 13 - days of|forward|positive|hist|30
-> 0 - month of|forward|positive|hist|30
-> 0 - months of|forward|positive|hist|30
-> 0 - year of|forward|positive|hist|30
-> 0 - years of|forward|positive|hist|30
-> 1 -week of|forward|positive|hist|30
-> 1 -weeks of|forward|positive|hist|30
-dont|forward|positive|negated|20
-don t|forward|positive|negated|20
-high risk for|forward|positive|negated|20
-at risk for|forward|positive|negated|20
-don ' t|forward|positive|negated|20
-monitor for|forward|positive|conditional|30
-monitored for|forward|positive|conditional|30
+w / o evidence of|backward|termination|negated|10
+w / o evidence of|forward|trigger|negated|10
+w / o evidence|backward|termination|negated|10
+w / o evidence|forward|trigger|negated|10
+w / o|backward|termination|negated|10
+w / o|forward|trigger|negated|10
+f / h|forward|trigger|nonpatient|30
+h / o|forward|trigger|historical|30
+h / o|forward|trigger|nonpatient|30
+no e / o|backward|termination|negated|10
+no e / o|forward|trigger|negated|10
+no h / o|backward|termination|negated|10
+no h / o|forward|trigger|negated|10
+r / o|forward|trigger|uncertain|30
+> 13 - day of|forward|trigger|hist|30
+> 13 - days of|forward|trigger|hist|30
+> 0 - month of|forward|trigger|hist|30
+> 0 - months of|forward|trigger|hist|30
+> 0 - year of|forward|trigger|hist|30
+> 0 - years of|forward|trigger|hist|30
+> 1 -week of|forward|trigger|hist|30
+> 1 -weeks of|forward|trigger|hist|30
+dont|forward|trigger|negated|20
+don t|forward|trigger|negated|20
+high risk for|forward|trigger|negated|20
+at risk for|forward|trigger|negated|20
+don ' t|forward|trigger|negated|20
+monitor for|forward|trigger|conditional|30
+monitored for|forward|trigger|conditional|30
 

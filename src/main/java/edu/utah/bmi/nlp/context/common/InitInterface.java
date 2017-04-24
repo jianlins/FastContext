@@ -15,9 +15,19 @@
  *  * limitations under the License.
  *  ******************************************************************************
  */
+package edu.utah.bmi.nlp.context.common;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
 /**
- * This package defines most common classes/interfaces
- *
- * @author Jianlin Shi on 6/24/15.
+ * Enable this common interface for different implementation evaluation
+ * @author Jianlin Shi on 8/23/16.
  */
-package edu.utah.bmi.context.common;
+public interface InitInterface {
+    void initiate(String ruleFile);
+
+    void initiate(ArrayList<String> rules, boolean toLowerCase);
+
+    void initiate(LinkedHashMap<Integer, ContextRule> rules, boolean toLowerCase);
+}
