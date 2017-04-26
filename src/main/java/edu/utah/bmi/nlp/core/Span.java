@@ -35,12 +35,12 @@ public class Span implements Comparable<Span>{
     public Span(int begin, int end) {
         this.begin = begin;
         this.end = end;
-        this.width=end-begin+1;
+        this.width=end-begin;
     }
     public Span(int begin, int end, String text) {
         this.begin = begin;
         this.end = end;
-        this.width=end-begin+1;
+        this.width=end-begin;
         this.text=text;
     }
 

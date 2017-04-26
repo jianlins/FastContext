@@ -51,5 +51,9 @@ public class ConTextSpan extends Span {
         this.winEnd = winEnd;
     }
 
+    public String toString(){
+        return "begin="+begin+"\tend="+end+"\truleId="+ruleId;
+    }
+
 
 }

@@ -57,6 +57,7 @@ public class ContextRule {
 
     public void setDirection(TriggerTypes direction) {
         this.direction = direction;
+        this.determinant=this.direction + "_" + this.modifier;
     }
 
     public TriggerTypes getTriggerType() {

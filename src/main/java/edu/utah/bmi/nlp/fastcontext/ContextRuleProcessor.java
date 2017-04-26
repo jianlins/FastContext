@@ -21,11 +21,9 @@ import edu.utah.bmi.nlp.context.common.ConTextSpan;
 import edu.utah.bmi.nlp.context.common.ContextRule;
 import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
 import edu.utah.bmi.nlp.context.common.IOUtil;
+import edu.utah.bmi.nlp.core.Span;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +34,7 @@ import java.util.regex.Pattern;
  * @author Jianlin Shi
  */
 @SuppressWarnings("rawtypes")
-public class ContextRules {
+public class ContextRuleProcessor {
     //   the nested map structure for rule processing
     private HashMap rulesMap = new HashMap();
     //   map a rule to its corresponding line number
@@ -46,34 +44,34 @@ public class ContextRules {
     private Pattern pdigit;
     private Matcher mt;
     private final String END = "<END>";
-    protected boolean toLowerCase = false;
+    protected boolean caseInsensitive = false;
 
-    public ContextRules(String ruleFileName) {
+    public ContextRuleProcessor(String ruleFileName) {
         initiate(IOUtil.readRuleFile(ruleFileName));
     }
 
-    public ContextRules(String ruleFileName, String splitter) {
+    public ContextRuleProcessor(String ruleFileName, String splitter) {
         initiate(IOUtil.readCSVRuleFile(ruleFileName, splitter));
     }
 
-    public ContextRules(ArrayList<String> ruleslist) {
+    public ContextRuleProcessor(ArrayList<String> ruleslist) {
         initiate(IOUtil.convertListToRuleMap(ruleslist, "\\|"));
     }
 
 
-    public ContextRules(String ruleFileName, boolean toLowerCase) {
-        this.toLowerCase = toLowerCase;
+    public ContextRuleProcessor(String ruleFileName, boolean caseInsensitive) {
+        this.caseInsensitive = caseInsensitive;
         initiate(IOUtil.readRuleFile(ruleFileName));
     }
 
-    public ContextRules(ArrayList<String> ruleslist, boolean toLowerCase) {
-        this.toLowerCase = toLowerCase;
+    public ContextRuleProcessor(ArrayList<String> ruleslist, boolean caseInsensitive) {
+        this.caseInsensitive = caseInsensitive;
         initiate(IOUtil.convertListToRuleMap(ruleslist, "\\|"));
     }
 
 
-    public void setCaseInsensitive(boolean toLowerCase) {
-        this.toLowerCase = toLowerCase;
+    public void setCaseInsensitive(boolean CaseInsensitive) {
+        this.caseInsensitive = CaseInsensitive;
     }
 
 
@@ -106,7 +104,7 @@ public class ContextRules {
         HashMap rule1 = rulesMap;
         HashMap rule2 = new HashMap();
         HashMap rulet = new HashMap();
-        if (toLowerCase)
+        if (caseInsensitive)
             rule.rule = rule.rule.toLowerCase();
         String[] ruleContent = rule.rule.split("\\s+");
         int length = ruleContent.length;
@@ -151,13 +149,13 @@ public class ContextRules {
      * @param startposition Keep track of the position where matching starts
      * @param matches       Storing the matched context spans
      */
-    public void processRules(ArrayList<String> contextTokens, int startposition, LinkedHashMap<String, ConTextSpan> matches) {
+    public void processRules(List<Span> contextTokens, int startposition, LinkedHashMap<String, ConTextSpan> matches) {
         // use the first "startposition" to remember the original start matching
         // position.
         // use the 2nd one to remember the start position in which recursion.
-        if (toLowerCase)
+        if (caseInsensitive)
             for (int i = startposition; i < contextTokens.size(); i++) {
-                contextTokens.set(i, contextTokens.get(i).toLowerCase());
+                contextTokens.get(i).text = contextTokens.get(i).text.toLowerCase();
             }
         for (int i = startposition; i < contextTokens.size(); i++) {
             // System.out.println(contextTokens.get(i));
@@ -166,6 +164,7 @@ public class ContextRules {
 
     }
 
+
     /**
      * @param contextTokens   The context tokens in an ArrayList of String
      * @param rule            Constructed Rules Map
@@ -173,12 +172,12 @@ public class ContextRules {
      * @param currentPosition Keep track of the position where matching starts
      * @param matches         Storing the matched context spans
      */
-    private void processRules(ArrayList<String> contextTokens, HashMap rule, int matchBegin, int currentPosition,
+    private void processRules(List<Span> contextTokens, HashMap rule, int matchBegin, int currentPosition,
                               LinkedHashMap<String, ConTextSpan> matches) {
         // when reach the end of the tunedcontext, end the iteration
         if (currentPosition < contextTokens.size()) {
             // start processing the tunedcontext tokens
-            String thisToken = contextTokens.get(currentPosition);
+            String thisToken = contextTokens.get(currentPosition).text;
 //			System.out.println("thisToken-"+thisToken+"<");
             if (rule.containsKey("\\w+")) {
                 processRules(contextTokens, (HashMap) rule.get("\\w+"), matchBegin, currentPosition + 1, matches);
@@ -202,6 +201,7 @@ public class ContextRules {
         }
     }
 
+
     /**
      * Because the digit regular expressions are revised into the format like
      * "> 13 days", the rulesMap need to be handled differently to the token
@@ -214,9 +214,9 @@ public class ContextRules {
      * @param currentPosition Keep track of the position where matching starts
      * @param matches         Storing the matched context spans
      */
-    private void processDigits(ArrayList<String> contextTokens, HashMap rule, int matchBegin, int currentPosition,
+    private void processDigits(List<Span> contextTokens, HashMap rule, int matchBegin, int currentPosition,
                                LinkedHashMap<String, ConTextSpan> matches) {
-        mt = pdigit.matcher(contextTokens.get(currentPosition));
+        mt = pdigit.matcher(contextTokens.get(currentPosition).text);
         if (mt.find()) {
             int thisDigit;
 //			prevent length over limit
@@ -245,6 +245,7 @@ public class ContextRules {
         }
     }
 
+
     /**
      * if reaches the end of one or more rulesMap, add all corresponding
      * determinants into the results
@@ -262,7 +263,6 @@ public class ContextRules {
      * @param matches         Storing the matched context spans
      * @param matchBegin      Keep track of the begin position of matched span
      * @param currentPosition Keep track of the position where matching starts
-     *
      */
     private void addDeterminants(HashMap rule, LinkedHashMap<String, ConTextSpan> matches, int matchBegin, int currentPosition) {
         HashMap<String, ?> matchedRules = (HashMap<String, ?>) rule.get(END);

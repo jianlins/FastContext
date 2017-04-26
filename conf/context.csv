@@ -17,29 +17,29 @@
 
 
 #rule string|direction|trigger type|modifier|window size
-> 0 -month of|forward|trigger|hist|30
-> 0 -months of|forward|trigger|hist|30
-> 0 -year of|forward|trigger|hist|30
-> 0 -years of|forward|trigger|hist|30
-> 0 month ago|backward|trigger|hist|30
-> 0 month of|forward|trigger|hist|30
-> 0 months ago|backward|trigger|hist|30
-> 0 months of|forward|trigger|hist|30
-> 0 year ago|backward|trigger|hist|30
-> 0 year of|forward|trigger|hist|30
-> 0 years ago|backward|trigger|hist|30
-> 0 years of|forward|trigger|hist|30
-> 0 yrs ago|backward|trigger|hist|30
-> 1 -week of|forward|trigger|hist|30
-> 1 -weeks of|forward|trigger|hist|30
-> 1 week ago|backward|trigger|hist|30
-> 1 week of|forward|trigger|hist|30
-> 1 weeks ago|backward|trigger|hist|30
-> 1 weeks of|forward|trigger|hist|30
-> 13 -day of|forward|trigger|hist|30
-> 13 -days of|forward|trigger|hist|30
-> 13 day of|forward|trigger|hist|30
-> 13 days of|forward|trigger|hist|30
+> 0 -month of|forward|trigger|historical|30
+> 0 -months of|forward|trigger|historical|30
+> 0 -year of|forward|trigger|historical|30
+> 0 -years of|forward|trigger|historical|30
+> 0 month ago|backward|trigger|historical|30
+> 0 month of|forward|trigger|historical|30
+> 0 months ago|backward|trigger|historical|30
+> 0 months of|forward|trigger|historical|30
+> 0 year ago|backward|trigger|historical|30
+> 0 year of|forward|trigger|historical|30
+> 0 years ago|backward|trigger|historical|30
+> 0 years of|forward|trigger|historical|30
+> 0 yrs ago|backward|trigger|historical|30
+> 1 -week of|forward|trigger|historical|30
+> 1 -weeks of|forward|trigger|historical|30
+> 1 week ago|backward|trigger|historical|30
+> 1 week of|forward|trigger|historical|30
+> 1 weeks ago|backward|trigger|historical|30
+> 1 weeks of|forward|trigger|historical|30
+> 13 -day of|forward|trigger|historical|30
+> 13 -days of|forward|trigger|historical|30
+> 13 day of|forward|trigger|historical|30
+> 13 days of|forward|trigger|historical|30
 \w+ no|backward|termination|negated|10
 \w+ no|forward|trigger|negated|10
 absence of a|backward|termination|negated|10
@@ -643,29 +643,29 @@ lack of|backward|termination|negated|10
 lack of|forward|trigger|negated|10
 lacked|backward|termination|negated|10
 lacked|forward|trigger|negated|10
-last > 0 month ago|backward|trigger|hist|30
-last > 0 months ago|backward|trigger|hist|30
-last > 0 year ago|backward|trigger|hist|30
-last > 0 years ago|backward|trigger|hist|30
-last > 0 yrs ago|backward|trigger|hist|30
-last > 1 week ago|backward|trigger|hist|30
-last > 1 weeks ago|backward|trigger|hist|30
-last april|backward|trigger|hist|30
-last august|backward|trigger|hist|30
-last december|backward|trigger|hist|30
-last fall|backward|trigger|hist|30
-last february|backward|trigger|hist|30
-last january|backward|trigger|hist|30
-last july|backward|trigger|hist|30
-last june|backward|trigger|hist|30
-last march|backward|trigger|hist|30
-last may|backward|trigger|hist|30
-last november|backward|trigger|hist|30
-last october|backward|trigger|hist|30
-last september|backward|trigger|hist|30
-last spring|backward|trigger|hist|30
-last summer|backward|trigger|hist|30
-last winter|backward|trigger|hist|30
+last > 0 month ago|backward|trigger|historical|30
+last > 0 months ago|backward|trigger|historical|30
+last > 0 year ago|backward|trigger|historical|30
+last > 0 years ago|backward|trigger|historical|30
+last > 0 yrs ago|backward|trigger|historical|30
+last > 1 week ago|backward|trigger|historical|30
+last > 1 weeks ago|backward|trigger|historical|30
+last april|backward|trigger|historical|30
+last august|backward|trigger|historical|30
+last december|backward|trigger|historical|30
+last fall|backward|trigger|historical|30
+last february|backward|trigger|historical|30
+last january|backward|trigger|historical|30
+last july|backward|trigger|historical|30
+last june|backward|trigger|historical|30
+last march|backward|trigger|historical|30
+last may|backward|trigger|historical|30
+last november|backward|trigger|historical|30
+last october|backward|trigger|historical|30
+last september|backward|trigger|historical|30
+last spring|backward|trigger|historical|30
+last summer|backward|trigger|historical|30
+last winter|backward|trigger|historical|30
 likely component of|forward|termination|negated|10
 likely contributors to|forward|termination|negated|10
 likely from|forward|termination|negated|10
@@ -1039,22 +1039,22 @@ should the patient|forward|trigger|conditional|30
 should there|forward|trigger|conditional|30
 show a question of|forward|trigger|uncertain|30
 shown a question of|forward|trigger|uncertain|30
-since april|backward|trigger|hist|30
-since august|backward|trigger|hist|30
-since december|backward|trigger|hist|30
-since fall|backward|trigger|hist|30
-since february|backward|trigger|hist|30
-since january|backward|trigger|hist|30
-since july|backward|trigger|hist|30
-since june|backward|trigger|hist|30
-since march|backward|trigger|hist|30
-since may|backward|trigger|hist|30
-since november|backward|trigger|hist|30
-since october|backward|trigger|hist|30
-since september|backward|trigger|hist|30
-since spring|backward|trigger|hist|30
-since summer|backward|trigger|hist|30
-since winter|backward|trigger|hist|30
+since april|backward|trigger|historical|30
+since august|backward|trigger|historical|30
+since december|backward|trigger|historical|30
+since fall|backward|trigger|historical|30
+since february|backward|trigger|historical|30
+since january|backward|trigger|historical|30
+since july|backward|trigger|historical|30
+since june|backward|trigger|historical|30
+since march|backward|trigger|historical|30
+since may|backward|trigger|historical|30
+since november|backward|trigger|historical|30
+since october|backward|trigger|historical|30
+since september|backward|trigger|historical|30
+since spring|backward|trigger|historical|30
+since summer|backward|trigger|historical|30
+since winter|backward|trigger|historical|30
 sister's|forward|trigger|nonpatient|30
 sisters|forward|trigger|nonpatient|30
 sister|forward|trigger|nonpatient|30
@@ -1337,14 +1337,14 @@ no e / o|forward|trigger|negated|10
 no h / o|backward|termination|negated|10
 no h / o|forward|trigger|negated|10
 r / o|forward|trigger|uncertain|30
-> 13 - day of|forward|trigger|hist|30
-> 13 - days of|forward|trigger|hist|30
-> 0 - month of|forward|trigger|hist|30
-> 0 - months of|forward|trigger|hist|30
-> 0 - year of|forward|trigger|hist|30
-> 0 - years of|forward|trigger|hist|30
-> 1 -week of|forward|trigger|hist|30
-> 1 -weeks of|forward|trigger|hist|30
+> 13 - day of|forward|trigger|historical|30
+> 13 - days of|forward|trigger|historical|30
+> 0 - month of|forward|trigger|historical|30
+> 0 - months of|forward|trigger|historical|30
+> 0 - year of|forward|trigger|historical|30
+> 0 - years of|forward|trigger|historical|30
+> 1 -week of|forward|trigger|historical|30
+> 1 -weeks of|forward|trigger|historical|30
 dont|forward|trigger|negated|20
 don t|forward|trigger|negated|20
 high risk for|forward|trigger|negated|20
