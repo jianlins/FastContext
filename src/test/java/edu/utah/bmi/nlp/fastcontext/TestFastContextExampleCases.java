@@ -88,7 +88,7 @@ public class TestFastContextExampleCases {
     public void testTerminationNegated() {
         rules.clear();
         rules.add("did have|forward|termination|negated|10");
-        rules.add("history of|forward|trigger|historical|30");
+        rules.add("denied|forward|trigger|negated|30");
         fc = new FastContext(rules, true);
         inputString = "He denied any drug abuse, as well as heavy drink history .";
         assert (eval(inputString, 8, 10, "negated", "denied"));
@@ -113,7 +113,7 @@ public class TestFastContextExampleCases {
         rules.clear();
         rules.add("did have|forward|termination|negated|10");
         rules.add("history of|forward|trigger|historical|30");
-        rules.add("denied|forward|trigger|negated|10");
+        rules.add("denied|forward|trigger|negated|30");
         fc = new FastContext(rules, true);
         inputString = "He denied history of smoking .";
         assert (eval(inputString, 4, 4, "historical", "history of"));
