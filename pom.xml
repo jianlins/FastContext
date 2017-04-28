@@ -106,11 +106,6 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-        <dependency>
-            <groupId>edu.utah.blulab</groupId>
-            <artifactId>domainontology</artifactId>
-            <version>2016.12.2-SNAPSHOT</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

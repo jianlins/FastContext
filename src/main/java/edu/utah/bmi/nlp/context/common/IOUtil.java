@@ -17,9 +17,6 @@
  */
 package edu.utah.bmi.nlp.context.common;
 
-import edu.utah.blulab.domainontology.DomainOntology;
-import edu.utah.blulab.domainontology.LexicalItem;
-import edu.utah.blulab.domainontology.Modifier;
 import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
 
 import java.io.*;
@@ -59,56 +56,56 @@ public class IOUtil {
 
     public static LinkedHashMap<Integer, ContextRule> readOwlModifiers(String owlFile) {
         LinkedHashMap<Integer, ContextRule> output = new LinkedHashMap();
-        int id = 1;
-        try {
-            DomainOntology domain = new DomainOntology(owlFile, true);
-            ArrayList<Modifier> modifierDictionary = domain.createModifierDictionary();
-            for (Modifier modifier : modifierDictionary) {
-                String modifierName = modifier.getModName();
-                id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.trigger, modifier.getItems());
-                for (Modifier pseudos : modifier.getPseudos()) {
-                    id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.pseudo, pseudos.getItems());
-                }
-                for (Modifier terminations : modifier.getClosures()) {
-                    id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.termination, terminations.getItems());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        int id = 1;
+//        try {
+//            DomainOntology domain = new DomainOntology(owlFile, true);
+//            ArrayList<Modifier> modifierDictionary = domain.createModifierDictionary();
+//            for (Modifier modifier : modifierDictionary) {
+//                String modifierName = modifier.getModName();
+//                id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.trigger, modifier.getItems());
+//                for (Modifier pseudos : modifier.getPseudos()) {
+//                    id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.pseudo, pseudos.getItems());
+//                }
+//                for (Modifier terminations : modifier.getClosures()) {
+//                    id = addLexicalItemsToRules(output, id, modifierName, TriggerTypes.termination, terminations.getItems());
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return output;
     }
 
-    private static int addLexicalItemsToRules(LinkedHashMap<Integer, ContextRule> rules, int id, String modifierName,
-                                              TriggerTypes triggerType, ArrayList<LexicalItem> lexicalItems) {
-        for (LexicalItem mitem : lexicalItems) {
-            String term = mitem.getPrefTerm();
-            String directionStr = mitem.getActionEn(true);
-            int windowSize = mitem.getWindowSize();
-            TriggerTypes direction;
-            switch (directionStr.charAt(2)) {
-                case 'o':
-                    direction = TriggerTypes.forward;
-                    break;
-                case 'a':
-                    direction = TriggerTypes.backward;
-                    break;
-                default:
-//                   modifier ontology use "bidirectional"
-                    direction = TriggerTypes.both;
-            }
-            rules.put(id, new ContextRule(direction, triggerType, direction + "_" + modifierName,
-                    modifierName, term, id, windowSize));
-            id++;
-            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getSynonym());
-            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getAbbreviation());
-            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getSubjExp());
-            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getMisspelling());
-            mitem.getSynonym();
-
-        }
-        return id;
-    }
+//    private static int addLexicalItemsToRules(LinkedHashMap<Integer, ContextRule> rules, int id, String modifierName,
+//                                              TriggerTypes triggerType, ArrayList<LexicalItem> lexicalItems) {
+//        for (LexicalItem mitem : lexicalItems) {
+//            String term = mitem.getPrefTerm();
+//            String directionStr = mitem.getActionEn(true);
+//            int windowSize = mitem.getWindowSize();
+//            TriggerTypes direction;
+//            switch (directionStr.charAt(2)) {
+//                case 'o':
+//                    direction = TriggerTypes.forward;
+//                    break;
+//                case 'a':
+//                    direction = TriggerTypes.backward;
+//                    break;
+//                default:
+////                   modifier ontology use "bidirectional"
+//                    direction = TriggerTypes.both;
+//            }
+//            rules.put(id, new ContextRule(direction, triggerType, direction + "_" + modifierName,
+//                    modifierName, term, id, windowSize));
+//            id++;
+//            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getSynonym());
+//            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getAbbreviation());
+//            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getSubjExp());
+//            id = addTermsToRules(rules, direction, triggerType, id, modifierName, windowSize, mitem.getMisspelling());
+//            mitem.getSynonym();
+//
+//        }
+//        return id;
+//    }
 
     private static int addTermsToRules(LinkedHashMap<Integer, ContextRule> rules, TriggerTypes direction, TriggerTypes triggerType, int id, String modifierName, int windowSize, ArrayList<String> terms) {
         for (String term : terms) {
