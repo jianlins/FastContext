@@ -10,7 +10,7 @@ FastContext is an optimized Java implementation of ConText algorithm (https://ww
   <version>1.0</version>
 </dependency>
 ```
-Note: the maven distribution doesn't include the context rule file, you will need to download it [here](https://github.com/jianlins/FastContext/blob/master/conf/context.csv) if needed.
+Note: the maven distribution doesn't include the context rule file, you can download it [here](https://github.com/jianlins/FastContext/blob/master/conf/context.csv) if needed.
 ## Quick start
 ```java
 // Initiate FastContext
