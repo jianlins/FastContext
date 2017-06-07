@@ -22,4 +22,4 @@ ArrayList<String> res = fc.processContext(inputString, 23, 28, 30);
 For more detailed API uses, please refer to [TestFastContextAPIs.java](https://github.com/jianlins/FastContext/blob/master/src/test/java/edu/utah/bmi/nlp/fastcontext/TestFastContextAPIs.java)
 
 ## Acknowledgement
-Special thanks to Olga Patterson and Guy Divita for contributing rules as part of the context rule set.
+Special thanks to [Olga Patterson](https://github.com/ovpatterson) and Guy Divita for contributing rules as part of the context rule set.
