@@ -16,6 +16,19 @@
 #   Special thanks to Olga Patterson and Guy Divita for contributing rules as part of this rule set
 
 
+#Define which features will be assigned values in an annotation type ("Concept" in this case)
+@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer
+#Define the values that a feature can have, the 1st value is the default value
+#The following definitions will be used as an index for FastContext to find the corresponding Feature to assign the modifier
+#value, once a modifier value is available.
+#In this case the "Negation" feature has two values: "affirm" and "negated", "affirm" is the default value.
+@FEATURE_VALUES|Negation|affirm|negated
+@FEATURE_VALUES|Certainty|certain|uncertain
+@FEATURE_VALUES|Temporality|present|historical|hypothetical
+@FEATURE_VALUES|Experiencer|patient|nonpatient
+
+
+
 #rule string|direction|trigger type|modifier|window size
 > 0 -month of|forward|trigger|historical|30
 > 0 -months of|forward|trigger|historical|30

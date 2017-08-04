@@ -37,7 +37,7 @@ public class ConTextSpan extends Span {
 
     public ConTextSpan(int begin, int end, int id) {
         super(begin, end);
-        initiate(id, -1, -1);
+        initiate(-1, -1, id);
     }
 
     public ConTextSpan(int begin, int end, int id, int winBegin, int winEnd) {
@@ -45,14 +45,14 @@ public class ConTextSpan extends Span {
         initiate(id, winBegin, winEnd);
     }
 
-    protected void initiate(int ruleId, int winBegin, int winEnd) {
+    protected void initiate(int winBegin, int winEnd, int ruleId) {
         this.ruleId = ruleId;
         this.winBegin = winBegin;
         this.winEnd = winEnd;
     }
 
-    public String toString(){
-        return "begin="+begin+"\tend="+end+"\truleId="+ruleId;
+    public String toString() {
+        return "begin=" + begin + "\tend=" + end + "\truleId=" + ruleId;
     }
 
 

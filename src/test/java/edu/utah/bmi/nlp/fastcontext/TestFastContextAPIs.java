@@ -19,7 +19,7 @@
 package edu.utah.bmi.nlp.fastcontext;
 
 import edu.utah.bmi.nlp.context.common.ConTextSpan;
-import edu.utah.bmi.nlp.core.SimpleTokenizer;
+import edu.utah.bmi.nlp.core.SimpleParser;
 import edu.utah.bmi.nlp.core.Span;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +62,7 @@ public class TestFastContextAPIs {
 
     @Test
     public void test2() {
-        ArrayList<Span> sent = SimpleTokenizer.tokenizeOnWhitespaces(inputString);
+        ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
         ArrayList<String> res = fc.processContext(sent, 4, 4, inputString, 30);
         assert (res.size() == 1 && res.get(0).equals("negated"));
 
@@ -91,17 +91,17 @@ public class TestFastContextAPIs {
         sent.addAll(Arrays.asList(inputString.split("\\s+")));
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(sent, 4, 4, 30);
         ConTextSpan conTextSpan = matches.get("negated");
-        assert (conTextSpan.begin == 2 && conTextSpan.end == 2 && conTextSpan.ruleId == 1);
+        assert (conTextSpan.begin == 2 && conTextSpan.end == 2 && conTextSpan.ruleId == 0);
 //        System.out.println(sent.subList(conTextSpan.begin,conTextSpan.end+1));
         assert (sent.subList(conTextSpan.begin, conTextSpan.end + 1).get(0).equals("denied"));
     }
 
     @Test
     public void test5() {
-        ArrayList<Span> sent = SimpleTokenizer.tokenizeOnWhitespaces(inputString);
+        ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(sent, 4, 4, inputString, 30);
         ConTextSpan conTextSpan = matches.get("negated");
-        assert (conTextSpan.begin == 12 && conTextSpan.end == 18 && conTextSpan.ruleId == 1);
+        assert (conTextSpan.begin == 12 && conTextSpan.end == 18 && conTextSpan.ruleId == 0);
         assert (inputString.substring(conTextSpan.begin, conTextSpan.end).equals("denied"));
 
     }
@@ -113,7 +113,7 @@ public class TestFastContextAPIs {
         int conceptEndOffset = conceptBeginOffset + concept.length();
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(inputString, conceptBeginOffset, conceptEndOffset, 30);
         ConTextSpan conTextSpan = matches.get("negated");
-        assert (conTextSpan.begin == 12 && conTextSpan.end == 18 && conTextSpan.ruleId == 1);
+        assert (conTextSpan.begin == 12 && conTextSpan.end == 18 && conTextSpan.ruleId == 0);
         assert (inputString.substring(conTextSpan.begin, conTextSpan.end).equals("denied"));
     }
 

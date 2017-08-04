@@ -19,7 +19,7 @@
 package edu.utah.bmi.nlp.fastcontext;
 
 import edu.utah.bmi.nlp.context.common.ConTextSpan;
-import edu.utah.bmi.nlp.core.SimpleTokenizer;
+import edu.utah.bmi.nlp.core.SimpleParser;
 import edu.utah.bmi.nlp.core.Span;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,6 +96,8 @@ public class TestFastContextExampleCases {
         assert (eval(inputString, 8, 10, "negated", null));
     }
 
+
+
     @Test
     public void testTerminationHistorical(){
         rules.clear();
@@ -107,6 +109,10 @@ public class TestFastContextExampleCases {
         inputString = "The patient is 45 yo male with history of HTN , presenting with check pain .";
         assert (eval(inputString, 13, 14, "historical", null));
     }
+
+
+
+
 
     @Test
     public void testMixContext(){
@@ -121,8 +127,9 @@ public class TestFastContextExampleCases {
 
     }
 
+
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {
-        ArrayList<Span> sent = SimpleTokenizer.tokenizeOnWhitespaces(inputString);
+        ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(sent, conceptBegin, conceptEnd, inputString, 30);
         ConTextSpan conTextSpan = matches.get(contextType);
         if (conTextSpan != null) {
