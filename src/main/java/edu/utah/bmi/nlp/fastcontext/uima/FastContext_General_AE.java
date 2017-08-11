@@ -197,11 +197,14 @@ public class FastContext_General_AE
 
     private int getFirstTokenId(Annotation sentence, String docText, IntervalST<Integer> tokenIndex, ArrayList<Annotation> tokens) {
         int i = sentence.getBegin();
-        while (!WildCardChecker.isPunctuation(docText.charAt(i)) && !Character.isAlphabetic(docText.charAt(i))) {
+        while (!(WildCardChecker.isPunctuation(docText.charAt(i))
+                || Character.isAlphabetic(docText.charAt(i))
+                || Character.isDigit(docText.charAt(i)))) {
             i++;
         }
         if (tokenIndex.get(new Interval1D(i, i + 1)) == null) {
-            while (!Character.isAlphabetic(docText.charAt(i))) {
+            while (!( Character.isAlphabetic(docText.charAt(i))
+                    || Character.isDigit(docText.charAt(i)))) {
                 i++;
             }
         }
@@ -218,11 +221,14 @@ public class FastContext_General_AE
 
     private int getLastTokenId(Annotation sentence, String docText, IntervalST<Integer> tokenIndex, ArrayList<Annotation> tokens) {
         int i = sentence.getEnd()-1;
-        while (!WildCardChecker.isPunctuation(docText.charAt(i)) && !Character.isAlphabetic(docText.charAt(i))) {
+        while (!(WildCardChecker.isPunctuation(docText.charAt(i))
+                || Character.isAlphabetic(docText.charAt(i))
+                || Character.isDigit(docText.charAt(i)))) {
             i--;
         }
         if (tokenIndex.get(new Interval1D(i, i+1)) == null) {
-            while (!Character.isAlphabetic(docText.charAt(i))) {
+            while (!( Character.isAlphabetic(docText.charAt(i))
+                    || Character.isDigit(docText.charAt(i)))) {
                 i--;
             }
         }
