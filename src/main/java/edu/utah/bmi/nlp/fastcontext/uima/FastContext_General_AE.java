@@ -217,7 +217,7 @@ public class FastContext_General_AE
     }
 
     private int getLastTokenId(Annotation sentence, String docText, IntervalST<Integer> tokenIndex, ArrayList<Annotation> tokens) {
-        int i = sentence.getEnd();
+        int i = sentence.getEnd()-1;
         while (!WildCardChecker.isPunctuation(docText.charAt(i)) && !Character.isAlphabetic(docText.charAt(i))) {
             i--;
         }
