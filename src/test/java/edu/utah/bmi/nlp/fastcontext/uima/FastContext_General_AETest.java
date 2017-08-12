@@ -57,7 +57,7 @@ public class FastContext_General_AETest {
 		try {
 			fastContext_AE = createEngine(FastContext_General_AE.class,
 					configurationData);
-			simpleParser_AE = createEngine(SimpleParser_AE.class, new Object[]{});
+			simpleParser_AE = createEngine(SimpleParser_AE.class, new Object[]{SimpleParser_AE.PARAM_INCLUDE_PUNCTUATION,true});
 		} catch (ResourceInitializationException e) {
 			e.printStackTrace();
 		}
@@ -67,6 +67,26 @@ public class FastContext_General_AETest {
 	public void test() throws AnalysisEngineProcessException {
 		String text = "The patient denies any problem with visual changes or hearing changes.";
 		String targetWords = "visual changes";
+		jCas.setDocumentText(text);
+		simpleParser_AE.process(jCas);
+		int begin = text.indexOf(targetWords);
+		int end = begin + targetWords.length();
+		Concept concept = new Concept(jCas, begin, end);
+		concept.addToIndexes();
+		fastContext_AE.process(jCas);
+		Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
+		for(Concept target:targets){
+			System.out.println(target.toString());
+		}
+		for (Context context:JCasUtil.select(jCas,Context.class)){
+			System.out.println(context.toString());
+		}
+	}
+
+	@Test
+	public void test2() throws AnalysisEngineProcessException {
+		String text = "He history of smoking : no .";;
+		String targetWords = "smoking";
 		jCas.setDocumentText(text);
 		simpleParser_AE.process(jCas);
 		int begin = text.indexOf(targetWords);

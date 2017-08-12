@@ -127,6 +127,21 @@ public class TestFastContextExampleCases {
 
     }
 
+    @Test
+    public void testMixContext2(){
+        rules.clear();
+        rules.add("no|backward|termination|negated|10");
+        rules.add(": no|backward|trigger|negated|30");
+        rules.add("no|forward|trigger|negated|30");
+
+        fc = new FastContext(rules, true);
+        fc.debug=true;
+        inputString = "He history of smoking : no .";
+        assert (eval(inputString, 3, 3, "negated", ": no"));
+//        assert (eval(inputString, 4, 4, "negated", "denied"));
+
+    }
+
 
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {
         ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
@@ -134,6 +149,7 @@ public class TestFastContextExampleCases {
         ConTextSpan conTextSpan = matches.get(contextType);
         if (conTextSpan != null) {
             String contextStr = inputString.substring(conTextSpan.begin, conTextSpan.end);
+            System.out.println(contextStr);
             return contextStr.equals(contextString);
         } else if (contextString == null) {
             return true;

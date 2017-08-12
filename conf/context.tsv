@@ -53,7 +53,7 @@
 > 13 -days of|forward|trigger|historical|30
 > 13 day of|forward|trigger|historical|30
 > 13 days of|forward|trigger|historical|30
-\w+ no|backward|termination|negated|10
+: no|backward|trigger|negated|10
 \w+ no|forward|trigger|negated|10
 absence of a|backward|termination|negated|10
 absence of a|forward|trigger|negated|10
