@@ -181,9 +181,9 @@ public class FastContext_General_AE
             ArrayList<Annotation> postContext = new ArrayList<>();
             for (Integer tokenId : tokensInSentence) {
                 Annotation token = tokens.get(tokenId);
-                if (token.getEnd() < concept.getBegin()) {
+                if (token.getEnd() <= concept.getBegin()) {
                     preContext.add(token);
-                } else if (token.getBegin() > concept.getEnd()) {
+                } else if (token.getBegin() >= concept.getEnd()) {
                     postContext.add(token);
                 }
             }

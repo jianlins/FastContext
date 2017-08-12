@@ -85,7 +85,7 @@ public class FastContext_General_AETest {
 
 	@Test
 	public void test2() throws AnalysisEngineProcessException {
-		String text = "He history of smoking : no .";;
+		String text = "He history of smoking: no .";;
 		String targetWords = "smoking";
 		jCas.setDocumentText(text);
 		simpleParser_AE.process(jCas);
