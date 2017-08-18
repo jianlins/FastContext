@@ -74,6 +74,11 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
         if (currentPosition < contextTokens.size()) {
             // start processing the tunedcontext tokens
             String thisToken = contextTokens.get(currentPosition).getCoveredText();
+            if(thisToken.trim().length()==0){
+//                in case the token is not tokenized correctly
+                processTokensWRules(contextTokens, rule, matchBegin, currentPosition + 1, matches);
+                return;
+            }
             if (caseInsensitive)
                 thisToken = thisToken.toLowerCase();
 //			System.out.println("thisToken-"+thisToken+"<");

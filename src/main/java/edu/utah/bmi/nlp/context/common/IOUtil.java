@@ -169,7 +169,8 @@ public class IOUtil {
                             break;
                     }
                 }
-                parseCells(cells, id, rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
+                if (cells.size() > 0 && cells.get(0).trim().length() > 0)
+                    parseCells(cells, id, rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
                 id++;
             }
         } catch (IOException e) {
@@ -254,6 +255,20 @@ public class IOUtil {
                                    HashMap<String, String> valueFeatureNameMap) {
         if (cells.get(0).startsWith("#") || cells.get(0).trim().length() == 0)
             return;
+        if (cells.get(0).length() < 2 && cells.size() > 3) {
+            String ruleString = cells.get(0);
+            String direction = cells.get(1);
+            String triggerType = cells.get(2);
+            String modifier = cells.get(3);
+            String determinant = cells.get(1) + "_" + cells.get(3);
+            int windowSize = defaultWindowSize;
+            if (cells.size() > 4)
+                windowSize = (int) Double.parseDouble(cells.get(4));
+
+            rules.put(id, new ContextRule(TriggerTypes.valueOf(direction), TriggerTypes.valueOf(triggerType), determinant, modifier,
+                    ruleString, id, windowSize));
+            return;
+        }
         switch (cells.get(0).substring(0, 2)) {
             case "@C":
 //                @CONCEPT_FEATURES
