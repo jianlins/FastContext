@@ -294,7 +294,7 @@ public class FastContext_General_AE
                 Context context = new Context(jcas, conTextSpan.begin, conTextSpan.end);
                 context.setModifierName(featureName);
                 context.setModifierValue(value);
-                context.setTargetConcept(concept.getCoveredText() + " (" + concept.getBegin() + "~" + concept.getEnd() + ")");
+                context.setTargetConcept(concept.getCoveredText().replaceAll("[\\n|\\r]"," ") + " (" + concept.getBegin() + "~" + concept.getEnd() + ")");
                 context.addToIndexes();
             }
         }
