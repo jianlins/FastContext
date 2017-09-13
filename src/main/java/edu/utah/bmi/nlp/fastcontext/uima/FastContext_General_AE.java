@@ -286,15 +286,15 @@ public class FastContext_General_AE
                     previousNote = conceptBASE.getNote();
                     previousNote = previousNote == null ? "" : previousNote;
                     conceptBASE.setNote((previousNote + "\n\t" + featureName + " clue:\t'"
-                            + docText.substring(conTextSpan.begin, conTextSpan.end)
+                            + docText.substring(conTextSpan.begin, conTextSpan.end).replaceAll("[\\n|\\r]"," ")
                             + "' (" + conTextSpan.begin + "~" + conTextSpan.end + ")").trim());
                 }
             }
             if (markClues && conTextSpan.ruleId != -1) {
                 Context context = new Context(jcas, conTextSpan.begin, conTextSpan.end);
                 context.setModifierName(featureName);
-                context.setModifierValue(value);
-                context.setTargetConcept(concept.getCoveredText() + " (" + concept.getBegin() + "~" + concept.getEnd() + ")");
+                context.setModifierValue(value.replaceAll("[\\n|\\r]"," "));
+                context.setTargetConcept(concept.getCoveredText().replaceAll("[\\n|\\r]"," ") + " (" + concept.getBegin() + "~" + concept.getEnd() + ")");
                 context.addToIndexes();
             }
         }
