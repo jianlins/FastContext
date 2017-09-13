@@ -101,13 +101,25 @@ public class TestFastContextExampleCases {
     @Test
     public void testTerminationHistorical(){
         rules.clear();
-        rules.add("presenting|both|termination|historical|30");
+        rules.add("presenting|forward|termination|historical|30");
         rules.add("history of|forward|trigger|historical|30");
         fc = new FastContext(rules, true);
         inputString = "The patient is 45 yo male with history of HTN and diabetes .";
         assert (eval(inputString, 11, 11, "historical", "history of"));
         inputString = "The patient is 45 yo male with history of HTN , presenting with check pain .";
         assert (eval(inputString, 13, 14, "historical", null));
+    }
+
+    @Test
+    public void testTerminationHistorical2(){
+        rules.clear();
+        rules.add("normal|backward|termination|negated|30");
+        rules.add("absent|backward|trigger|negated|30");
+        fc = new FastContext(rules, true);
+        inputString = "The BP is absent";
+        assert (eval(inputString, 1,1, "negated", "absent"));
+        inputString = "The BP is normal , R is absent";
+        assert (eval(inputString, 1, 1, "negated", null));
     }
 
 
