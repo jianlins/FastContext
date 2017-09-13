@@ -97,16 +97,21 @@ public class ContextRuleProcessor {
 		rulesMap.clear();
 		if (pdigit == null)
 			pdigit = Pattern.compile("(\\d+)(-\\w+)?");
+		ArrayList<ContextRule>extendedRules=new ArrayList<>();
 		for (ContextRule rule : rules.values()) {
 			if (rule.getDirection() == TriggerTypes.both) {
 				rule.setDirection(TriggerTypes.forward);
 				addRule(rule);
-				rule.setDirection(TriggerTypes.backward);
-				addRule(rule);
-				rule.setDirection(TriggerTypes.both);
+                ContextRule extendedRule=rule.clone();
+                extendedRule.setDirection(TriggerTypes.backward);
+				addRule(extendedRule);
+                extendedRules.add(extendedRule);
 			} else
 				addRule(rule);
 		}
+		for(int i=0;i<extendedRules.size();i++){
+		    rules.put(i+rules.size(),extendedRules.get(i));
+        }
 	}
 
 

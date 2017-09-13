@@ -122,7 +122,20 @@ public class TestFastContextExampleCases {
         assert (eval(inputString, 1, 1, "negated", null));
     }
 
+    @Test
+    public void testTerminationHistorical3(){
+        rules.clear();
 
+        rules.add("not|backward|termination|deep|30");
+        rules.add("deep|both|trigger|deep|30");
+
+
+        fc = new FastContext(rules, false);
+
+        fc.debug=true;
+        inputString = "The thrombus extends up to the axillary confluence does not enter into the deep venous system";
+        assert (eval(inputString, 1,1, "deep", null));
+    }
 
 
 
