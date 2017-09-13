@@ -18,6 +18,7 @@
 package edu.utah.bmi.nlp.context.common;
 
 import edu.utah.bmi.nlp.core.Span;
+import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
 
 /**
  * This is a class to store the span information of either Concept or ConText.
@@ -29,6 +30,7 @@ import edu.utah.bmi.nlp.core.Span;
  */
 public class ConTextSpan extends Span {
     public int winBegin, winEnd, ruleId;
+    public TriggerTypes matchedDirection;
 
     public ConTextSpan(int begin, int end) {
         super(begin, end);
@@ -51,8 +53,10 @@ public class ConTextSpan extends Span {
         this.winEnd = winEnd;
     }
 
+
+
     public String toString() {
-        return "begin=" + begin + "\tend=" + end + "\truleId=" + ruleId;
+        return "begin=" + begin + "\tend=" + end+ "\twinBegin=" + winBegin+ "\twinEnd=" + winEnd + "\truleId=" + ruleId;
     }
 
 
