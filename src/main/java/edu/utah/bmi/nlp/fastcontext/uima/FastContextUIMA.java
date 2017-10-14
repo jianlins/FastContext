@@ -117,7 +117,7 @@ public class FastContextUIMA extends FastContext {
 		for (Map.Entry<String, ConTextSpan> ent : matchedRules.entrySet()) {
 			ContextRule matchedRule = crp.rules.get(ent.getValue().ruleId);
 			ConTextSpan relativeSpan = ent.getValue();
-			if (matchedRule.triggerType == ContextValueSet.TriggerTypes.trigger && (matchedRule.direction == direction || matchedRule.direction == ContextValueSet.TriggerTypes.both)) {
+			if (matchedRule.triggerType == ContextValueSet.TriggerTypes.trigger &&  relativeSpan.matchedDirection == direction) {
 				if (direction == ContextValueSet.TriggerTypes.forward || direction == ContextValueSet.TriggerTypes.both) {
 					if (conceptBegin - ent.getValue().begin <= matchedRule.windowSize)
 						contexts.put(matchedRule.modifier, new ConTextSpan(tokens.get(relativeSpan.begin).getBegin(), tokens.get(relativeSpan.end).getEnd(), relativeSpan.ruleId));
