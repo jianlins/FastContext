@@ -207,7 +207,7 @@ public class ContextRuleProcessor {
             }
             // if the end of a rule is met
             if (rule.containsKey(END)) {
-                addDeterminants(rule, matches, matchBegin, currentPosition);
+                addDeterminants(rule, matches, matchBegin, currentPosition, contextTokens.size());
             }
             // if the current token match the element of a rule
             if (rule.containsKey(thisToken)) {
@@ -217,7 +217,7 @@ public class ContextRuleProcessor {
                 processDigits(contextTokens, (HashMap) rule.get(">"), matchBegin, currentPosition, matches);
             }
         } else if (currentPosition == contextTokens.size() && rule.containsKey(END)) {
-            addDeterminants(rule, matches, matchBegin, currentPosition);
+            addDeterminants(rule, matches, matchBegin, currentPosition, contextTokens.size());
         }
     }
 
@@ -284,7 +284,9 @@ public class ContextRuleProcessor {
      * @param matchBegin      Keep track of the begin position of matched span
      * @param currentPosition Keep track of the position where matching starts
      */
-    protected void addDeterminants(HashMap rule, LinkedHashMap<String, ConTextSpan> matches, int matchBegin, int currentPosition) {
+    protected void addDeterminants(HashMap rule, LinkedHashMap<String, ConTextSpan> matches,
+                                   int matchBegin, int currentPosition,
+                                   int contextTokenLength) {
         HashMap<String, ?> matchedRules = (HashMap<String, ?>) rule.get(END);
 
 //        int id = (Integer) rule.values().iterator().next();
@@ -300,16 +302,16 @@ public class ContextRuleProcessor {
                 originalSpan = matches.get(key);
                 switch (matchedDirection) {
                     case 'f':
-                        if (originalSpan.begin >= currentSpan.end) {
-                            continue;
-                        } else if (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) {
+                        if ((originalSpan.begin >= currentSpan.end) ||
+                                (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) ||
+                                (contextTokenLength - currentSpan.end > getContextRuleById(id).windowSize)) {
                             continue;
                         }
                         break;
                     case 'b':
-                        if (originalSpan.end <= currentSpan.begin) {
-                            continue;
-                        } else if (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) {
+                        if ((originalSpan.end <= currentSpan.begin) ||
+                                (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) ||
+                                (currentSpan.begin > getContextRuleById(id).windowSize)) {
                             continue;
                         }
                         break;

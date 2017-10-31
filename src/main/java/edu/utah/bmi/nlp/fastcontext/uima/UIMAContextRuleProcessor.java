@@ -90,7 +90,7 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
             }
             // if the end of a rule is met
             if (rule.containsKey(END)) {
-                addDeterminants(rule, matches, matchBegin, currentPosition);
+                addDeterminants(rule, matches, matchBegin, currentPosition,contextTokens.size());
             }
             // if the current token match the element of a rule
             if (rule.containsKey(thisToken)) {
@@ -100,7 +100,7 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
                 processDigitTokens(contextTokens, (HashMap) rule.get(">"), matchBegin, currentPosition, matches);
             }
         } else if (currentPosition == contextTokens.size() && rule.containsKey(END)) {
-            addDeterminants(rule, matches, matchBegin, currentPosition);
+            addDeterminants(rule, matches, matchBegin, currentPosition,contextTokens.size());
         }
     }
 

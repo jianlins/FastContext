@@ -168,6 +168,19 @@ public class TestFastContextExampleCases {
     }
 
 
+    @Test
+    public void testMixContext3(){
+        rules.clear();
+        rules.add("advised|forward|trigger|uncertain|30");
+        rules.add("or|both|trigger|uncertain|3");
+        fc = new FastContext(rules, true);
+        fc.debug=true;
+        inputString = "I advised she resume OCP or take progesterone in some form Depo , IUD , cyclic provera to prevent endometrial cancer.";
+        assert (eval(inputString, 13, 13, "uncertain", "advised"));
+//        assert (eval(inputString, 4, 4, "negated", "denied"));
+
+    }
+
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {
         ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(sent, conceptBegin, conceptEnd, inputString, 30);
