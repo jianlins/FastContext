@@ -181,6 +181,19 @@ public class TestFastContextExampleCases {
 
     }
 
+    @Test
+    public void testMixContext4(){
+        rules.clear();
+        rules.add("removed|backward|trigger|negated|30");
+        rules.add("without negated|forward|trigger|negated|3");
+        fc = new FastContext(rules, true);
+        fc.debug=true;
+        inputString = "since IUD was removed she has had periods without significant pain";
+        eval(inputString, 1, 1, "uncertain", "advised");
+//        assert (eval(inputString, 4, 4, "negated", "denied"));
+
+    }
+
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {
         ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(sent, conceptBegin, conceptEnd, inputString, 30);
@@ -194,5 +207,6 @@ public class TestFastContextExampleCases {
         }
         return false;
     }
+
 
 }
