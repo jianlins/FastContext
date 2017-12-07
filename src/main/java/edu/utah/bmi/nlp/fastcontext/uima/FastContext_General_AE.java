@@ -44,7 +44,7 @@ import java.util.logging.Logger;
  */
 public class FastContext_General_AE
         extends JCasAnnotator_ImplBase {
-    public static Logger logger=IOUtil.getLogger(FastContext_General_AE.class);
+    public static Logger logger = IOUtil.getLogger(FastContext_General_AE.class);
 
     public static final String PARAM_CONTEXT_RULES_STR = "ContextRulesStr";
     public static final String PARAM_SENTENCE_TYPE_NAME = "SentenceTypeName";
@@ -52,6 +52,7 @@ public class FastContext_General_AE
     public static final String PARAM_CASE_INSENSITIVE = "CaseInsensitive";
     public static final String PARAM_MARK_CLUE = "MarkClues";
     public static final String PARAM_AUTO_EXPAND_SCOPE = "AutoExpanScope";
+    @Deprecated
     public static final String PARAM_DEBUG = "Debug";
 
 
@@ -60,7 +61,7 @@ public class FastContext_General_AE
     private int sentenceTypeId = 0, tokenTypeId = 0;
     private HashMap<String, HashMap<String, Method>> conceptFeatures = new HashMap<>();
     private HashMap<String, Class> conceptClassMap = new HashMap<>();
-
+    @Deprecated
     private boolean debug;
     //  if the sentence is happened to segmented too short. Expand cp to  one sentence backwards and one sentence forwards.
     private boolean autoExpanScope = true, setCaseInsensitive = true, markClues = false;
@@ -108,7 +109,6 @@ public class FastContext_General_AE
         }
 
         cp = new FastContextUIMA(contextRuleStr, setCaseInsensitive);
-        cp.debug = debug;
 
         HashMap<String, TypeDefinition> conceptFeatureMap = cp.getTypeDefinitions();
         for (String conceptName : conceptFeatureMap.keySet()) {
@@ -164,10 +164,10 @@ public class FastContext_General_AE
             int scopeBegin = sentence.getBegin();
             int scopeEnd = sentence.getEnd();
             if (autoExpanScope) {
-                int firstTokenIdofSentence = getFirstTokenId(sentence, docText, tokenIndex,tokens);
-                int lastTokenIdfSentence = getLastTokenId(sentence, docText, tokenIndex,tokens);
-                int firstTokenIdofConcept = getFirstTokenId(concept, docText, tokenIndex,tokens);
-                int lastTokenIdofConcept = getLastTokenId(concept, docText, tokenIndex,tokens);
+                int firstTokenIdofSentence = getFirstTokenId(sentence, docText, tokenIndex, tokens);
+                int lastTokenIdfSentence = getLastTokenId(sentence, docText, tokenIndex, tokens);
+                int firstTokenIdofConcept = getFirstTokenId(concept, docText, tokenIndex, tokens);
+                int lastTokenIdofConcept = getLastTokenId(concept, docText, tokenIndex, tokens);
                 if ((lastTokenIdfSentence - firstTokenIdofSentence) - (lastTokenIdofConcept - firstTokenIdofConcept) < 2) {
                     Annotation previousSentence = getPreviousSentence(sentences, tokens, sentenceIndex, firstTokenIdofSentence);
                     Annotation nextSentence = getNextSentence(sentences, tokens, sentenceIndex, lastTokenIdfSentence);
@@ -206,15 +206,15 @@ public class FastContext_General_AE
             i++;
         }
         if (tokenIndex.get(new Interval1D(i, i + 1)) == null) {
-            while (!( Character.isAlphabetic(docText.charAt(i))
+            while (!(Character.isAlphabetic(docText.charAt(i))
                     || Character.isDigit(docText.charAt(i)))) {
                 i++;
             }
         }
-        if(logger.isLoggable(Level.FINE)){
+        if (logger.isLoggable(Level.FINE)) {
             logger.fine(sentence.getCoveredText());
-            logger.fine(docText.substring(i,sentence.getEnd()));
-            for(int tokenId:tokenIndex.getAll(new Interval1D(sentence.getBegin(),sentence.getEnd()))){
+            logger.fine(docText.substring(i, sentence.getEnd()));
+            for (int tokenId : tokenIndex.getAll(new Interval1D(sentence.getBegin(), sentence.getEnd()))) {
                 logger.fine(tokens.get(tokenId).getCoveredText());
             }
         }
@@ -223,26 +223,26 @@ public class FastContext_General_AE
     }
 
     private int getLastTokenId(Annotation sentence, String docText, IntervalST<Integer> tokenIndex, ArrayList<Annotation> tokens) {
-        int i = sentence.getEnd()-1;
+        int i = sentence.getEnd() - 1;
         while (!(WildCardChecker.isPunctuation(docText.charAt(i))
                 || Character.isAlphabetic(docText.charAt(i))
                 || Character.isDigit(docText.charAt(i)))) {
             i--;
         }
-        if (tokenIndex.get(new Interval1D(i, i+1)) == null) {
-            while (!( Character.isAlphabetic(docText.charAt(i))
+        if (tokenIndex.get(new Interval1D(i, i + 1)) == null) {
+            while (!(Character.isAlphabetic(docText.charAt(i))
                     || Character.isDigit(docText.charAt(i)))) {
                 i--;
             }
         }
-        if(logger.isLoggable(Level.FINE)){
+        if (logger.isLoggable(Level.FINE)) {
             logger.fine(sentence.getCoveredText());
-            logger.fine(docText.substring(i,sentence.getEnd()));
-            for(int tokenId:tokenIndex.getAll(new Interval1D(sentence.getBegin(),sentence.getEnd()))){
+            logger.fine(docText.substring(i, sentence.getEnd()));
+            for (int tokenId : tokenIndex.getAll(new Interval1D(sentence.getBegin(), sentence.getEnd()))) {
                 logger.fine(tokens.get(tokenId).getCoveredText());
             }
         }
-        int lastTokenId = tokenIndex.get(new Interval1D(i, i+1));
+        int lastTokenId = tokenIndex.get(new Interval1D(i, i + 1));
         return lastTokenId;
     }
 
@@ -288,15 +288,15 @@ public class FastContext_General_AE
                     previousNote = conceptBASE.getNote();
                     previousNote = previousNote == null ? "" : previousNote;
                     conceptBASE.setNote((previousNote + "\n\t" + featureName + " clue:\t'"
-                            + docText.substring(conTextSpan.begin, conTextSpan.end).replaceAll("[\\n|\\r]"," ")
+                            + docText.substring(conTextSpan.begin, conTextSpan.end).replaceAll("[\\n|\\r]", " ")
                             + "' (" + conTextSpan.begin + "~" + conTextSpan.end + ")").trim());
                 }
             }
             if (markClues && conTextSpan.ruleId != -1) {
                 Context context = new Context(jcas, conTextSpan.begin, conTextSpan.end);
                 context.setModifierName(featureName);
-                context.setModifierValue(value.replaceAll("[\\n|\\r]"," "));
-                context.setTargetConcept(concept.getCoveredText().replaceAll("[\\n|\\r]"," ") + " (" + concept.getBegin() + "~" + concept.getEnd() + ")");
+                context.setModifierValue(value.replaceAll("[\\n|\\r]", " "));
+                context.setTargetConcept(concept.getCoveredText().replaceAll("[\\n|\\r]", " ") + " (" + concept.getBegin() + "~" + concept.getEnd() + ")");
                 context.addToIndexes();
             }
         }

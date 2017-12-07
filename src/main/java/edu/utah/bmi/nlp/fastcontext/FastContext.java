@@ -40,6 +40,7 @@ import java.util.logging.Logger;
 public class FastContext implements ConTextAdvancedInterface {
 	public static Logger logger= IOUtil.getLogger(FastContext.class);
 	protected ContextRuleProcessor crp;
+	@Deprecated
 	public boolean debug = false;
 
 
