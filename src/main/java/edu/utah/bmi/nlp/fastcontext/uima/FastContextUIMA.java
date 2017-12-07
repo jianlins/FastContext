@@ -20,10 +20,13 @@ package edu.utah.bmi.nlp.fastcontext.uima;
 import edu.utah.bmi.nlp.context.common.ConTextSpan;
 import edu.utah.bmi.nlp.context.common.ContextRule;
 import edu.utah.bmi.nlp.context.common.ContextValueSet;
+import edu.utah.bmi.nlp.core.IOUtil;
 import edu.utah.bmi.nlp.fastcontext.FastContext;
 import org.apache.uima.jcas.tcas.Annotation;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Extend the FastContext to be capable to handle UIMA annotation directly.
@@ -31,6 +34,7 @@ import java.util.*;
  * @author Jianlin Shi
  */
 public class FastContextUIMA extends FastContext {
+	public static Logger logger= IOUtil.getLogger(FastContext_General_AE.class);
 
 
 	public FastContextUIMA(String ruleFile) {
@@ -60,7 +64,7 @@ public class FastContextUIMA extends FastContext {
 	public void initiate(ArrayList<String> rulesList, boolean caseInsensitive) {
 		crp = new UIMAContextRuleProcessor(rulesList);
 		crp.setCaseInsensitive(caseInsensitive);
-		System.out.println(crp.getClass().getCanonicalName());
+		logger.fine(crp.getClass().getCanonicalName());
 	}
 
 
@@ -76,11 +80,11 @@ public class FastContextUIMA extends FastContext {
 		List<Annotation> preContext = tokens.subList(0, conceptStartPosition);
 		List<Annotation> postContext = tokens.subList(conceptEndPosition + 1, tokens.size());
 		LinkedHashMap<String, ConTextSpan> context = processContextWEvidence(preContext, postContext);
-		if (debug) {
-			System.out.println("Final output: ");
+		if (logger.isLoggable(Level.FINE)) {
+			logger.fine("Final output: ");
 			for (Map.Entry<String, ConTextSpan> entry : context.entrySet()) {
 				ConTextSpan evidence = entry.getValue();
-				System.out.println("\t" + entry.getKey() + ": " + evidence.begin + "-" + evidence.end);
+				logger.fine("\t" + entry.getKey() + ": " + evidence.begin + "-" + evidence.end);
 			}
 		}
 		return context;
@@ -93,16 +97,16 @@ public class FastContextUIMA extends FastContext {
 		matchedPostRules.clear();
 		((UIMAContextRuleProcessor) crp).processTokensWRules(preContext, matchedPreRules);
 		((UIMAContextRuleProcessor) crp).processTokensWRules(postContext, matchedPostRules);
-		if (debug) {
-			System.out.println("pre context matches:");
+		if (logger.isLoggable(Level.FINE)) {
+			logger.fine("pre context matches:");
 			for (Map.Entry<String, ConTextSpan> ent : matchedPreRules.entrySet()) {
-				System.out.println(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
-				System.out.println(crp.rules.get(ent.getValue().ruleId) + "\n");
+				logger.fine(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
+				logger.fine(crp.rules.get(ent.getValue().ruleId) + "\n");
 			}
-			System.out.println("post context matches:");
+			logger.fine("post context matches:");
 			for (Map.Entry<String, ConTextSpan> ent : matchedPostRules.entrySet()) {
-				System.out.println(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
-				System.out.println(crp.rules.get(ent.getValue().ruleId) + "\n");
+				logger.fine(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
+				logger.fine(crp.rules.get(ent.getValue().ruleId) + "\n");
 			}
 		}
 		LinkedHashMap<String, ConTextSpan> contexts = new LinkedHashMap<>();

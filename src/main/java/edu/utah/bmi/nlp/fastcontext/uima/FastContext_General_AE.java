@@ -33,6 +33,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -42,6 +44,7 @@ import java.util.*;
  */
 public class FastContext_General_AE
         extends JCasAnnotator_ImplBase {
+    public static Logger logger=IOUtil.getLogger(FastContext_General_AE.class);
 
     public static final String PARAM_CONTEXT_RULES_STR = "ContextRulesStr";
     public static final String PARAM_SENTENCE_TYPE_NAME = "SentenceTypeName";
@@ -208,11 +211,11 @@ public class FastContext_General_AE
                 i++;
             }
         }
-        if(debug){
-            System.out.println(sentence.getCoveredText());
-            System.out.println(docText.substring(i,sentence.getEnd()));
+        if(logger.isLoggable(Level.FINE)){
+            logger.fine(sentence.getCoveredText());
+            logger.fine(docText.substring(i,sentence.getEnd()));
             for(int tokenId:tokenIndex.getAll(new Interval1D(sentence.getBegin(),sentence.getEnd()))){
-                System.out.println(tokens.get(tokenId).getCoveredText());
+                logger.fine(tokens.get(tokenId).getCoveredText());
             }
         }
         int firstTokenId = tokenIndex.get(new Interval1D(i, i + 1));
@@ -232,11 +235,11 @@ public class FastContext_General_AE
                 i--;
             }
         }
-        if(debug){
-            System.out.println(sentence.getCoveredText());
-            System.out.println(docText.substring(i,sentence.getEnd()));
+        if(logger.isLoggable(Level.FINE)){
+            logger.fine(sentence.getCoveredText());
+            logger.fine(docText.substring(i,sentence.getEnd()));
             for(int tokenId:tokenIndex.getAll(new Interval1D(sentence.getBegin(),sentence.getEnd()))){
-                System.out.println(tokens.get(tokenId).getCoveredText());
+                logger.fine(tokens.get(tokenId).getCoveredText());
             }
         }
         int lastTokenId = tokenIndex.get(new Interval1D(i, i+1));
@@ -275,8 +278,7 @@ public class FastContext_General_AE
             if (featureMethods.containsKey(featureName)) {
                 AnnotationOper.setFeatureValue(featureMethods.get(featureName), concept, value);
             } else {
-                if (debug)
-                    System.err.println("Feature: " + featureName + " does not exist in Annotation " + concept.getClass().getCanonicalName());
+                logger.fine("Feature: " + featureName + " does not exist in Annotation " + concept.getClass().getCanonicalName());
                 continue;
             }
             if (concept instanceof ConceptBASE) {

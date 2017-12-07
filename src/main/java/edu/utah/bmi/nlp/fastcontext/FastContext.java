@@ -21,12 +21,16 @@ import edu.utah.bmi.nlp.context.common.ConTextAdvancedInterface;
 import edu.utah.bmi.nlp.context.common.ConTextSpan;
 import edu.utah.bmi.nlp.context.common.ContextRule;
 import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
+import edu.utah.bmi.nlp.core.IOUtil;
 import edu.utah.bmi.nlp.core.SimpleParser;
 import edu.utah.bmi.nlp.core.Span;
 import edu.utah.bmi.nlp.core.TypeDefinition;
+import edu.utah.bmi.nlp.fastcontext.uima.FastContext_General_AE;
 import org.apache.uima.jcas.tcas.Annotation;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class take context token/Annotation ArrayList as input, process the ConText algorithm.
@@ -34,6 +38,7 @@ import java.util.*;
  * @author Jianlin Shi
  */
 public class FastContext implements ConTextAdvancedInterface {
+	public static Logger logger= IOUtil.getLogger(FastContext.class);
 	protected ContextRuleProcessor crp;
 	public boolean debug = false;
 
@@ -119,16 +124,16 @@ public class FastContext implements ConTextAdvancedInterface {
 		matchedPostRules.clear();
 		crp.processRules(preContext, 0, matchedPreRules);
 		crp.processRules(postContext, 0, matchedPostRules);
-		if (debug) {
-			System.out.println("pre context matches:");
+		if (logger.isLoggable(Level.FINE)) {
+			logger.fine("pre context matches:");
 			for (Map.Entry<String, ConTextSpan> ent : matchedPreRules.entrySet()) {
-				System.out.println(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
-				System.out.println(crp.rules.get(ent.getValue().ruleId) + "\n");
+				logger.fine(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
+				logger.fine(crp.rules.get(ent.getValue().ruleId) + "\n");
 			}
-			System.out.println("post context matches:");
+			logger.fine("post context matches:");
 			for (Map.Entry<String, ConTextSpan> ent : matchedPostRules.entrySet()) {
-				System.out.println(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
-				System.out.println(crp.rules.get(ent.getValue().ruleId) + "\n");
+				logger.fine(ent.getValue().ruleId + ": " + ent.getKey() + " " + crp.rules.get(ent.getValue().ruleId).triggerType + ":\t" + ent.getValue().begin + "-" + ent.getValue().end);
+				logger.fine(crp.rules.get(ent.getValue().ruleId) + "\n");
 			}
 		}
 		LinkedHashMap<String, ConTextSpan> contexts = new LinkedHashMap<>();
