@@ -123,7 +123,7 @@ public class ContextRuleProcessor {
         HashMap rulet = new HashMap();
         if (caseInsensitive)
             rule.rule = rule.rule.toLowerCase();
-        String[] ruleContent = rule.rule.split("\\s+");
+        String[] ruleContent = rule.rule.split("[\\s　]+");
         int length = ruleContent.length;
         int i = 0;
         rules_tmp.add(rulesMap);
@@ -302,14 +302,14 @@ public class ContextRuleProcessor {
                 originalSpan = matches.get(key);
                 switch (matchedDirection) {
                     case 'f':
-                        if ((originalSpan.begin >= currentSpan.end) ||
+                        if ((originalSpan.begin > currentSpan.end) ||
                                 (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) ||
                                 (contextTokenLength - currentSpan.end > getContextRuleById(id).windowSize)) {
                             continue;
                         }
                         break;
                     case 'b':
-                        if ((originalSpan.end <= currentSpan.begin) ||
+                        if ((originalSpan.end < currentSpan.begin) ||
                                 (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) ||
                                 (currentSpan.begin > getContextRuleById(id).windowSize)) {
                             continue;

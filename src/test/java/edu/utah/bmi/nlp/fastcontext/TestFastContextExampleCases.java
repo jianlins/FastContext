@@ -53,7 +53,7 @@ public class TestFastContextExampleCases {
         inputString = "He is smoke free .";
         assert (eval(inputString, 2, 2, "negated", "free"));
         inputString = "He needs some free air to relax .";
-        assert (eval(inputString, 6, 6, "negated", null));
+        assert (eval(inputString, 6, 6, "affirm", null));
     }
 
 
