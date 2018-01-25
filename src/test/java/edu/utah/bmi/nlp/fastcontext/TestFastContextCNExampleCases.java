@@ -97,7 +97,7 @@ public class TestFastContextCNExampleCases {
         fc = new FastContext(rules, true);
 //        fc.debug = true;
         inputString = "患者病史包括高血压";
-        assert (evalOnChars(inputString, 7, 9, "historical", "病史"));
+        assert (evalOnChars(inputString, 6, 8, "historical", "病史"));
         inputString = "现病史: 该患者为78岁老年男性, 因腹痛入院";
         assert (evalOnChars(inputString, 19, 20, "historical", null));
     }
