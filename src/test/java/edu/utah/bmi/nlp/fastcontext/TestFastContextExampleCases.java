@@ -194,6 +194,21 @@ public class TestFastContextExampleCases {
 
     }
 
+    @Test
+    public void testMixContext5(){
+        rules.clear();
+        rules.add("remove|forward|trigger|removed|30");
+        rules.add("does not want to remove|forward|trigger|notremoved|30");
+        rules.add("does not want to remove|forward|pseudo|removed|30");
+        fc = new FastContext(rules, true);
+        fc.debug=true;
+        inputString = "she does not want to remove IUD.";
+        assert(eval(inputString, 6, 6, "notremoved", "does not want to remove"));
+        assert(eval(inputString, 6, 6, "removed", null));
+//        assert (eval(inputString, 4, 4, "negated", "denied"));
+
+    }
+
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {
         ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(sent, conceptBegin, conceptEnd, inputString, 30);
