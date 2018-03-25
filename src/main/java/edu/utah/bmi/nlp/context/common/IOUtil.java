@@ -271,6 +271,7 @@ public class IOUtil {
         }
         switch (cells.get(0).substring(0, 2)) {
             case "@C":
+            case "&C":
 //                @CONCEPT_FEATURES
                 if (cells.size() < 3) {
                     System.err.println("Rule format error: " + cells);
@@ -286,6 +287,7 @@ public class IOUtil {
                 }
                 break;
             case "@F":
+            case "&F":
 //                @FEATURE_VALUES
                 if (cells.size() < 2) {
                     System.err.println("Rule format error: " + cells);
