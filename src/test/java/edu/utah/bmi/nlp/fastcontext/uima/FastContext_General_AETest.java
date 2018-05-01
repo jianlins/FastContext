@@ -102,4 +102,35 @@ public class FastContext_General_AETest {
 			System.out.println(context.toString());
 		}
 	}
+
+	@Test
+	public void test3() throws AnalysisEngineProcessException, ResourceInitializationException {
+		String text = "1.CAD, s/p MI: currently stable.";
+		String targetWords = "MI";
+		jCas.setDocumentText(text);
+		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_CONTEXT_RULES_STR, "@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer\n" +
+				"@FEATURE_VALUES|Negation|affirm|negated\n" +
+				"@FEATURE_VALUES|Certainty|certain|uncertain\n" +
+				"@FEATURE_VALUES|Temporality|present|historical|hypothetical\n" +
+				"@FEATURE_VALUES|Experiencer|patient|nonpatient\n" +
+				"s / p|both|trigger|historical|10\n" +
+				"currently|both|termination|historical|10\n" +
+				"currently|both|trigger|present|30",
+				FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+		fastContext_AE = createEngine(FastContext_General_AE.class,
+				configurationData);
+		simpleParser_AE.process(jCas);
+		int begin = text.indexOf(targetWords);
+		int end = begin + targetWords.length();
+		Concept concept = new Concept(jCas, begin, end);
+		concept.addToIndexes();
+		fastContext_AE.process(jCas);
+		Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
+		for(Concept target:targets){
+			System.out.println(target.toString());
+		}
+		for (Context context:JCasUtil.select(jCas,Context.class)){
+			System.out.println(context.toString());
+		}
+	}
 }
