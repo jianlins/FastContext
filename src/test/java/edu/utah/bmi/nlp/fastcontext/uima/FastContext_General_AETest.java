@@ -133,4 +133,42 @@ public class FastContext_General_AETest {
 			System.out.println(context.toString());
 		}
 	}
+
+	@Test
+	public void test4() throws AnalysisEngineProcessException, ResourceInitializationException {
+		String text = "Pain was 6/10 at worst, unchanged with exertion and similar in quality (albeit less intense) to pain during STEMI.";
+		String targetWords = "STEMI";
+		jCas.setDocumentText(text);
+		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_CONTEXT_RULES_STR, "@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer\n" +
+				"@FEATURE_VALUES|Negation|affirm|negated\n" +
+				"@FEATURE_VALUES|Certainty|certain|uncertain\n" +
+				"@FEATURE_VALUES|Temporality|present|historical|hypothetical\n" +
+				"@FEATURE_VALUES|Experiencer|patient|nonpatient\n" +
+				"similar in quality \\w+ \\w+ \\w+ \\w+ \\w+ \\w+ to|forward|trigger|uncertain|20\n" +
+				"similar in quality \\w+ \\w+ \\w+ \\w+ \\w+ to|forward|trigger|uncertain|20\n" +
+				"similar in quality \\w+ \\w+ \\w+ \\w+ to|forward|trigger|uncertain|20\n" +
+				"similar in quality \\w+ \\w+ \\w+ to|forward|trigger|uncertain|20\n" +
+				"similar in quality \\w+ \\w+ to|forward|trigger|uncertain|20\n" +
+				"similar in quality \\w+ to|forward|trigger|uncertain|15\n" +
+				"similar \\w+ \\w+ \\w+ to|forward|trigger|uncertain|15\n" +
+				"similar \\w+ \\w+ to|forward|trigger|uncertain|8\n" +
+				"similar \\w+ to|forward|trigger|uncertain|8\n" +
+				"similar to|forward|trigger|uncertain|8\n",
+				FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+		fastContext_AE = createEngine(FastContext_General_AE.class,
+				configurationData);
+		simpleParser_AE.process(jCas);
+		int begin = text.indexOf(targetWords);
+		int end = begin + targetWords.length();
+		Concept concept = new Concept(jCas, begin, end);
+		concept.addToIndexes();
+		fastContext_AE.process(jCas);
+		Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
+		for(Concept target:targets){
+			System.out.println(target.toString());
+		}
+		for (Context context:JCasUtil.select(jCas,Context.class)){
+			System.out.println(context.toString());
+		}
+	}
 }
