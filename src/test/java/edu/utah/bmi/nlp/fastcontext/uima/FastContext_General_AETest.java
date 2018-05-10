@@ -52,7 +52,7 @@ public class FastContext_General_AETest {
 		runner.reInitTypeSystem("target/generated-test-sources/customized");
 		jCas = runner.initJCas();
 //      Set up the parameters
-		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_CONTEXT_RULES_STR, "conf/context.tsv",
+		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR, "conf/context.tsv",
 				FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
 		try {
 			fastContext_AE = createEngine(FastContext_General_AE.class,
@@ -108,7 +108,7 @@ public class FastContext_General_AETest {
 		String text = "1.CAD, s/p MI: currently stable.";
 		String targetWords = "MI";
 		jCas.setDocumentText(text);
-		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_CONTEXT_RULES_STR, "@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer\n" +
+		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR, "@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer\n" +
 				"@FEATURE_VALUES|Negation|affirm|negated\n" +
 				"@FEATURE_VALUES|Certainty|certain|uncertain\n" +
 				"@FEATURE_VALUES|Temporality|present|historical|hypothetical\n" +
@@ -139,7 +139,7 @@ public class FastContext_General_AETest {
 		String text = "Pain was 6/10 at worst, unchanged with exertion and similar in quality (albeit less intense) to pain during STEMI.";
 		String targetWords = "STEMI";
 		jCas.setDocumentText(text);
-		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_CONTEXT_RULES_STR, "@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer\n" +
+		Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR, "@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer\n" +
 				"@FEATURE_VALUES|Negation|affirm|negated\n" +
 				"@FEATURE_VALUES|Certainty|certain|uncertain\n" +
 				"@FEATURE_VALUES|Temporality|present|historical|hypothetical\n" +

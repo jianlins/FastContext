@@ -18,9 +18,15 @@
 package edu.utah.bmi.nlp.fastcontext.uima;
 
 import edu.utah.bmi.nlp.context.common.ConTextSpan;
-import edu.utah.bmi.nlp.core.*;
+import edu.utah.bmi.nlp.core.DeterminantValueSet;
+import edu.utah.bmi.nlp.core.IOUtil;
+import edu.utah.bmi.nlp.core.IntervalST;
+import edu.utah.bmi.nlp.core.Interval1D;
+import edu.utah.bmi.nlp.core.TypeDefinition;
+import edu.utah.bmi.nlp.core.WildCardChecker;
 import edu.utah.bmi.nlp.type.system.ConceptBASE;
 import edu.utah.bmi.nlp.type.system.Context;
+import edu.utah.bmi.nlp.uima.ae.RuleBasedAEInf;
 import edu.utah.bmi.nlp.uima.common.AnnotationComparator;
 import edu.utah.bmi.nlp.uima.common.AnnotationOper;
 import org.apache.uima.UimaContext;
@@ -43,10 +49,10 @@ import java.util.logging.Logger;
  * @author Jianlin Shi
  */
 public class FastContext_General_AE
-        extends JCasAnnotator_ImplBase {
+        extends JCasAnnotator_ImplBase implements RuleBasedAEInf {
     public static Logger logger = IOUtil.getLogger(FastContext_General_AE.class);
 
-    public static final String PARAM_CONTEXT_RULES_STR = "ContextRulesStr";
+    public static final String PARAM_RULE_STR = DeterminantValueSet.PARAM_RULE_STR;
     public static final String PARAM_SENTENCE_TYPE_NAME = "SentenceTypeName";
     public static final String PARAM_TOKEN_TYPE_NAME = "TokenTypeName";
     public static final String PARAM_CASE_INSENSITIVE = "CaseInsensitive";
@@ -74,7 +80,7 @@ public class FastContext_General_AE
             e.printStackTrace();
         }
         String contextRuleStr = (String) (cont
-                .getConfigParameterValue(PARAM_CONTEXT_RULES_STR));
+                .getConfigParameterValue(PARAM_RULE_STR));
         sentenceTypeName = DeterminantValueSet.defaultNameSpace + "Sentence";
         tokenTypeName = DeterminantValueSet.defaultNameSpace + "Token";
 
