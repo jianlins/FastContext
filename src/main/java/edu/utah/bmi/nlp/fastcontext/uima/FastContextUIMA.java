@@ -41,12 +41,12 @@ public class FastContextUIMA extends FastContext {
 		initiate(ruleFile);
 	}
 
-	public FastContextUIMA(String ruleFile, boolean lowerCase) {
-		initiate(ruleFile, lowerCase);
+	public FastContextUIMA(String ruleFile, boolean caseSensitive) {
+		initiate(ruleFile, caseSensitive);
 	}
 
-	public FastContextUIMA(ArrayList<String> ruleslist, boolean lowerCase) {
-		initiate(ruleslist, lowerCase);
+	public FastContextUIMA(ArrayList<String> ruleslist, boolean caseSensitive) {
+		initiate(ruleslist, caseSensitive);
 	}
 
 
@@ -63,7 +63,7 @@ public class FastContextUIMA extends FastContext {
 
 	public void initiate(ArrayList<String> rulesList, boolean caseInsensitive) {
 		crp = new UIMAContextRuleProcessor(rulesList);
-		crp.setCaseInsensitive(caseInsensitive);
+		crp.setCaseSensitive(caseInsensitive);
 		logger.fine(crp.getClass().getCanonicalName());
 	}
 

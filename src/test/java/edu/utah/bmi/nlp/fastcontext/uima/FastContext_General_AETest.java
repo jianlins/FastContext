@@ -65,7 +65,7 @@ public class FastContext_General_AETest {
 
 	@Test
 	public void test() throws AnalysisEngineProcessException {
-		String text = "The patient denies any problem with visual changes or hearing changes.";
+		String text = "The patient Denies any problem with visual changes or hearing changes.";
 		String targetWords = "visual changes";
 		jCas.setDocumentText(text);
 		simpleParser_AE.process(jCas);

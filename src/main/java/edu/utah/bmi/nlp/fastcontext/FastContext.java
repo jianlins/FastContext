@@ -25,7 +25,6 @@ import edu.utah.bmi.nlp.core.IOUtil;
 import edu.utah.bmi.nlp.core.SimpleParser;
 import edu.utah.bmi.nlp.core.Span;
 import edu.utah.bmi.nlp.core.TypeDefinition;
-import edu.utah.bmi.nlp.fastcontext.uima.FastContext_General_AE;
 import org.apache.uima.jcas.tcas.Annotation;
 
 import java.util.*;
@@ -66,7 +65,7 @@ public class FastContext implements ConTextAdvancedInterface {
 
 	public void initiate(ArrayList<String> rulesList, boolean caseInsensitive) {
 		crp = new ContextRuleProcessor(rulesList);
-		crp.setCaseInsensitive(caseInsensitive);
+		crp.setCaseSensitive(caseInsensitive);
 	}
 
 
@@ -285,11 +284,11 @@ public class FastContext implements ConTextAdvancedInterface {
 		return value;
 	}
 
-	public HashMap<String, TypeDefinition> getTypeDefinitions() {
+	public LinkedHashMap<String, TypeDefinition> getTypeDefinitions() {
 		return crp.conceptFeaturesMap;
 	}
 
-	public HashMap<String, String> getFeatureDefaultValueMap() {
+	public LinkedHashMap<String, String> getFeatureDefaultValueMap() {
 		return crp.featureDefaultValueMap;
 	}
 

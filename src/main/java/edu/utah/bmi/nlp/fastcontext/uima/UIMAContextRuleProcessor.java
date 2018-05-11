@@ -42,8 +42,8 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
         super(ruleslist);
     }
 
-    public UIMAContextRuleProcessor(String ruleFileName, boolean caseInsensitive) {
-        super(ruleFileName, caseInsensitive);
+    public UIMAContextRuleProcessor(String ruleFileName, boolean caseSensitive) {
+        super(ruleFileName, caseSensitive);
     }
 
     public UIMAContextRuleProcessor(ArrayList<String> ruleslist, boolean caseInsensitive) {
@@ -79,7 +79,7 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
                 processTokensWRules(contextTokens, rule, matchBegin, currentPosition + 1, matches);
                 return;
             }
-            if (caseInsensitive)
+            if (!caseSensitive)
                 thisToken = thisToken.toLowerCase();
 //			System.out.println("thisToken-"+thisToken+"<");
             if (rule.containsKey("\\w+")) {
@@ -107,7 +107,7 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
     protected void processDigitTokens(List<Annotation> contextTokens, HashMap rule, int matchBegin, int currentPosition,
                                       LinkedHashMap<String, ConTextSpan> matches) {
         String thisToken=contextTokens.get(currentPosition).getCoveredText();
-        if(caseInsensitive)
+        if(!caseSensitive)
             thisToken=thisToken.toLowerCase();
         mt = pdigit.matcher(thisToken);
         if (mt.find()) {

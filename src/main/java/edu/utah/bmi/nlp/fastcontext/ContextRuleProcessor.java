@@ -41,10 +41,10 @@ public class ContextRuleProcessor {
     public HashMap<String, String> valueFeatureNameMap = new HashMap<>();
 
     //  given a feature name as the map key, return its default value as the map value.
-    public HashMap<String, String> featureDefaultValueMap = new HashMap<>();
+    public LinkedHashMap<String, String> featureDefaultValueMap = new LinkedHashMap<>();
 
     //  give a concept name as the map key, return a set of feature names as the map value.
-    public HashMap<String, TypeDefinition> conceptFeaturesMap = new HashMap<>();
+    public LinkedHashMap<String, TypeDefinition> conceptFeaturesMap = new LinkedHashMap<>();
 
     //   the nested map structure for rule processing
     protected HashMap rulesMap = new HashMap();
@@ -55,7 +55,7 @@ public class ContextRuleProcessor {
     protected Pattern pdigit;
     protected Matcher mt;
     protected final String END = "<END>";
-    protected boolean caseInsensitive = false;
+    protected boolean caseSensitive = false;
 
     public ContextRuleProcessor(String ruleFileName) {
 //        TODO check | or \\|
@@ -74,21 +74,21 @@ public class ContextRuleProcessor {
     }
 
 
-    public ContextRuleProcessor(String ruleFileName, boolean caseInsensitive) {
+    public ContextRuleProcessor(String ruleFileName, boolean caseSensitive) {
         IOUtil.readAgnosticRuleResource(ruleFileName, "|", rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
-        this.caseInsensitive = caseInsensitive;
+        this.caseSensitive = caseSensitive;
         initiate(rules);
     }
 
     public ContextRuleProcessor(ArrayList<String> ruleslist, boolean caseInsensitive) {
         IOUtil.readStringList(ruleslist, "|", rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
-        this.caseInsensitive = caseInsensitive;
+        this.caseSensitive = caseInsensitive;
         initiate(rules);
     }
 
 
-    public void setCaseInsensitive(boolean CaseInsensitive) {
-        this.caseInsensitive = CaseInsensitive;
+    public void setCaseSensitive(boolean CaseInsensitive) {
+        this.caseSensitive = CaseInsensitive;
     }
 
 
@@ -121,7 +121,7 @@ public class ContextRuleProcessor {
         HashMap rule1 = rulesMap;
         HashMap rule2 = new HashMap();
         HashMap rulet = new HashMap();
-        if (caseInsensitive)
+        if (!caseSensitive)
             rule.rule = rule.rule.toLowerCase();
         String[] ruleContent = rule.rule.split("[\\s　]+");
         int length = ruleContent.length;
@@ -173,7 +173,7 @@ public class ContextRuleProcessor {
         // use the first "startposition" to remember the original start matching
         // position.
         // use the 2nd one to remember the start position in which recursion.
-        if (caseInsensitive)
+        if (!caseSensitive)
             for (int i = startposition; i < contextTokens.size(); i++) {
                 contextTokens.get(i).text = contextTokens.get(i).text.toLowerCase();
             }

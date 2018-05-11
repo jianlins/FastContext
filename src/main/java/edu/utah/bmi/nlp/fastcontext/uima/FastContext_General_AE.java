@@ -55,7 +55,7 @@ public class FastContext_General_AE
     public static final String PARAM_RULE_STR = DeterminantValueSet.PARAM_RULE_STR;
     public static final String PARAM_SENTENCE_TYPE_NAME = "SentenceTypeName";
     public static final String PARAM_TOKEN_TYPE_NAME = "TokenTypeName";
-    public static final String PARAM_CASE_INSENSITIVE = "CaseInsensitive";
+    public static final String PARAM_CASE_SENSITIVE = DeterminantValueSet.PARAM_CASE_SENSITIVE;
     public static final String PARAM_MARK_CLUE = "MarkClues";
     public static final String PARAM_AUTO_EXPAND_SCOPE = "AutoExpanScope";
     @Deprecated
@@ -70,7 +70,7 @@ public class FastContext_General_AE
     @Deprecated
     private boolean debug;
     //  if the sentence is happened to segmented too short. Expand cp to  one sentence backwards and one sentence forwards.
-    private boolean autoExpanScope = true, setCaseInsensitive = true, markClues = false;
+    private boolean autoExpanScope = true, caseSensitive = false, markClues = false;
 
     @Override
     public void initialize(UimaContext cont) {
@@ -99,9 +99,9 @@ public class FastContext_General_AE
         }
 
 
-        paraObj = cont.getConfigParameterValue(PARAM_CASE_INSENSITIVE);
+        paraObj = cont.getConfigParameterValue(PARAM_CASE_SENSITIVE);
         if (paraObj != null && paraObj instanceof Boolean) {
-            setCaseInsensitive = (Boolean) paraObj;
+            caseSensitive = (Boolean) paraObj;
         }
 
         paraObj = cont.getConfigParameterValue(PARAM_AUTO_EXPAND_SCOPE);
@@ -114,7 +114,7 @@ public class FastContext_General_AE
             markClues = (Boolean) paraObj;
         }
 
-        cp = new FastContextUIMA(contextRuleStr, setCaseInsensitive);
+        cp = new FastContextUIMA(contextRuleStr, caseSensitive);
 
         HashMap<String, TypeDefinition> conceptFeatureMap = cp.getTypeDefinitions();
         for (String conceptName : conceptFeatureMap.keySet()) {
@@ -309,9 +309,21 @@ public class FastContext_General_AE
 
     }
 
+    /**
+     * Because implement a reinforced interface method (static is not reinforced), this is deprecated, just to
+     * enable back-compatibility.
+     *
+     * @param ruleStr Rule file path or rule content string
+     * @return Type name--Type definition map
+     */
+    @Deprecated
     public static HashMap<String, TypeDefinition> getTypeDefinitions(String ruleStr, boolean caseInsensitive) {
         return new FastContextUIMA(ruleStr, caseInsensitive).getTypeDefinitions();
     }
 
 
+    @Override
+    public LinkedHashMap<String, TypeDefinition> getTypeDefs(String ruleStr) {
+        return new FastContextUIMA(ruleStr, false).getTypeDefinitions();
+    }
 }
