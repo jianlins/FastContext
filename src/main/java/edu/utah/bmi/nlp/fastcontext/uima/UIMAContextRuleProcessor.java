@@ -111,20 +111,20 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
             thisToken=thisToken.toLowerCase();
         mt = pdigit.matcher(thisToken);
         if (mt.find()) {
-            int thisDigit;
+            double thisDigit;
 //			prevent length over limit
             if (mt.group(1).length() < 4) {
-                thisDigit = Integer.parseInt(mt.group(1));
+                thisDigit = Double.parseDouble(mt.group(1));
             } else {
                 thisDigit = 1000;
             }
             Set<String> numbers = rule.keySet();
             for (String num : numbers) {
-                int ruleDigit = Integer.parseInt(num);
+                double ruleDigit = Double.parseDouble(num);
                 if (thisDigit > ruleDigit) {
                     if (mt.group(2) == null) {
                         // if this token is a number
-                        processTokensWRules(contextTokens, (HashMap) rule.get(ruleDigit + ""), matchBegin, currentPosition + 1, matches);
+                        processTokensWRules(contextTokens, (HashMap) rule.get(num), matchBegin, currentPosition + 1, matches);
                     } else {
                         // thisToken is like "30-days"
                         HashMap ruletmp = (HashMap) rule.get(ruleDigit + "");
