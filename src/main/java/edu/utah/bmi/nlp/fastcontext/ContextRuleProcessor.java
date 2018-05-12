@@ -96,7 +96,7 @@ public class ContextRuleProcessor {
         this.rules = rules;
         rulesMap.clear();
         if (pdigit == null)
-            pdigit = Pattern.compile("(\\d+)(-\\w+)?");
+            pdigit = Pattern.compile("(\\d+\\.?\\d+?)(-\\w+)?");
         for (ContextRule rule : rules.values()) {
             if (rule.getDirection() == TriggerTypes.both) {
                 rule.setDirection(TriggerTypes.forward);
@@ -238,20 +238,21 @@ public class ContextRuleProcessor {
                                  LinkedHashMap<String, ConTextSpan> matches) {
         mt = pdigit.matcher(contextTokens.get(currentPosition).text);
         if (mt.find()) {
-            int thisDigit;
+            double thisDigit;
 //			prevent length over limit
             if (mt.group(1).length() < 4) {
-                thisDigit = Integer.parseInt(mt.group(1));
+                String a=mt.group(1);
+                thisDigit = Double.parseDouble(mt.group(1));
             } else {
                 thisDigit = 1000;
             }
             Set<String> numbers = rule.keySet();
             for (String num : numbers) {
-                int ruleDigit = Integer.parseInt(num);
+                double ruleDigit = Double.parseDouble(num);
                 if (thisDigit > ruleDigit) {
                     if (mt.group(2) == null) {
                         // if this token is a number
-                        processRules(contextTokens, (HashMap) rule.get(ruleDigit + ""), matchBegin, currentPosition + 1, matches);
+                        processRules(contextTokens, (HashMap) rule.get(num), matchBegin, currentPosition + 1, matches);
                     } else {
                         // thisToken is like "30-days"
                         HashMap ruletmp = (HashMap) rule.get(ruleDigit + "");

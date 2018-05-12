@@ -68,5 +68,20 @@ public class TestFastContextAPIs2 {
 		assert (conTextSpan.ruleId == -1);
 	}
 
+	@Test
+	public void test2() {
+		ArrayList<String> rules = new ArrayList<>();
+		rules.add("@CONCEPT_FEATURES|Concept|Percentage");
+		rules.add("@FEATURE_VALUES|Percentage|yes|no");
+		rules.add("( > 0 %) |backward|trigger|no|10");
+		fc = new FastContext(rules, true);
+//        fc.debug=true;
+		inputString = "538 patients (5.1%) ";
+		ArrayList<Span> sent = SimpleParser.tokenizeDecimalSmart(inputString,true);
+		LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 0, 1, inputString);
+		ConTextSpan conTextSpan = matches.get("Percentage");
+		assert (conTextSpan.begin>0);
+	}
+
 
 }
