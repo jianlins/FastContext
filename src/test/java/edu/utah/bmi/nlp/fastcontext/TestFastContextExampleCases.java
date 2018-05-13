@@ -209,6 +209,8 @@ public class TestFastContextExampleCases {
 
     }
 
+
+
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {
         ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
         LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(sent, conceptBegin, conceptEnd, inputString, 30);

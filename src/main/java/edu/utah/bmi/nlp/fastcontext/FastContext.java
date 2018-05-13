@@ -170,16 +170,18 @@ public class FastContext implements ConTextAdvancedInterface {
 	}
 
 
-	protected void applyConTexts(List<Span> tokens, HashMap<String, ConTextSpan> matchedRules, LinkedHashMap<String, ConTextSpan> contexts, TriggerTypes direction, int conceptBegin) {
+	protected void applyConTexts(List<Span> tokens, HashMap<String, ConTextSpan> matchedRules,
+								 LinkedHashMap<String, ConTextSpan> contexts, TriggerTypes direction,
+								 int conceptBegin) {
 		for (Map.Entry<String, ConTextSpan> ent : matchedRules.entrySet()) {
 			ContextRule matchedRule = crp.rules.get(ent.getValue().ruleId);
 			ConTextSpan relativeSpan = ent.getValue();
 			if (matchedRule.triggerType == TriggerTypes.trigger && relativeSpan.matchedDirection == direction) {
 				if (direction == TriggerTypes.forward || direction == TriggerTypes.both) {
-					if (conceptBegin - ent.getValue().begin <= matchedRule.windowSize)
+					if (conceptBegin - ent.getValue().end <= matchedRule.windowSize)
 						contexts.put(matchedRule.modifier, new ConTextSpan(tokens.get(relativeSpan.begin).begin, tokens.get(relativeSpan.end).end, relativeSpan.ruleId));
 				} else if (direction == TriggerTypes.backward || direction == TriggerTypes.both) {
-					if (ent.getValue().end <= matchedRule.windowSize) {
+					if (ent.getValue().begin <= matchedRule.windowSize) {
 						contexts.put(matchedRule.modifier, new ConTextSpan(tokens.get(relativeSpan.begin).begin, tokens.get(relativeSpan.end).end, relativeSpan.ruleId));
 					}
 				}
