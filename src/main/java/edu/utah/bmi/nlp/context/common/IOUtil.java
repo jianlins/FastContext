@@ -19,6 +19,7 @@ package edu.utah.bmi.nlp.context.common;
 
 import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
 import edu.utah.bmi.nlp.core.TypeDefinition;
+import edu.utah.bmi.nlp.fastcontext.FastContext;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -316,8 +317,12 @@ public class IOUtil {
                 if (cells.size() > 4)
                     windowSize = (int) Double.parseDouble(cells.get(4));
 
-                rules.put(id, new ContextRule(TriggerTypes.valueOf(direction), TriggerTypes.valueOf(triggerType), determinant, modifier,
-                        ruleString, id, windowSize));
+                if (valueFeatureNameMap.size() == 0 || valueFeatureNameMap.containsKey(modifier)) {
+                    rules.put(id, new ContextRule(TriggerTypes.valueOf(direction), TriggerTypes.valueOf(triggerType), determinant, modifier,
+                            ruleString, id, windowSize));
+                } else {
+                    FastContext.logger.finest("Rule " + id + " " + cells + " has the modifier value not defined in the setting, skip this rule.");
+                }
                 break;
 //                TODO need some key-value pair completeness check for the maps
         }
