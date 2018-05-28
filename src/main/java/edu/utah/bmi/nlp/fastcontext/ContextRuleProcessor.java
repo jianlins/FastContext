@@ -38,7 +38,12 @@ import java.util.regex.Pattern;
 public class ContextRuleProcessor {
 
     //  given a feature value as the map key, return its corresponding feature name as the map value.
-    public HashMap<String, String> valueFeatureNameMap = new HashMap<>();
+    public LinkedHashMap<String, String> valueFeatureNameMap = new LinkedHashMap<>();
+
+    //  given a feature value as the map key, return its corresponding weight according to the order in the feature
+    // definition, righter ones have higher weights.
+    public HashMap<String, Integer> valueWeightMap = new HashMap<>();
+
 
     //  given a feature name as the map key, return its default value as the map value.
     public LinkedHashMap<String, String> featureDefaultValueMap = new LinkedHashMap<>();
@@ -93,6 +98,20 @@ public class ContextRuleProcessor {
 
 
     protected void initiate(LinkedHashMap<Integer, ContextRule> rules) {
+        String currentFeatureName = "";
+        int weight = 0;
+        for (Map.Entry<String, String> entry : valueFeatureNameMap.entrySet()) {
+            String value = entry.getKey();
+            String featureName = entry.getValue();
+            if (!featureName.equals(currentFeatureName)) {
+                weight = 0;
+                currentFeatureName=featureName;
+            } else {
+                weight += 1;
+            }
+            valueWeightMap.put(value, weight);
+
+        }
         this.rules = rules;
         rulesMap.clear();
         if (pdigit == null)
@@ -241,7 +260,7 @@ public class ContextRuleProcessor {
             double thisDigit;
 //			prevent length over limit
             if (mt.group(1).length() < 4) {
-                String a=mt.group(1);
+                String a = mt.group(1);
                 thisDigit = Double.parseDouble(mt.group(1));
             } else {
                 thisDigit = 1000;

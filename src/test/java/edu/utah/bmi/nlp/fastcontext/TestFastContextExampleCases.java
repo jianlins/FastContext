@@ -210,6 +210,22 @@ public class TestFastContextExampleCases {
     }
 
 
+    @Test
+    public void testMixContext6(){
+        rules.clear();
+        rules.add("currently|both|trigger|current|30");
+        rules.add("in the past|both|trigger|historical|30");
+        fc = new FastContext(rules, true);
+        fc.debug=true;
+        inputString = "no vomiting currently , although she did in the past .";
+        assert(eval(inputString, 1, 1, "current", "currently"));
+        assert(eval(inputString, 1, 1, "historical", "in the past"));
+//        assert (eval(inputString, 4, 4, "negated", "denied"));
+
+    }
+
+
+
 
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {
         ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
