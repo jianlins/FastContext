@@ -30,29 +30,29 @@
 
 
 #rule string|direction|trigger type|modifier|window size
-> 0 -month of|forward|trigger|historical|30
-> 0 -months of|forward|trigger|historical|30
-> 0 -year of|forward|trigger|historical|30
-> 0 -years of|forward|trigger|historical|30
-> 0 month ago|backward|trigger|historical|30
-> 0 month of|forward|trigger|historical|30
-> 0 months ago|backward|trigger|historical|30
-> 0 months of|forward|trigger|historical|30
-> 0 year ago|backward|trigger|historical|30
-> 0 year of|forward|trigger|historical|30
-> 0 years ago|backward|trigger|historical|30
-> 0 years of|forward|trigger|historical|30
-> 0 yrs ago|backward|trigger|historical|30
-> 1 -week of|forward|trigger|historical|30
-> 1 -weeks of|forward|trigger|historical|30
-> 1 week ago|backward|trigger|historical|30
-> 1 week of|forward|trigger|historical|30
-> 1 weeks ago|backward|trigger|historical|30
-> 1 weeks of|forward|trigger|historical|30
-> 13 -day of|forward|trigger|historical|30
-> 13 -days of|forward|trigger|historical|30
-> 13 day of|forward|trigger|historical|30
-> 13 days of|forward|trigger|historical|30
+\> 0 -month of|forward|trigger|historical|30
+\> 0 -months of|forward|trigger|historical|30
+\> 0 -year of|forward|trigger|historical|30
+\> 0 -years of|forward|trigger|historical|30
+\> 0 month ago|backward|trigger|historical|30
+\> 0 month of|forward|trigger|historical|30
+\> 0 months ago|backward|trigger|historical|30
+\> 0 months of|forward|trigger|historical|30
+\> 0 year ago|backward|trigger|historical|30
+\> 0 year of|forward|trigger|historical|30
+\> 0 years ago|backward|trigger|historical|30
+\> 0 years of|forward|trigger|historical|30
+\> 0 yrs ago|backward|trigger|historical|30
+\> 1 -week of|forward|trigger|historical|30
+\> 1 -weeks of|forward|trigger|historical|30
+\> 1 week ago|backward|trigger|historical|30
+\> 1 week of|forward|trigger|historical|30
+\> 1 weeks ago|backward|trigger|historical|30
+\> 1 weeks of|forward|trigger|historical|30
+\> 13 -day of|forward|trigger|historical|30
+\> 13 -days of|forward|trigger|historical|30
+\> 13 day of|forward|trigger|historical|30
+\> 13 days of|forward|trigger|historical|30
 : no|backward|trigger|negated|10
 \w+ no|forward|trigger|negated|10
 absence of a|backward|termination|negated|10
@@ -656,13 +656,13 @@ lack of|backward|termination|negated|10
 lack of|forward|trigger|negated|10
 lacked|backward|termination|negated|10
 lacked|forward|trigger|negated|10
-last > 0 month ago|backward|trigger|historical|30
-last > 0 months ago|backward|trigger|historical|30
-last > 0 year ago|backward|trigger|historical|30
-last > 0 years ago|backward|trigger|historical|30
-last > 0 yrs ago|backward|trigger|historical|30
-last > 1 week ago|backward|trigger|historical|30
-last > 1 weeks ago|backward|trigger|historical|30
+last \> 0 month ago|backward|trigger|historical|30
+last \> 0 months ago|backward|trigger|historical|30
+last \> 0 year ago|backward|trigger|historical|30
+last \> 0 years ago|backward|trigger|historical|30
+last \> 0 yrs ago|backward|trigger|historical|30
+last \> 1 week ago|backward|trigger|historical|30
+last \> 1 weeks ago|backward|trigger|historical|30
 last april|backward|trigger|historical|30
 last august|backward|trigger|historical|30
 last december|backward|trigger|historical|30
@@ -1350,14 +1350,14 @@ no e / o|forward|trigger|negated|10
 no h / o|backward|termination|negated|10
 no h / o|forward|trigger|negated|10
 r / o|forward|trigger|uncertain|30
-> 13 - day of|forward|trigger|historical|30
-> 13 - days of|forward|trigger|historical|30
-> 0 - month of|forward|trigger|historical|30
-> 0 - months of|forward|trigger|historical|30
-> 0 - year of|forward|trigger|historical|30
-> 0 - years of|forward|trigger|historical|30
-> 1 -week of|forward|trigger|historical|30
-> 1 -weeks of|forward|trigger|historical|30
+\> 13 - day of|forward|trigger|historical|30
+\> 13 - days of|forward|trigger|historical|30
+\> 0 - month of|forward|trigger|historical|30
+\> 0 - months of|forward|trigger|historical|30
+\> 0 - year of|forward|trigger|historical|30
+\> 0 - years of|forward|trigger|historical|30
+\> 1 -week of|forward|trigger|historical|30
+\> 1 -weeks of|forward|trigger|historical|30
 dont|forward|trigger|negated|20
 don t|forward|trigger|negated|20
 high risk for|forward|trigger|negated|20

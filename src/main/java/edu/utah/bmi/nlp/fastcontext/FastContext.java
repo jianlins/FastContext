@@ -231,7 +231,8 @@ public class FastContext implements ConTextAdvancedInterface {
                 ContextRule existingConTextRule = crp.getContextRuleById(contextFeatures.get(featureName).ruleId);
                 String existingModifier = existingConTextRule.modifier;
                 if (crp.valueWeightMap.get(existingModifier) > crp.valueWeightMap.get(modifierValue)
-                        && existingConTextRule.direction == matchedConTextRule.direction)
+//                        && existingConTextRule.direction == matchedConTextRule.direction
+                        )
                     continue;
             }
             contextFeatures.put(featureName, contexts.get(modifierValue));

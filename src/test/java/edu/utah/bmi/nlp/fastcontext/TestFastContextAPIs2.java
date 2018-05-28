@@ -73,7 +73,7 @@ public class TestFastContextAPIs2 {
 		ArrayList<String> rules = new ArrayList<>();
 		rules.add("@CONCEPT_FEATURES|Concept|Percentage");
 		rules.add("@FEATURE_VALUES|Percentage|yes|no");
-		rules.add("( > 0 %) |backward|trigger|no|10");
+		rules.add("( \\> 0 %) |backward|trigger|no|10");
 		fc = new FastContext(rules, true);
 //        fc.debug=true;
 		inputString = "538 patients (5.1%) ";

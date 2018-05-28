@@ -232,8 +232,8 @@ public class ContextRuleProcessor {
             if (rule.containsKey(thisToken)) {
                 processRules(contextTokens, (HashMap) rule.get(thisToken), matchBegin, currentPosition + 1, matches);
             }
-            if (rule.containsKey(">") && Character.isDigit(thisToken.charAt(0))) {
-                processDigits(contextTokens, (HashMap) rule.get(">"), matchBegin, currentPosition, matches);
+            if (rule.containsKey("\\>") && Character.isDigit(thisToken.charAt(0))) {
+                processDigits(contextTokens, (HashMap) rule.get("\\>"), matchBegin, currentPosition, matches);
             }
         } else if (currentPosition == contextTokens.size() && rule.containsKey(END)) {
             addDeterminants(rule, matches, matchBegin, currentPosition, contextTokens.size());
@@ -329,6 +329,10 @@ public class ContextRuleProcessor {
                                     (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) ||
                                     (contextTokenLength - currentSpan.end > getContextRuleById(id).windowSize))
                                 continue;
+                            else if (getContextRuleById(originalSpan.ruleId).triggerType == TriggerTypes.termination &&
+                                    originalSpan.begin > currentSpan.end) {
+                                continue;
+                            }
                         } else if ((originalSpan.begin > currentSpan.end) ||
                                 (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) ||
                                 (contextTokenLength - currentSpan.end > getContextRuleById(id).windowSize)) {
@@ -341,6 +345,10 @@ public class ContextRuleProcessor {
                                     (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) ||
                                     (currentSpan.begin > getContextRuleById(id).windowSize))
                                 continue;
+                            else if (getContextRuleById(originalSpan.ruleId).triggerType == TriggerTypes.termination &&
+                                    originalSpan.end < currentSpan.begin) {
+                                continue;
+                            }
                         } else if ((originalSpan.end < currentSpan.begin) ||
                                 (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) ||
                                 (currentSpan.begin > getContextRuleById(id).windowSize)) {
