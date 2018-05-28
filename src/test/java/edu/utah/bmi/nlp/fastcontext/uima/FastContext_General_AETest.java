@@ -252,4 +252,41 @@ public class FastContext_General_AETest {
             System.out.println(context.toString());
         }
     }
+
+    @Test
+    public void test7() throws AnalysisEngineProcessException, ResourceInitializationException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        String text = "no vomiting, nausea, cough now, but he does have fever currently.\n";
+        String rules = "@CONCEPT_FEATURES|CLUE|Negation|Certainty|Temporality\n" +
+                "@FEATURE_VALUES|Negation|affirm|negated\n" +
+                "@FEATURE_VALUES|Certainty|certain|uncertain\n" +
+                "@FEATURE_VALUES|Temporality|present|historical|hypothetical\n" +
+                "currently|both|trigger|historical|11\n" +
+                "now|both|trigger|historical|3";
+        String targetWords = "vomiting";
+        runner.addConceptTypes(FastContext_General_AE.getTypeDefinitions(rules, true).values());
+        runner.reInitTypeSystem("target/generated-test-sources/customized");
+        jCas = runner.initJCas();
+        jCas.setDocumentText(text);
+        Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR,
+                rules,
+                FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+        fastContext_AE = createEngine(FastContext_General_AE.class,
+                configurationData);
+
+        simpleParser_AE.process(jCas);
+        int begin = text.indexOf(targetWords);
+        int end = begin + targetWords.length();
+        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
+        Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
+        Concept concept = cons.newInstance(jCas, begin, end);
+        concept.addToIndexes();
+        fastContext_AE.process(jCas);
+        Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
+        for (Concept target : targets) {
+            System.out.println(target.toString());
+        }
+        for (Context context : JCasUtil.select(jCas, Context.class)) {
+            System.out.println(context.toString());
+        }
+    }
 }

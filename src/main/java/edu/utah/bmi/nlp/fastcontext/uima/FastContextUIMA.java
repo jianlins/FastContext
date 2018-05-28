@@ -134,6 +134,9 @@ public class FastContextUIMA extends FastContext {
 //
 //                        } else
                         contexts.put(matchedRule.modifier, new ConTextSpan(tokens.get(relativeSpan.begin).getBegin(), tokens.get(relativeSpan.end).getEnd(), relativeSpan.ruleId));
+                    } else if (contexts.containsKey(matchedRule.modifier)) {
+                        if(contexts.get(matchedRule.modifier).winBegin>ent.getValue().begin)
+                            contexts.put(matchedRule.modifier, new ConTextSpan(tokens.get(relativeSpan.begin).getBegin(), tokens.get(relativeSpan.end).getEnd(), relativeSpan.ruleId));
                     }
                 }
 

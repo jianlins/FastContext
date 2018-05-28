@@ -105,7 +105,7 @@ public class ContextRuleProcessor {
             String featureName = entry.getValue();
             if (!featureName.equals(currentFeatureName)) {
                 weight = 0;
-                currentFeatureName=featureName;
+                currentFeatureName = featureName;
             } else {
                 weight += 1;
             }
@@ -317,19 +317,31 @@ public class ContextRuleProcessor {
             int id = (Integer) matchedRules.get(key);
             char matchedDirection = key.charAt(0);
             ConTextSpan currentSpan = new ConTextSpan(matchBegin, currentPosition - 1, id);
+            currentSpan.winBegin = currentSpan.begin - rules.get(id).windowSize;
+            currentSpan.winEnd = currentSpan.end + rules.get(id).windowSize;
             currentSpan.matchedDirection = matchedDirection == 'f' ? TriggerTypes.forward : TriggerTypes.backward;
             if (matches.containsKey(key)) {
                 originalSpan = matches.get(key);
                 switch (matchedDirection) {
                     case 'f':
-                        if ((originalSpan.begin > currentSpan.end) ||
+                        if (getContextRuleById(currentSpan.ruleId).triggerType == TriggerTypes.trigger) {
+                            if (originalSpan.winEnd > currentSpan.winEnd ||
+                                    (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) ||
+                                    (contextTokenLength - currentSpan.end > getContextRuleById(id).windowSize))
+                                continue;
+                        } else if ((originalSpan.begin > currentSpan.end) ||
                                 (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) ||
                                 (contextTokenLength - currentSpan.end > getContextRuleById(id).windowSize)) {
                             continue;
                         }
                         break;
                     case 'b':
-                        if ((originalSpan.end < currentSpan.begin) ||
+                        if (getContextRuleById(currentSpan.ruleId).triggerType == TriggerTypes.trigger) {
+                            if (originalSpan.winBegin < currentSpan.winBegin ||
+                                    (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) ||
+                                    (currentSpan.begin > getContextRuleById(id).windowSize))
+                                continue;
+                        } else if ((originalSpan.end < currentSpan.begin) ||
                                 (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) ||
                                 (currentSpan.begin > getContextRuleById(id).windowSize)) {
                             continue;
