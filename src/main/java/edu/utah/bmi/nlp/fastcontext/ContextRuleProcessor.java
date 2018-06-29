@@ -115,7 +115,7 @@ public class ContextRuleProcessor {
         this.rules = rules;
         rulesMap.clear();
         if (pdigit == null)
-            pdigit = Pattern.compile("(\\d+\\.?\\d+?)(-\\w+)?");
+            pdigit = Pattern.compile("(\\d+\\.?\\d?+)(-\\w+)?");
         for (ContextRule rule : rules.values()) {
             if (rule.getDirection() == TriggerTypes.both) {
                 rule.setDirection(TriggerTypes.forward);
@@ -316,15 +316,21 @@ public class ContextRuleProcessor {
             ConTextSpan originalSpan = null;
             int id = (Integer) matchedRules.get(key);
             char matchedDirection = key.charAt(0);
+            ContextRule matchedContextRule = getContextRuleById(id);
             ConTextSpan currentSpan = new ConTextSpan(matchBegin, currentPosition - 1, id);
-            currentSpan.winBegin = currentSpan.begin - rules.get(id).windowSize;
-            currentSpan.winEnd = currentSpan.end + rules.get(id).windowSize;
+            if (matchedContextRule.triggerType == TriggerTypes.termination) {
+                currentSpan.winBegin = currentSpan.begin;
+                currentSpan.winEnd = currentSpan.end;
+            } else {
+                currentSpan.winBegin = currentSpan.begin - rules.get(id).windowSize;
+                currentSpan.winEnd = currentSpan.end + rules.get(id).windowSize;
+            }
             currentSpan.matchedDirection = matchedDirection == 'f' ? TriggerTypes.forward : TriggerTypes.backward;
             if (matches.containsKey(key)) {
                 originalSpan = matches.get(key);
                 switch (matchedDirection) {
                     case 'f':
-                        if (getContextRuleById(currentSpan.ruleId).triggerType == TriggerTypes.trigger) {
+                        if (matchedContextRule.triggerType == TriggerTypes.trigger) {
                             if (originalSpan.winEnd > currentSpan.winEnd ||
                                     (originalSpan.width > currentSpan.width && originalSpan.end >= currentSpan.end) ||
                                     (contextTokenLength - currentSpan.end > getContextRuleById(id).windowSize))
@@ -340,7 +346,7 @@ public class ContextRuleProcessor {
                         }
                         break;
                     case 'b':
-                        if (getContextRuleById(currentSpan.ruleId).triggerType == TriggerTypes.trigger) {
+                        if (matchedContextRule.triggerType == TriggerTypes.trigger) {
                             if (originalSpan.winBegin < currentSpan.winBegin ||
                                     (originalSpan.width > currentSpan.width && originalSpan.begin <= currentSpan.begin) ||
                                     (currentSpan.begin > getContextRuleById(id).windowSize))

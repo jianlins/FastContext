@@ -198,7 +198,7 @@ public class FastContext_General_AE
             }
             Collections.sort(preContext, new AnnotationComparator());
             Collections.sort(postContext, new AnnotationComparator());
-            LinkedHashMap<String, ConTextSpan> contextInfo = cp.getFullContextFeatures(conceptClass.getSimpleName(), preContext, postContext);
+            LinkedHashMap<String, ConTextSpan> contextInfo = cp.getFullContextFeatures(conceptClass.getCanonicalName(), preContext, postContext);
             saveContext(jcas, docText, conceptClass, concept, contextInfo);
         }
     }
@@ -272,7 +272,7 @@ public class FastContext_General_AE
 
 
     private void saveContext(JCas jcas, String docText, Class conceptClass, Annotation concept, LinkedHashMap<String, ConTextSpan> contextInfo) {
-        HashMap<String, Method> featureMethods = conceptFeatures.get(conceptClass.getSimpleName());
+        HashMap<String, Method> featureMethods = conceptFeatures.get(conceptClass.getCanonicalName());
         for (String featureName : contextInfo.keySet()) {
             ConTextSpan conTextSpan = contextInfo.get(featureName);
             String value;

@@ -96,8 +96,8 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
             if (rule.containsKey(thisToken)) {
                 processTokensWRules(contextTokens, (HashMap) rule.get(thisToken), matchBegin, currentPosition + 1, matches);
             }
-            if (rule.containsKey(">") && Character.isDigit(thisToken.charAt(0))) {
-                processDigitTokens(contextTokens, (HashMap) rule.get(">"), matchBegin, currentPosition, matches);
+            if (rule.containsKey("\\>") && Character.isDigit(thisToken.charAt(0))) {
+                processDigitTokens(contextTokens, (HashMap) rule.get("\\>"), matchBegin, currentPosition, matches);
             }
         } else if (currentPosition == contextTokens.size() && rule.containsKey(END)) {
             addDeterminants(rule, matches, matchBegin, currentPosition,contextTokens.size());

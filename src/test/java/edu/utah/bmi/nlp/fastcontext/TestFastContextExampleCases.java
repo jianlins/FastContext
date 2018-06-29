@@ -138,6 +138,16 @@ public class TestFastContextExampleCases {
     }
 
 
+    @Test
+    public void testDigit() {
+        rules.clear();
+        rules.add(">|forward|trigger|negated|10");
+        rules.add("\\> 5|forward|trigger|historical|10");
+        fc = new FastContext(rules, true);
+        inputString = "He is  > 6 smoke.";
+        assert (eval(inputString, 4, 4, "negated", ">"));
+        assert (eval(inputString, 4, 4, "historical", "6"));
+    }
 
     @Test
     public void testMixContext(){
@@ -220,6 +230,18 @@ public class TestFastContextExampleCases {
         inputString = "no vomiting currently , although she did in the past .";
         assert(eval(inputString, 1, 1, "current", "currently"));
         assert(eval(inputString, 1, 1, "historical", "in the past"));
+//        assert (eval(inputString, 4, 4, "negated", "denied"));
+
+    }
+
+    @Test
+    public void testMixContext7(){
+        rules.clear();
+        rules.add("but|both|termination|negated|30");
+        rules.add("no|both|trigger|negated|30");
+        fc = new FastContext(rules, true);
+        inputString = "but there is no fever.";
+        assert(eval(inputString, 4, 4, "negated", "no"));
 //        assert (eval(inputString, 4, 4, "negated", "denied"));
 
     }

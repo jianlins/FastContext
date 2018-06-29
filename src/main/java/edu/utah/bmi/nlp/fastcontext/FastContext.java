@@ -21,10 +21,7 @@ import edu.utah.bmi.nlp.context.common.ConTextAdvancedInterface;
 import edu.utah.bmi.nlp.context.common.ConTextSpan;
 import edu.utah.bmi.nlp.context.common.ContextRule;
 import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
-import edu.utah.bmi.nlp.core.IOUtil;
-import edu.utah.bmi.nlp.core.SimpleParser;
-import edu.utah.bmi.nlp.core.Span;
-import edu.utah.bmi.nlp.core.TypeDefinition;
+import edu.utah.bmi.nlp.core.*;
 import org.apache.uima.jcas.tcas.Annotation;
 
 import java.util.*;
@@ -198,7 +195,7 @@ public class FastContext implements ConTextAdvancedInterface {
 
     public LinkedHashMap<String, ConTextSpan> updateFeaturesWEvidence(String conceptTypeName, LinkedHashMap<String, ConTextSpan> contexts) {
         LinkedHashMap<String, ConTextSpan> contextFeatures = new LinkedHashMap<>();
-
+        conceptTypeName=DeterminantValueSet.checkNameSpace(conceptTypeName);
 //      set all related features to default values
         while (!crp.conceptFeaturesMap.containsKey(conceptTypeName) && !conceptTypeName.equals(Annotation.class.getSimpleName())) {
             try {

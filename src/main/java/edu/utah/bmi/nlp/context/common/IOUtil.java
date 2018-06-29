@@ -18,6 +18,7 @@
 package edu.utah.bmi.nlp.context.common;
 
 import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
+import edu.utah.bmi.nlp.core.DeterminantValueSet;
 import edu.utah.bmi.nlp.core.TypeDefinition;
 import edu.utah.bmi.nlp.fastcontext.FastContext;
 import org.apache.commons.csv.CSVFormat;
@@ -277,7 +278,7 @@ public class IOUtil {
                 if (cells.size() < 3) {
                     System.err.println("Rule format error: " + cells);
                 } else {
-                    String conceptName = cells.get(1);
+                    String conceptName = DeterminantValueSet.checkNameSpace(cells.get(1));
                     List<String> features = cells.subList(2, cells.size());
                     if (!conceptFeaturesMap.containsKey(conceptName)) {
                         conceptFeaturesMap.put(conceptName, new TypeDefinition(conceptName, "", new ArrayList<>()));
