@@ -97,14 +97,17 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
                 processTokensWRules(contextTokens, (HashMap) rule.get(thisToken), matchBegin, currentPosition + 1, matches);
             }
             if (rule.containsKey("\\>") && Character.isDigit(thisToken.charAt(0))) {
-                processDigitTokens(contextTokens, (HashMap) rule.get("\\>"), matchBegin, currentPosition, matches);
+                processDigitTokens(contextTokens, '>',(HashMap) rule.get("\\>"), matchBegin, currentPosition, matches);
+            }
+            if (rule.containsKey("\\<") && Character.isDigit(thisToken.charAt(0))) {
+                processDigitTokens(contextTokens, '<',(HashMap) rule.get("\\<"), matchBegin, currentPosition, matches);
             }
         } else if (currentPosition == contextTokens.size() && rule.containsKey(END)) {
             addDeterminants(rule, matches, matchBegin, currentPosition,contextTokens.size());
         }
     }
 
-    protected void processDigitTokens(List<Annotation> contextTokens, HashMap rule, int matchBegin, int currentPosition,
+    protected void processDigitTokens(List<Annotation> contextTokens, char compare,HashMap rule, int matchBegin, int currentPosition,
                                       LinkedHashMap<String, ConTextSpan> matches) {
         String thisToken=contextTokens.get(currentPosition).getCoveredText();
         if(!caseSensitive)
@@ -121,7 +124,7 @@ public class UIMAContextRuleProcessor extends ContextRuleProcessor {
             Set<String> numbers = rule.keySet();
             for (String num : numbers) {
                 double ruleDigit = Double.parseDouble(num);
-                if (thisDigit > ruleDigit) {
+                if ((compare == '>' && thisDigit > ruleDigit) || (compare == '<' && thisDigit < ruleDigit)) {
                     if (mt.group(2) == null) {
                         // if this token is a number
                         processTokensWRules(contextTokens, (HashMap) rule.get(num), matchBegin, currentPosition + 1, matches);

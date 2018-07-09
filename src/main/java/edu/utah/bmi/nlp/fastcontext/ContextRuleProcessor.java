@@ -236,7 +236,7 @@ public class ContextRuleProcessor {
                 processDigits(contextTokens, '>', (HashMap) rule.get("\\>"), matchBegin, currentPosition, matches);
             }
             if (rule.containsKey("\\<") && Character.isDigit(thisToken.charAt(0))) {
-                processDigits(contextTokens, '<', (HashMap) rule.get("\\>"), matchBegin, currentPosition, matches);
+                processDigits(contextTokens, '<', (HashMap) rule.get("\\<"), matchBegin, currentPosition, matches);
             }
         } else if (currentPosition == contextTokens.size() && rule.containsKey(END)) {
             addDeterminants(rule, matches, matchBegin, currentPosition, contextTokens.size());
