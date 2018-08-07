@@ -21,7 +21,7 @@ package edu.utah.bmi.nlp.fastcontext.uima;
 import edu.utah.bmi.nlp.core.DeterminantValueSet;
 import edu.utah.bmi.nlp.type.system.Concept;
 import edu.utah.bmi.nlp.type.system.Context;
-import edu.utah.bmi.nlp.uima.AdaptableUIMACPERunner;
+import edu.utah.bmi.nlp.uima.AdaptableUIMACPETaskRunner;
 import edu.utah.bmi.nlp.uima.ae.SimpleParser_AE;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -44,13 +44,13 @@ public class FastContext_General_AETest {
 
     private AnalysisEngine fastContext_AE;
     private JCas jCas;
-    private AdaptableUIMACPERunner runner;
+    private AdaptableUIMACPETaskRunner runner;
     private AnalysisEngine simpleParser_AE;
 
     @Before
     public void setUp() {
         String typeDescriptor = "desc/type/All_Types";
-        runner = new AdaptableUIMACPERunner(typeDescriptor, "target/generated-test-sources/");
+        runner = new AdaptableUIMACPETaskRunner(typeDescriptor, "target/generated-test-sources/");
         runner.addConceptTypes(FastContext_General_AE.getTypeDefinitions("conf/context.xlsx", true).values());
         runner.reInitTypeSystem("target/generated-test-sources/customized");
         jCas = runner.initJCas();
