@@ -264,7 +264,12 @@ public class FastContext_General_AE
     private Annotation getNextSentence(ArrayList<Annotation> sentences, ArrayList<Annotation> tokens, IntervalST<Integer> sentenceIndex, int lastTokenIdfSentence) {
         if (lastTokenIdfSentence < tokens.size() - 1) {
             Annotation previousToken = tokens.get(lastTokenIdfSentence + 1);
-            return sentences.get(sentenceIndex.get(new Interval1D(previousToken.getBegin(), previousToken.getEnd())));
+            Object sentenceId = sentenceIndex.get(new Interval1D(previousToken.getBegin(), previousToken.getEnd()));
+            if (sentenceId == null) {
+                logger.warning("Token (" + previousToken.getBegin() + "-" + previousToken.getEnd() + "): " + previousToken.getCoveredText() + " doesn't have a split sentence to cover. Check your sentence splitter.");
+                return null;
+            }
+            return sentences.get((int) sentenceId);
         } else {
             return null;
         }
