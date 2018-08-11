@@ -251,6 +251,7 @@ public class ContextRuleProcessor {
      * rulesMap
      *
      * @param contextTokens   The context tokens in an ArrayList of String
+     * @param compare         great than or less than for numeric compare
      * @param rule            Constructed Rules Map
      * @param matchBegin      Keep track of the begin position of matched span
      * @param currentPosition Keep track of the position where matching starts
@@ -306,6 +307,7 @@ public class ContextRuleProcessor {
      * @param matches         Storing the matched context spans
      * @param matchBegin      Keep track of the begin position of matched span
      * @param currentPosition Keep track of the position where matching starts
+     * @param contextTokenLength  contextTokenLength
      */
     protected void addDeterminants(HashMap rule, LinkedHashMap<String, ConTextSpan> matches,
                                    int matchBegin, int currentPosition,
