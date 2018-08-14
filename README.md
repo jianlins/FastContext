@@ -28,3 +28,6 @@ If you are using FastContext within your research work, please cite the followin
 ``` 
 Shi, Jianlin, and John F. Hurdle. “Trie-Based Rule Processing for Clinical NLP: A Use-Case Study of n-Trie, Making the ConText Algorithm More Efficient and Scalable.” Journal of Biomedical Informatics, August 6, 2018. https://doi.org/10.1016/j.jbi.2018.08.002.
 ```
+
+Free full text are available at (for 50 days): 
+https://authors.elsevier.com/a/1XXom5SMDQYjA8
