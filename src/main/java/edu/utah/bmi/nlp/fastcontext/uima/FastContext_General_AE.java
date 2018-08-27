@@ -224,7 +224,13 @@ public class FastContext_General_AE
                 logger.fine(tokens.get(tokenId).getCoveredText());
             }
         }
-        int firstTokenId = tokenIndex.get(new Interval1D(i, i + 1));
+        Object value = tokenIndex.get(new Interval1D(i, i + 1));
+        //      because some sentence splitter and tokenizer doesn't work consistently, add this error check
+        while (value == null) {
+            i++;
+            value = tokenIndex.get(new Interval1D(i, i + 1));
+        }
+        int firstTokenId = (int) value;
         return firstTokenId;
     }
 
@@ -248,7 +254,13 @@ public class FastContext_General_AE
                 logger.fine(tokens.get(tokenId).getCoveredText());
             }
         }
-        int lastTokenId = tokenIndex.get(new Interval1D(i, i + 1));
+        Object value = tokenIndex.get(new Interval1D(i, i + 1));
+        //      because some sentence splitter and tokenizer doesn't work consistently, add this error check
+        while (value == null) {
+            i--;
+            value = tokenIndex.get(new Interval1D(i, i + 1));
+        }
+        int lastTokenId = (int) value;
         return lastTokenId;
     }
 
