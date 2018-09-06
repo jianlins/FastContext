@@ -24,6 +24,7 @@ For more detailed API uses, please refer to [TestFastContextAPIs.java](https://g
 ## Acknowledgement
 Special thanks to Olga Patterson and Guy Divita for contributing rules as part of the context rule set.
 
+## Citation
 If you are using FastContext within your research work, please cite the following publication:
 ``` 
 Shi, Jianlin, and John F. Hurdle. “Trie-Based Rule Processing for Clinical NLP: A Use-Case Study of n-Trie, Making the ConText Algorithm More Efficient and Scalable.” Journal of Biomedical Informatics, August 6, 2018. https://doi.org/10.1016/j.jbi.2018.08.002.
