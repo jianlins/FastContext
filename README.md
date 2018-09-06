@@ -16,8 +16,9 @@ Note: the maven distribution doesn't include the context rule file, you can down
 // Initiate FastContext
 FastContext fc = new FastContext("conf/context.csv");
 String inputString = "The patient denied any fever , although he complained some headache .";
+ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
+LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 4, 4, inputString);
 // To find the context information of "fever"
-ArrayList<String> res = fc.processContext(inputString, 23, 28, 30);
 ```
 For more detailed API uses, please refer to [TestFastContextAPIs.java](https://github.com/jianlins/FastContext/blob/master/src/test/java/edu/utah/bmi/nlp/fastcontext/TestFastContextAPIs.java)
 
