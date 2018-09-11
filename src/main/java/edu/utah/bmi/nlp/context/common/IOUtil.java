@@ -49,10 +49,13 @@ public class IOUtil {
         String testFileStr = ruleFileOrString.trim().substring(strLength - 4).toLowerCase();
         switch (testFileStr) {
             case ".tsv":
-                readCSVFile(ruleFileOrString, splitter, rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
+                readCSVFile(ruleFileOrString, "\t", rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
                 break;
             case ".csv":
-                readCSVFile(ruleFileOrString, splitter, rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
+                readCSVFile(ruleFileOrString, ",", rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
+                break;
+            case ".txt":
+                readCSVFile(ruleFileOrString, "|", rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
                 break;
             case "xlsx":
                 readXLSXRuleFile(ruleFileOrString, rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
@@ -255,7 +258,7 @@ public class IOUtil {
                                    HashMap<String, TypeDefinition> conceptFeaturesMap,
                                    HashMap<String, String> featureDefaultValueMap,
                                    HashMap<String, String> valueFeatureNameMap) {
-        if (cells.get(0).startsWith("#") || cells.get(0).trim().length() == 0)
+        if (cells.get(0).startsWith("#") ||cells.get(0).startsWith("\"#") || cells.get(0).trim().length() == 0)
             return;
         if (cells.get(0).length() < 2 && cells.size() > 3) {
             String ruleString = cells.get(0);
