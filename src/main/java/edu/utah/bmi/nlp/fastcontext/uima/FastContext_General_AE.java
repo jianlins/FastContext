@@ -90,12 +90,17 @@ public class FastContext_General_AE
         }
 
         paraObj = cont.getConfigParameterValue(PARAM_SENTENCE_TYPE_NAME);
+        String value;
         if (paraObj != null) {
-            sentenceTypeName = (String) paraObj;
+            value = (String) paraObj;
+            if (value.trim().length() > 0)
+                sentenceTypeName = DeterminantValueSet.checkNameSpace(value);
         }
         paraObj = cont.getConfigParameterValue(PARAM_TOKEN_TYPE_NAME);
         if (paraObj != null) {
-            tokenTypeName = (String) paraObj;
+            value = (String) paraObj;
+            if (value.trim().length() > 0)
+                tokenTypeName = DeterminantValueSet.checkNameSpace(value);
         }
 
 
