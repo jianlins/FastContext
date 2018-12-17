@@ -22,8 +22,12 @@ import edu.utah.bmi.nlp.context.common.ConTextSpan;
 import edu.utah.bmi.nlp.context.common.ContextRule;
 import edu.utah.bmi.nlp.context.common.ContextValueSet.TriggerTypes;
 import edu.utah.bmi.nlp.core.*;
+import org.apache.commons.io.IOUtils;
 import org.apache.uima.jcas.tcas.Annotation;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,9 +55,30 @@ public class FastContext implements ConTextAdvancedInterface {
         initiate(ruleFile, caseSensitive);
     }
 
-    public FastContext(ArrayList<String> rulesList, boolean caseSensitive) {
+    public FastContext(InputStream ruleStream) {
+        initiate(ruleStream, false, StandardCharsets.UTF_8.toString());
+    }
 
+    public FastContext(InputStream ruleStream, boolean caseSensitive) {
+        initiate(ruleStream, caseSensitive, StandardCharsets.UTF_8.name());
+    }
+
+    public FastContext(InputStream ruleStream, boolean caseSensitive, String encoding) {
+        initiate(ruleStream, caseSensitive, encoding);
+    }
+
+    public FastContext(ArrayList<String> rulesList, boolean caseSensitive) {
         initiate(rulesList, caseSensitive);
+    }
+
+    public void initiate(InputStream ruleStream, boolean caseSensitive, String encoding) {
+        String ruleStr = null;
+        try {
+            ruleStr = IOUtils.toString(ruleStream, encoding);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        crp = new ContextRuleProcessor(ruleStr, caseSensitive);
     }
 
     public void initiate(String ruleFile, boolean caseSensitive) {
@@ -195,7 +220,7 @@ public class FastContext implements ConTextAdvancedInterface {
 
     public LinkedHashMap<String, ConTextSpan> updateFeaturesWEvidence(String conceptTypeName, LinkedHashMap<String, ConTextSpan> contexts) {
         LinkedHashMap<String, ConTextSpan> contextFeatures = new LinkedHashMap<>();
-        conceptTypeName=DeterminantValueSet.checkNameSpace(conceptTypeName);
+        conceptTypeName = DeterminantValueSet.checkNameSpace(conceptTypeName);
 //      set all related features to default values
         while (!crp.conceptFeaturesMap.containsKey(conceptTypeName) && !conceptTypeName.equals(Annotation.class.getSimpleName())) {
             try {
@@ -229,7 +254,7 @@ public class FastContext implements ConTextAdvancedInterface {
                 String existingModifier = existingConTextRule.modifier;
                 if (crp.valueWeightMap.get(existingModifier) > crp.valueWeightMap.get(modifierValue)
 //                        && existingConTextRule.direction == matchedConTextRule.direction
-                        )
+                )
                     continue;
             }
             contextFeatures.put(featureName, contexts.get(modifierValue));

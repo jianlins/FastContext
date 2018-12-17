@@ -24,6 +24,8 @@ import edu.utah.bmi.nlp.core.Span;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -32,56 +34,71 @@ import java.util.LinkedHashMap;
  * Test FastContext APIs with updated full features
  *
  * @author Jianlin Shi
- *         Created on 8/24/15.
+ * Created on 8/24/15.
  */
 public class TestFastContextAPIs2 {
-	private FastContext fc;
-	private String inputString;
+    private FastContext fc;
+    private String inputString;
 
-	@Before
-	public void init() {
-		ArrayList<String> rules = new ArrayList<>();
-		rules.add("@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer");
-		rules.add("@FEATURE_VALUES|Negation|affirm|negated");
-		rules.add("@FEATURE_VALUES|Certainty|certain|uncertain");
-		rules.add("@FEATURE_VALUES|Temporality|present|historical|hypothetical");
-		rules.add("@FEATURE_VALUES|Experiencer|patient|nonpatient");
-		rules.add("denied|forward|trigger|negated|30");
-		rules.add("although|forward|termination|negated|10");
-		fc = new FastContext(rules, true);
+    @Before
+    public void init() {
+        ArrayList<String> rules = new ArrayList<>();
+        rules.add("@CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer");
+        rules.add("@FEATURE_VALUES|Negation|affirm|negated");
+        rules.add("@FEATURE_VALUES|Certainty|certain|uncertain");
+        rules.add("@FEATURE_VALUES|Temporality|present|historical|hypothetical");
+        rules.add("@FEATURE_VALUES|Experiencer|patient|nonpatient");
+        rules.add("denied|forward|trigger|negated|30");
+        rules.add("although|forward|termination|negated|10");
+        fc = new FastContext(rules, true);
 //        fc.debug=true;
-		inputString = "The patient denied any fever , although he complained some headache .";
-	}
+        inputString = "The patient denied any fever , although he complained some headache .";
+    }
 
 
-	@Test
-	public void test1() {
-		ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
-		LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 4, 4, inputString);
-		ConTextSpan conTextSpan = matches.get("Negation");
-		assert (conTextSpan.begin == 12 && conTextSpan.end == 18 && conTextSpan.ruleId == 5);
-		conTextSpan = matches.get("Experiencer");
-		assert (conTextSpan.ruleId == -1);
-		conTextSpan = matches.get("Certainty");
-		assert (conTextSpan.ruleId == -1);
-		conTextSpan = matches.get("Temporality");
-		assert (conTextSpan.ruleId == -1);
-	}
+    @Test
+    public void test1() {
+        ArrayList<Span> sent = SimpleParser.tokenizeOnWhitespaces(inputString);
+        LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 4, 4, inputString);
+        ConTextSpan conTextSpan = matches.get("Negation");
+        assert (conTextSpan.begin == 12 && conTextSpan.end == 18 && conTextSpan.ruleId == 5);
+        conTextSpan = matches.get("Experiencer");
+        assert (conTextSpan.ruleId == -1);
+        conTextSpan = matches.get("Certainty");
+        assert (conTextSpan.ruleId == -1);
+        conTextSpan = matches.get("Temporality");
+        assert (conTextSpan.ruleId == -1);
+    }
 
-	@Test
-	public void test2() {
-		ArrayList<String> rules = new ArrayList<>();
-		rules.add("@CONCEPT_FEATURES|Concept|Percentage");
-		rules.add("@FEATURE_VALUES|Percentage|yes|no");
-		rules.add("( \\> 0 %) |backward|trigger|no|10");
-		fc = new FastContext(rules, true);
+    @Test
+    public void test2() {
+        ArrayList<String> rules = new ArrayList<>();
+        rules.add("@CONCEPT_FEATURES|Concept|Percentage");
+        rules.add("@FEATURE_VALUES|Percentage|yes|no");
+        rules.add("( \\> 0 %) |backward|trigger|no|10");
+        fc = new FastContext(rules, true);
 //        fc.debug=true;
-		inputString = "538 patients (5.1%) ";
-		ArrayList<Span> sent = SimpleParser.tokenizeDecimalSmart(inputString,true);
-		LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 0, 1, inputString);
-		ConTextSpan conTextSpan = matches.get("Percentage");
-		assert (conTextSpan.begin>0);
-	}
+        inputString = "538 patients (5.1%) ";
+        ArrayList<Span> sent = SimpleParser.tokenizeDecimalSmart(inputString, true);
+        LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 0, 1, inputString);
+        ConTextSpan conTextSpan = matches.get("Percentage");
+        assert (conTextSpan.begin > 0);
+    }
 
-
+    @Test
+    public void testInputStream() {
+        ArrayList<String> rules = new ArrayList<>();
+        rules.add("@CONCEPT_FEATURES|Concept|Percentage");
+        rules.add("@FEATURE_VALUES|Percentage|yes|no");
+        rules.add("( \\> 0 %) |backward|trigger|no|10");
+        fc = new FastContext(new ByteArrayInputStream(String.join("\n", rules).getBytes(StandardCharsets.UTF_8)),
+                false, StandardCharsets.UTF_8.name());
+//        fc.debug=true;
+        inputString = "538 patients (5.1%) ";
+        ArrayList<Span> sent = SimpleParser.tokenizeDecimalSmart(inputString, true);
+        LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent,
+                0, 1, inputString);
+        ConTextSpan conTextSpan = matches.get("Percentage");
+        assert (conTextSpan.begin > 0);
+    }
 }
