@@ -46,10 +46,10 @@ public class FastContext_General_AETest {
     private JCas jCas;
     private AdaptableUIMACPETaskRunner runner;
     private AnalysisEngine simpleParser_AE;
+    private String typeDescriptor = "desc/type/All_Types";
 
     @Before
     public void setUp() {
-        String typeDescriptor = "desc/type/All_Types";
         runner = new AdaptableUIMACPETaskRunner(typeDescriptor, "target/generated-test-sources/");
         runner.addConceptTypes(FastContext_General_AE.getTypeDefinitions("conf/context.xlsx", true).values());
         runner.reInitTypeSystem("target/generated-test-sources/customized");
@@ -190,6 +190,7 @@ public class FastContext_General_AETest {
         String targetWords = "388";
         runner.addConceptTypes(FastContext_General_AE.getTypeDefinitions(rules, true).values());
         runner.reInitTypeSystem("target/generated-test-sources/customized");
+        Class<? extends Concept> cls = Class.forName("edu.utah.bmi.nlp.type.system.CLUE").asSubclass(Concept.class);
         jCas = runner.initJCas();
         jCas.setDocumentText(text);
         Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR,
@@ -201,7 +202,7 @@ public class FastContext_General_AETest {
         simpleParser_AE.process(jCas);
         int begin = text.indexOf(targetWords);
         int end = begin + targetWords.length();
-        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
+        cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
         Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
         Concept concept = cons.newInstance(jCas, begin, end);
         concept.addToIndexes();
@@ -365,4 +366,6 @@ public class FastContext_General_AETest {
             System.out.println(context.toString());
         }
     }
+
+
 }
