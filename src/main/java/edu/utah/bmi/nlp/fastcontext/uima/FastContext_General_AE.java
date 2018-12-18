@@ -324,6 +324,7 @@ public class FastContext_General_AE
      * enable back-compatibility.
      *
      * @param ruleStr Rule file path or rule content string
+     * @param caseInsensitive whether to parse the rule in case-insensitive manner
      * @return Type name--Type definition map
      */
     @Deprecated
