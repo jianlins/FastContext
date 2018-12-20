@@ -55,7 +55,7 @@ public class FastContext_General_AETest {
         runner.reInitTypeSystem("target/generated-test-sources/customized");
         jCas = runner.initJCas();
 //      Set up the parameters
-        Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR, "conf/context.tsv",
+        Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR, "conf/context.txt",
                 FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
         try {
             fastContext_AE = createEngine(FastContext_General_AE.class,

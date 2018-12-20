@@ -23,7 +23,7 @@
  * 1. use \w+ to represent a word (corresponding to any element in the input ArrayList of String or Span
  * 2. use "&gt; number" (there is a whitespace between them) to represent any digit greater than the given "number"
  * As a results, you will need consider input digit as single token annotation/word, which is annotated differently in some parsers.
- * Please referring to the example rule file: "conf/context.tsv"
+ * Please referring to the example rule file: "conf/context.txt"
  *
  *
  * @author Jianlin Shi

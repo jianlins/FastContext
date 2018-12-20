@@ -14,8 +14,6 @@
 #   * limitations under the License.
 #   ******************************************************************************
 #   Special thanks to Olga Patterson and Guy Divita for contributing rules as part of this rule set
-
-
 #Define which features will be assigned values in an annotation type ("Concept" in this case)
 @CONCEPT_FEATURES|Concept|Negation|Certainty|Temporality|Experiencer
 #Define the values that a feature can have, the 1st value is the default value

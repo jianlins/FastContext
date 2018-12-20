@@ -49,9 +49,12 @@ public class IOUtil {
         String testFileStr = ruleFileOrString.trim().substring(strLength - 4).toLowerCase();
         switch (testFileStr) {
             case ".tsv":
-                readCSVFile(ruleFileOrString, splitter, rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
+                readCSVFile(ruleFileOrString, "\t", rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
                 break;
             case ".csv":
+                readCSVFile(ruleFileOrString, ",", rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
+                break;
+            case ".txt":
                 readCSVFile(ruleFileOrString, splitter, rules, conceptFeaturesMap, featureDefaultValueMap, valueFeatureNameMap);
                 break;
             case "xlsx":
