@@ -171,6 +171,14 @@ public class FastContext_General_AE
                 logger.warning("Concept: \"" + docText.substring(concept.getBegin(), concept.getEnd()) + "\" is not in the indexed sentence boundaries.\n" +
                         "Check the sentence segmenter rules to see if the sentencs are segmented properly. \n" +
                         "And check the NER configurations to see if Section configuration includes the concept's section.");
+                if (logger.isLoggable(Level.FINEST)) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Indexed sentences includes (line breaks are replaced with whitespaces): \n");
+                    for (Annotation sentence : sentences) {
+                        sb.append("\n" + docText.substring(sentence.getBegin(), sentence.getEnd()).replaceAll("\\n", "") + "\n");
+                    }
+                    logger.finest(sb.toString());
+                }
                 continue;
             }
             Annotation sentence = sentences.get(sentenceIndex.get(new Interval1D(concept.getBegin(), concept.getEnd())));
