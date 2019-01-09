@@ -168,12 +168,12 @@ public class FastContext_General_AE
         for (Annotation concept : concepts) {
             Integer sentenceId = sentenceIndex.get(new Interval1D(concept.getBegin(), concept.getEnd()));
             if (sentenceId == null) {
-                logger.warning("Concept: \"" + docText.substring(concept.getBegin(), concept.getEnd()) + "\" is not in the indexed sentence boundaries.\n" +
+                logger.warning("\nConcept: \"" + docText.substring(concept.getBegin(), concept.getEnd()) + "\" is not in the indexed sentence boundaries.\n" +
                         "Check the sentence segmenter rules to see if the sentencs are segmented properly. \n" +
-                        "And check the NER configurations to see if Section configuration includes the concept's section.");
+                        "And check the NER configurations to see if Section configuration includes the concept's section.\n");
                 if (logger.isLoggable(Level.FINEST)) {
                     StringBuilder sb = new StringBuilder();
-                    sb.append("Indexed sentences includes (line breaks are replaced with whitespaces): \n");
+                    sb.append("\nThe indexed sentences includes (line breaks are replaced with whitespaces): \n");
                     for (Annotation sentence : sentences) {
                         sb.append("\n" + docText.substring(sentence.getBegin(), sentence.getEnd()).replaceAll("\\n", "") + "\n");
                     }

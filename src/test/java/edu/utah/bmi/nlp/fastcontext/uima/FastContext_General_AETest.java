@@ -367,5 +367,52 @@ public class FastContext_General_AETest {
         }
     }
 
+    /**
+     * Test improper segemented sentence error
+     *
+     * @throws AnalysisEngineProcessException
+     * @throws ResourceInitializationException
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     */
+    @Test
+    public void test10() throws AnalysisEngineProcessException, ResourceInitializationException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        String text = "no vomiting currently , although she did in the past .\n";
+        text = "currently, no vomiting   although she did in the past.\n";
+        String rules = "@CONCEPT_FEATURES|edu.utah.bmi.nlp.type.system.CLUE|Negation|Certainty|Temporality\n" +
+                "@FEATURE_VALUES|Negation|affirm|negated\n" +
+                "@FEATURE_VALUES|Certainty|certain|uncertain\n" +
+                "@FEATURE_VALUES|Temporality|present|historical|hypothetical\n" +
+                "currently|both|trigger|present|30\n" +
+                "in the past|both|trigger|historical|30";
+        String targetWords = "vomiting";
+        runner.addConceptTypes(new FastContext_General_AE().getTypeDefs(rules).values());
+        runner.reInitTypeSystem("target/generated-test-sources/customized");
+        jCas = runner.initJCas();
+        jCas.setDocumentText(text);
+        Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR,
+                rules, FastContext_General_AE.PARAM_MARK_CLUE, true};
+        fastContext_AE = createEngine(FastContext_General_AE.class,
+                configurationData);
+
+        int begin = text.indexOf(targetWords);
+        int end = begin + targetWords.length();
+        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
+        Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
+        Concept concept = cons.newInstance(jCas, begin, end);
+        concept.addToIndexes();
+        fastContext_AE.process(jCas);
+        Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
+        for (Concept target : targets) {
+            System.out.println(target.toString());
+        }
+        for (Context context : JCasUtil.select(jCas, Context.class)) {
+            System.out.println(context.toString());
+        }
+    }
+
 
 }
