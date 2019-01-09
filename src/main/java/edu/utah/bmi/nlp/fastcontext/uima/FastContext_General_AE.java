@@ -168,7 +168,7 @@ public class FastContext_General_AE
         for (Annotation concept : concepts) {
             Integer sentenceId = sentenceIndex.get(new Interval1D(concept.getBegin(), concept.getEnd()));
             if (sentenceId == null) {
-                logger.info("Concept: \"" + docText.substring(concept.getBegin(), concept.getEnd()) + "\" is not in the indexed sentence boundaries.\n" +
+                logger.warning("Concept: \"" + docText.substring(concept.getBegin(), concept.getEnd()) + "\" is not in the indexed sentence boundaries.\n" +
                         "Check the sentence segmenter rules to see if the sentencs are segmented properly. \n" +
                         "And check the NER configurations to see if Section configuration includes the concept's section.");
                 continue;
