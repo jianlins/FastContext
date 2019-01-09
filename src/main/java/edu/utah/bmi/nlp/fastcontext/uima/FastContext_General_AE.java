@@ -166,6 +166,13 @@ public class FastContext_General_AE
             return;
         }
         for (Annotation concept : concepts) {
+            Integer sentenceId = sentenceIndex.get(new Interval1D(concept.getBegin(), concept.getEnd()));
+            if (sentenceId == null) {
+                logger.info("Concept: \"" + docText.substring(concept.getBegin(), concept.getEnd()) + "\" is not in the indexed sentence boundaries.\n" +
+                        "Check the sentence segmenter rules to see if the sentencs are segmented properly. \n" +
+                        "And check the NER configurations to see if Section configuration includes the concept's section.");
+                continue;
+            }
             Annotation sentence = sentences.get(sentenceIndex.get(new Interval1D(concept.getBegin(), concept.getEnd())));
             int scopeBegin = sentence.getBegin();
             int scopeEnd = sentence.getEnd();
@@ -323,7 +330,7 @@ public class FastContext_General_AE
      * Because implement a reinforced interface method (static is not reinforced), this is deprecated, just to
      * enable back-compatibility.
      *
-     * @param ruleStr Rule file path or rule content string
+     * @param ruleStr         Rule file path or rule content string
      * @param caseInsensitive whether to parse the rule in case-insensitive manner
      * @return Type name--Type definition map
      */
