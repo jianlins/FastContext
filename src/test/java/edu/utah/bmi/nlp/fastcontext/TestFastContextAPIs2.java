@@ -86,6 +86,49 @@ public class TestFastContextAPIs2 {
     }
 
     @Test
+    public void test3() {
+        ArrayList<String> rules = new ArrayList<>();
+        rules.add("@CONCEPT_FEATURES|Concept|Percentage");
+        rules.add("@FEATURE_VALUES|Percentage|yes|no");
+        rules.add("\\> 0 \\< 5 |both|trigger|no|10");
+        fc = new FastContext(rules, true);
+//        fc.debug=true;
+        inputString = "there are 4.1% of 538 patients. ";
+        ArrayList<Span> sent = SimpleParser.tokenizeDecimalSmart(inputString, true);
+        for(Span sp:sent){
+            System.out.println(inputString.substring(sp.begin,sp.end));
+        }
+        LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 0, 1, inputString);
+        ConTextSpan conTextSpan = matches.get("Percentage");
+        System.out.println(conTextSpan);
+        System.out.println(inputString.substring(conTextSpan.begin,conTextSpan.end));
+//        assert (conTextSpan.begin > 0);
+    }
+
+    @Test
+    public void test4() {
+        ArrayList<String> rules = new ArrayList<>();
+        rules.add("@CONCEPT_FEATURES|Concept|Percentage");
+        rules.add("@FEATURE_VALUES|Percentage|a|b|c|d");
+        rules.add("\\> 0 \\< 5 |both|trigger|a|10");
+        rules.add("\\> 10 \\< 20 |both|trigger|b|10");
+        rules.add("\\> 20 \\< 50 |both|trigger|c|10");
+        rules.add("\\> 50 \\< 100 |both|trigger|d|10");
+        fc = new FastContext(rules, true);
+//        fc.debug=true;
+        inputString = "there are 4.1% of in 30 cities of 14 countries, 90 patients . ";
+        ArrayList<Span> sent = SimpleParser.tokenizeDecimalSmart(inputString, true);
+        for(Span sp:sent){
+            System.out.println(inputString.substring(sp.begin,sp.end));
+        }
+        LinkedHashMap<String, ConTextSpan> matches = fc.getFullContextFeatures("Concept", sent, 0, 1, inputString);
+        ConTextSpan conTextSpan = matches.get("Percentage");
+        System.out.println(conTextSpan);
+        System.out.println(inputString.substring(conTextSpan.begin,conTextSpan.end));
+//        assert (conTextSpan.begin > 0);
+    }
+
+    @Test
     public void testInputStream() {
         ArrayList<String> rules = new ArrayList<>();
         rules.add("@CONCEPT_FEATURES|Concept|Percentage");

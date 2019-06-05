@@ -25,6 +25,7 @@ import edu.utah.bmi.nlp.core.Span;
 import edu.utah.bmi.nlp.core.TypeDefinition;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +37,7 @@ import java.util.regex.Pattern;
  */
 @SuppressWarnings("rawtypes")
 public class ContextRuleProcessor {
-
+    public static Logger logger = edu.utah.bmi.nlp.core.IOUtil.getLogger(FastContext.class);
     //  given a feature value as the map key, return its corresponding feature name as the map value.
     public LinkedHashMap<String, String> valueFeatureNameMap = new LinkedHashMap<>();
 
@@ -275,6 +276,12 @@ public class ContextRuleProcessor {
                 if ((compare == '>' && thisDigit > ruleDigit) || (compare == '<' && thisDigit < ruleDigit)) {
                     if (mt.group(2) == null) {
                         // if this token is a number
+                        if (((HashMap) rule.get(num)).containsKey("\\>")) {
+                            processDigits(contextTokens, '>', (HashMap) ((HashMap) rule.get(num)).get("\\>"), matchBegin, currentPosition, matches);
+                        }
+                        if (((HashMap) rule.get(num)).containsKey("\\<")) {
+                            processDigits(contextTokens, '<', (HashMap) ((HashMap) rule.get(num)).get("\\<"), matchBegin, currentPosition, matches);
+                        }
                         processRules(contextTokens, (HashMap) rule.get(num), matchBegin, currentPosition + 1, matches);
                     } else {
                         // thisToken is like "30-days"
@@ -303,11 +310,11 @@ public class ContextRuleProcessor {
      * 3. else if prefer left determinant, choose the determinant with the
      * smallest begin.
      *
-     * @param rule            Constructed Rules Map
-     * @param matches         Storing the matched context spans
-     * @param matchBegin      Keep track of the begin position of matched span
-     * @param currentPosition Keep track of the position where matching starts
-     * @param contextTokenLength  contextTokenLength
+     * @param rule               Constructed Rules Map
+     * @param matches            Storing the matched context spans
+     * @param matchBegin         Keep track of the begin position of matched span
+     * @param currentPosition    Keep track of the position where matching starts
+     * @param contextTokenLength contextTokenLength
      */
     protected void addDeterminants(HashMap rule, LinkedHashMap<String, ConTextSpan> matches,
                                    int matchBegin, int currentPosition,
@@ -320,6 +327,7 @@ public class ContextRuleProcessor {
         for (String key : matchedRules.keySet()) {
             ConTextSpan originalSpan = null;
             int id = (Integer) matchedRules.get(key);
+
             char matchedDirection = key.charAt(0);
             ContextRule matchedContextRule = getContextRuleById(id);
             ConTextSpan currentSpan = new ConTextSpan(matchBegin, currentPosition - 1, id);
@@ -331,6 +339,7 @@ public class ContextRuleProcessor {
                 currentSpan.winEnd = currentSpan.end + rules.get(id).windowSize;
             }
             currentSpan.matchedDirection = matchedDirection == 'f' ? TriggerTypes.forward : TriggerTypes.backward;
+            logger.finest("Matched rule: " + matchedContextRule + "\n\ton span: " + currentSpan);
             if (matches.containsKey(key)) {
                 originalSpan = matches.get(key);
                 switch (matchedDirection) {
