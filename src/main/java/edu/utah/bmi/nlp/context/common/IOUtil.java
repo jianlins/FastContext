@@ -258,7 +258,7 @@ public class IOUtil {
                                    HashMap<String, TypeDefinition> conceptFeaturesMap,
                                    HashMap<String, String> featureDefaultValueMap,
                                    HashMap<String, String> valueFeatureNameMap) {
-        if (cells.get(0).startsWith("#") ||cells.get(0).startsWith("\"#") || cells.get(0).trim().length() == 0)
+        if (cells.get(0).startsWith("#") || cells.get(0).startsWith("\"#") || cells.get(0).trim().length() == 0)
             return;
         if (cells.get(0).length() < 2 && cells.size() > 3) {
             String ruleString = cells.get(0);
@@ -287,8 +287,10 @@ public class IOUtil {
                         conceptFeaturesMap.put(conceptName, new TypeDefinition(conceptName, "", new ArrayList<>()));
                     }
                     LinkedHashMap<String, String> featureValues = conceptFeaturesMap.get(conceptName).getFeatureValuePairs();
-                    for (String feature : features)
-                        featureValues.put(feature, "");
+                    for (String feature : features) {
+                        if (feature.trim().length() > 0)
+                            featureValues.put(feature, "");
+                    }
                 }
                 break;
             case "@F":
