@@ -21,15 +21,14 @@ package edu.utah.bmi.nlp.fastcontext.uima;
 import edu.utah.bmi.nlp.core.DeterminantValueSet;
 import edu.utah.bmi.nlp.type.system.Concept;
 import edu.utah.bmi.nlp.type.system.Context;
-import edu.utah.bmi.nlp.uima.AdaptableUIMACPETaskRunner;
+import edu.utah.bmi.nlp.uima.AdaptableUIMACPERunner;
 import edu.utah.bmi.nlp.uima.ae.SimpleParser_AE;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -40,17 +39,18 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine;
 /**
  * @author Jianlin Shi on 5/7/17.
  */
+@TestMethodOrder(MethodOrderer.Alphanumeric.class)
 public class FastContext_General_AETest {
 
     private AnalysisEngine fastContext_AE;
     private JCas jCas;
-    private AdaptableUIMACPETaskRunner runner;
+    private AdaptableUIMACPERunner runner;
     private AnalysisEngine simpleParser_AE;
     private String typeDescriptor = "desc/type/All_Types";
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        runner = new AdaptableUIMACPETaskRunner(typeDescriptor, "target/generated-test-sources/");
+        runner = new AdaptableUIMACPERunner(typeDescriptor, "target/generated-test-sources/");
         runner.addConceptTypes(FastContext_General_AE.getTypeDefinitions("conf/context.xlsx", true).values());
         runner.reInitTypeSystem("target/generated-test-sources/customized");
         jCas = runner.initJCas();
@@ -178,7 +178,7 @@ public class FastContext_General_AETest {
     }
 
     @Test
-    public void test5() throws AnalysisEngineProcessException, ResourceInitializationException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public void test0() throws AnalysisEngineProcessException, ResourceInitializationException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         String text = "subjects in this analysis is confined to 3,388 (of the total 5,297) subjects treated at \n";
         String rules = "@CONCEPT_FEATURES|CLUE|Negation|Certainty|Temporality|SampleSize|Unit\n" +
                 "@FEATURE_VALUES|SampleSize|ss|notss\n" +

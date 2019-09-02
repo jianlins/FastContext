@@ -21,8 +21,10 @@ package edu.utah.bmi.nlp.fastcontext;
 import edu.utah.bmi.nlp.context.common.ConTextSpan;
 import edu.utah.bmi.nlp.core.SimpleParser;
 import edu.utah.bmi.nlp.core.Span;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +40,7 @@ public class TestFastContextAPIs {
     private FastContext fc;
     private String inputString;
 
-    @Before
+    @BeforeEach
     public void init() {
         ArrayList<String> rules = new ArrayList<>();
         rules.add("denied|forward|trigger|negated|30");
