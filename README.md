@@ -33,3 +33,6 @@ Shi, Jianlin, and John F. Hurdle. “Trie-Based Rule Processing for Clinical NLP
 
 Full text are available at: 
 https://www.sciencedirect.com/science/article/pii/S1532046418301576
+
+Preprint:
+https://arxiv.org/abs/1905.00079
