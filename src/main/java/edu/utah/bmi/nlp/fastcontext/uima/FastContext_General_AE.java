@@ -213,6 +213,7 @@ public class FastContext_General_AE
             }
             Collections.sort(preContext, new AnnotationComparator());
             Collections.sort(postContext, new AnnotationComparator());
+            logger.finest("Detect context for concept:\t"+concept.getCoveredText());
             LinkedHashMap<String, ConTextSpan> contextInfo = cp.getFullContextFeatures(conceptClass.getCanonicalName(), preContext, postContext);
             saveContext(jcas, docText, conceptClass, concept, contextInfo);
         }

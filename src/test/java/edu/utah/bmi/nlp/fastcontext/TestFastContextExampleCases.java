@@ -262,6 +262,20 @@ public class TestFastContextExampleCases {
     }
 
 
+    @Test
+    public void testMixContext9(){
+        rules.clear();
+        rules.add("\\> 0|forward|trigger|uncertain|30");
+        FastContext fc = new FastContext(rules,false);
+        String inputString = "Vitals - Tm=Tc:98.2 (range 97.0-98.2 o/n) HR:64-86 myocardial infarction";
+        String concept = "myocardial infarction";
+        int conceptBeginOffset = inputString.indexOf(concept);
+        int conceptEndOffset = conceptBeginOffset + concept.length();
+        LinkedHashMap<String, ConTextSpan> matches = fc.processContextWEvidence(inputString, conceptBeginOffset, conceptEndOffset, 30);
+        System.out.println(matches);
+
+    }
+
 
 
     private boolean eval(String inputString, int conceptBegin, int conceptEnd, String contextType, String contextString) {

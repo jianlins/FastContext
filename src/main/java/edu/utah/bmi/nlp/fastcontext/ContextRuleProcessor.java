@@ -264,6 +264,7 @@ public class ContextRuleProcessor {
         if (mt.find()) {
             double thisDigit;
 //			prevent length over limit
+            System.out.println(mt.group(0));
             if (mt.group(1).length() < 4) {
                 String a = mt.group(1);
                 thisDigit = Double.parseDouble(mt.group(1));
@@ -285,7 +286,7 @@ public class ContextRuleProcessor {
                         processRules(contextTokens, (HashMap) rule.get(num), matchBegin, currentPosition + 1, matches);
                     } else {
                         // thisToken is like "30-days"
-                        HashMap ruletmp = (HashMap) rule.get(ruleDigit + "");
+                        HashMap ruletmp = (HashMap) rule.get(num);
                         String subtoken = mt.group(2).substring(1);
                         if (ruletmp.containsKey(subtoken)) {
                             processRules(contextTokens, (HashMap) ruletmp.get(subtoken), matchBegin, currentPosition + 1, matches);
