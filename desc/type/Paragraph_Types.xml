@@ -16,20 +16,17 @@
   -->
 
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>All_Types</name>
+    <name/>
     <description>Derive from TestStanfordCoreNLPUIMAWrapper-typeSystemDescriptor
         including token sentence dependency types.
     </description>
     <version>1.3.0</version>
     <vendor/>
-    <imports>
-        <import location="FastNER_Types.xml"></import>
-        <import location="FastContext_Types.xml"></import>
-        <import location="Section_Types.xml"></import>
-        <import location="Doc_Types.xml"></import>
-        <import location="Bunch_Types.xml"></import>
-        <import location="Relation_Types.xml"></import>
-        <import location="Paragraph_Types.xml"></import>
-        <import name="org.apache.uima.examples.SourceDocumentInformation"/>
-    </imports>
+    <types>
+        <typeDescription>
+            <name>edu.utah.bmi.nlp.type.system.Paragraph</name>
+            <description/>
+            <supertypeName>edu.utah.bmi.nlp.type.system.EntityBASE</supertypeName>
+        </typeDescription>
+    </types>
 </typeSystemDescription>

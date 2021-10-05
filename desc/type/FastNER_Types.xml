@@ -38,6 +38,20 @@
             </features>
         </typeDescription>
         <typeDescription>
+            <name>edu.utah.bmi.nlp.type.system.Stbegin</name>
+            <description/>
+            <supertypeName>edu.utah.bmi.nlp.type.system.EntityBASE</supertypeName>
+            <features>
+            </features>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.utah.bmi.nlp.type.system.Stend</name>
+            <description/>
+            <supertypeName>edu.utah.bmi.nlp.type.system.EntityBASE</supertypeName>
+            <features>
+            </features>
+        </typeDescription>
+        <typeDescription>
             <name>edu.utah.bmi.nlp.type.system.Token</name>
             <description/>
             <supertypeName>uima.tcas.Annotation</supertypeName>
@@ -114,6 +128,23 @@
             <description/>
             <supertypeName>edu.utah.bmi.nlp.type.system.ConceptBASE</supertypeName>
             <features></features>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.utah.bmi.nlp.type.system.Date</name>
+            <description/>
+            <supertypeName>edu.utah.bmi.nlp.type.system.Concept</supertypeName>
+            <features>
+                <featureDescription>
+                    <name>NormDate</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>Elapse</name>
+                    <description/>
+                    <rangeTypeName>uima.cas.Long</rangeTypeName>
+                </featureDescription>
+            </features>
         </typeDescription>
     </types>
 </typeSystemDescription>

@@ -19,12 +19,17 @@
 package edu.utah.bmi.nlp.fastcontext.uima;
 
 import edu.utah.bmi.nlp.core.DeterminantValueSet;
+import edu.utah.bmi.nlp.core.TypeDefinition;
 import edu.utah.bmi.nlp.type.system.Concept;
 import edu.utah.bmi.nlp.type.system.Context;
+import edu.utah.bmi.nlp.type.system.Sentence;
 import edu.utah.bmi.nlp.uima.AdaptableUIMACPERunner;
 import edu.utah.bmi.nlp.uima.ae.SimpleParser_AE;
+import edu.utah.bmi.nlp.uima.common.AnnotationOper;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
+import org.apache.uima.fit.factory.AnnotationFactory;
+import org.apache.uima.fit.util.FSUtil;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
@@ -39,7 +44,7 @@ import static org.apache.uima.fit.factory.AnalysisEngineFactory.createEngine;
 /**
  * @author Jianlin Shi on 5/7/17.
  */
-@TestMethodOrder(MethodOrderer.Alphanumeric.class)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 public class FastContext_General_AETest {
 
     private AnalysisEngine fastContext_AE;
@@ -51,12 +56,13 @@ public class FastContext_General_AETest {
     @BeforeEach
     public void setUp() {
         runner = new AdaptableUIMACPERunner(typeDescriptor, "target/generated-test-sources/");
-        runner.addConceptTypes(FastContext_General_AE.getTypeDefinitions("conf/context.xlsx", true).values());
+
+        runner.addConceptTypes(new FastContext_General_AE().getTypeDefs("conf/context.xlsx").values());
         runner.reInitTypeSystem("target/generated-test-sources/customized");
         jCas = runner.initJCas();
 //      Set up the parameters
         Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR, "conf/context.txt",
-                FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+                FastContext_General_AE.PARAM_MARK_CLUE, true};
         try {
             fastContext_AE = createEngine(FastContext_General_AE.class,
                     configurationData);
@@ -119,8 +125,7 @@ public class FastContext_General_AETest {
                 "@FEATURE_VALUES|Experiencer|patient|nonpatient\n" +
                 "s / p|both|trigger|historical|10\n" +
                 "currently|both|termination|historical|10\n" +
-                "currently|both|trigger|present|30",
-                FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+                "currently|both|trigger|present|30",  FastContext_General_AE.PARAM_MARK_CLUE, true};
         fastContext_AE = createEngine(FastContext_General_AE.class,
                 configurationData);
         simpleParser_AE.process(jCas);
@@ -159,7 +164,7 @@ public class FastContext_General_AETest {
                 "similar \\w+ \\w+ to|forward|trigger|uncertain|8\n" +
                 "similar \\w+ to|forward|trigger|uncertain|8\n" +
                 "similar to|forward|trigger|uncertain|8\n",
-                FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+                FastContext_General_AE.PARAM_MARK_CLUE, true};
         fastContext_AE = createEngine(FastContext_General_AE.class,
                 configurationData);
         simpleParser_AE.process(jCas);
@@ -188,32 +193,38 @@ public class FastContext_General_AETest {
                 "@FEATURE_VALUES|Temporality|present|historical|hypothetical\n" +
                 ")|backward|trigger|notss|2";
         String targetWords = "388";
-        runner.addConceptTypes(FastContext_General_AE.getTypeDefinitions(rules, true).values());
+        Collection<TypeDefinition> clsDef = new FastContext_General_AE().getTypeDefs(rules).values();
+        runner.addConceptTypes(clsDef);
         runner.reInitTypeSystem("target/generated-test-sources/customized");
-        Class<? extends Concept> cls = Class.forName("edu.utah.bmi.nlp.type.system.CLUE").asSubclass(Concept.class);
+        System.out.println(AnnotationOper.getTypeClass("CLUE"));
+        System.out.println(AnnotationOper.getTypeClass("edu.utah.bmi.nlp.type.system.CLUE"));
+        Class<? extends Concept> cls = AnnotationOper.getTypeClass("edu.utah.bmi.nlp.type.system.CLUE").asSubclass(Concept.class);
         jCas = runner.initJCas();
         jCas.setDocumentText(text);
         Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR,
-                rules,
-                FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+                rules, FastContext_General_AE.PARAM_MARK_CLUE, true};
         fastContext_AE = createEngine(FastContext_General_AE.class,
                 configurationData);
 
         simpleParser_AE.process(jCas);
         int begin = text.indexOf(targetWords);
         int end = begin + targetWords.length();
-        cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
+        cls = AnnotationOper.getTypeClass(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
         Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
-        Concept concept = cons.newInstance(jCas, begin, end);
+        Concept concept = AnnotationFactory.createAnnotation(jCas,begin,end, cls);
         concept.addToIndexes();
         fastContext_AE.process(jCas);
         Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
+        assert(targets.size()==1);
+        Concept anno=targets.iterator().next();
+//        System.out.println(FSUtil.getFeature(anno, "SampleSize", String.class));
+        assert(FSUtil.getFeature(anno, "SampleSize", String.class).equals("ss"));
         for (Concept target : targets) {
             System.out.println(target.toString());
         }
-        for (Context context : JCasUtil.select(jCas, Context.class)) {
-            System.out.println(context.toString());
-        }
+        Collection<Context> contexts = JCasUtil.select(jCas, Context.class);
+        assert (contexts.size()==0);
+
     }
 
     @Test
@@ -240,9 +251,8 @@ public class FastContext_General_AETest {
         simpleParser_AE.process(jCas);
         int begin = text.indexOf(targetWords);
         int end = begin + targetWords.length();
-        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
-        Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
-        Concept concept = cons.newInstance(jCas, begin, end);
+        Class<? extends Concept> cls = AnnotationOper.getTypeClass("CLUE").asSubclass(Concept.class);
+        Concept concept = AnnotationFactory.createAnnotation(jCas,begin,end, cls);
         concept.addToIndexes();
         fastContext_AE.process(jCas);
         Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
@@ -269,17 +279,14 @@ public class FastContext_General_AETest {
         jCas = runner.initJCas();
         jCas.setDocumentText(text);
         Object[] configurationData = new Object[]{FastContext_General_AE.PARAM_RULE_STR,
-                rules,
-                FastContext_General_AE.PARAM_DEBUG, true, FastContext_General_AE.PARAM_MARK_CLUE, true};
+                rules,FastContext_General_AE.PARAM_MARK_CLUE, true};
         fastContext_AE = createEngine(FastContext_General_AE.class,
                 configurationData);
-
         simpleParser_AE.process(jCas);
         int begin = text.indexOf(targetWords);
         int end = begin + targetWords.length();
-        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
-        Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
-        Concept concept = cons.newInstance(jCas, begin, end);
+        Class<? extends Concept> cls = AnnotationOper.getTypeClass("CLUE").asSubclass(Concept.class);
+        Concept concept = AnnotationFactory.createAnnotation(jCas,begin,end, cls);
         concept.addToIndexes();
         fastContext_AE.process(jCas);
         Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
@@ -315,9 +322,8 @@ public class FastContext_General_AETest {
         simpleParser_AE.process(jCas);
         int begin = text.indexOf(targetWords);
         int end = begin + targetWords.length();
-        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
-        Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
-        Concept concept = cons.newInstance(jCas, begin, end);
+        Class<? extends Concept> cls = AnnotationOper.getTypeClass("CLUE").asSubclass(Concept.class);
+        Concept concept = AnnotationFactory.createAnnotation(jCas,begin,end, cls);
         concept.addToIndexes();
         fastContext_AE.process(jCas);
         Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
@@ -353,9 +359,8 @@ public class FastContext_General_AETest {
         simpleParser_AE.process(jCas);
         int begin = text.indexOf(targetWords);
         int end = begin + targetWords.length();
-        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
-        Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
-        Concept concept = cons.newInstance(jCas, begin, end);
+        Class<? extends Concept> cls = AnnotationOper.getTypeClass("CLUE").asSubclass(Concept.class);
+        Concept concept = AnnotationFactory.createAnnotation(jCas,begin,end, cls);
         concept.addToIndexes();
         fastContext_AE.process(jCas);
         Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
@@ -397,21 +402,19 @@ public class FastContext_General_AETest {
                 rules, FastContext_General_AE.PARAM_MARK_CLUE, true};
         fastContext_AE = createEngine(FastContext_General_AE.class,
                 configurationData);
-
+        AnalysisEngine tokenizer = createEngine(SimpleParser_AE.class);
         int begin = text.indexOf(targetWords);
         int end = begin + targetWords.length();
-        Class<? extends Concept> cls = Class.forName(DeterminantValueSet.checkNameSpace("CLUE")).asSubclass(Concept.class);
-        Constructor<? extends Concept> cons = cls.getConstructor(JCas.class, int.class, int.class);
-        Concept concept = cons.newInstance(jCas, begin, end);
+        Class<? extends Concept> cls = AnnotationOper.getTypeClass("CLUE").asSubclass(Concept.class);
+        Concept concept = AnnotationFactory.createAnnotation(jCas, begin,end, cls);
         concept.addToIndexes();
+        tokenizer.process(jCas);
         fastContext_AE.process(jCas);
         Collection<Concept> targets = JCasUtil.select(jCas, Concept.class);
-        for (Concept target : targets) {
-            System.out.println(target.toString());
-        }
-        for (Context context : JCasUtil.select(jCas, Context.class)) {
-            System.out.println(context.toString());
-        }
+        assert (targets.size()==1);
+        assert (FSUtil.getFeature(targets.iterator().next(), "Temporality", String.class).equals("historical"));
+        assert (JCasUtil.select(jCas, Context.class).size()==1);
+
     }
 
 

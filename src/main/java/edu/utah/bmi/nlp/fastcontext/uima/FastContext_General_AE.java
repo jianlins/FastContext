@@ -120,7 +120,7 @@ public class FastContext_General_AE
         for (String conceptName : conceptFeatureMap.keySet()) {
             TypeDefinition typeDefinition = conceptFeatureMap.get(conceptName);
             try {
-                Class contextTypeClass = Class.forName(DeterminantValueSet.checkNameSpace(conceptName)).asSubclass(Annotation.class);
+                Class contextTypeClass = AnnotationOper.getTypeClass((conceptName)).asSubclass(Annotation.class);
                 conceptClassMap.put(conceptName, contextTypeClass);
                 conceptFeatures.put(conceptName, new HashMap<>());
                 HashMap<String, Method> featureMap = conceptFeatures.get(conceptName);
@@ -128,8 +128,6 @@ public class FastContext_General_AE
                     Method method = contextTypeClass.getMethod(AnnotationOper.inferSetMethodName(feature), String.class);
                     featureMap.put(feature, method);
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }

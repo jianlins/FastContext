@@ -20,7 +20,7 @@
     <description>Derive from TestStanfordCoreNLPUIMAWrapper-typeSystemDescriptor
         including token sentence dependency types.
     </description>
-    <version>1.0</version>
+    <version>1.3.0</version>
     <vendor/>
     <types>
         <typeDescription>

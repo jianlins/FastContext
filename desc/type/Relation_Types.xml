@@ -24,45 +24,26 @@
     <vendor/>
     <types>
         <typeDescription>
-            <name>edu.utah.bmi.nlp.type.system.SectionHeader</name>
+            <name>edu.utah.bmi.nlp.type.system.Relation</name>
             <description/>
-            <supertypeName>edu.utah.bmi.nlp.type.system.EntityBASE</supertypeName>
+            <!-- Extend from annotation to simplify the down stream implementation-->
+            <supertypeName>uima.tcas.Annotation</supertypeName>
             <features>
                 <featureDescription>
-                    <name>Category</name>
+                    <name>Note</name>
                     <description/>
                     <rangeTypeName>uima.cas.String</rangeTypeName>
                 </featureDescription>
-            </features>
-        </typeDescription>
-        <typeDescription>
-            <name>edu.utah.bmi.nlp.type.system.SectionBody</name>
-            <description/>
-            <supertypeName>edu.utah.bmi.nlp.type.system.EntityBASE</supertypeName>
-            <features>
                 <featureDescription>
-                    <name>Category</name>
+                    <name>Arg1</name>
                     <description/>
-                    <rangeTypeName>uima.cas.String</rangeTypeName>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
+                </featureDescription>
+                <featureDescription>
+                    <name>Arg2</name>
+                    <rangeTypeName>uima.tcas.Annotation</rangeTypeName>
                 </featureDescription>
             </features>
-        </typeDescription>
-        <typeDescription>
-            <name>edu.utah.bmi.nlp.type.system.DefaultSection</name>
-            <description/>
-            <supertypeName>edu.utah.bmi.nlp.type.system.SectionBody</supertypeName>
-            <features>
-                <featureDescription>
-                    <name>Category</name>
-                    <description/>
-                    <rangeTypeName>uima.cas.String</rangeTypeName>
-                </featureDescription>
-            </features>
-        </typeDescription>
-        <typeDescription>
-            <name>edu.utah.bmi.nlp.type.system.DefaultSection</name>
-            <description/>
-            <supertypeName>edu.utah.bmi.nlp.type.system.SectionBody</supertypeName>
         </typeDescription>
     </types>
 </typeSystemDescription>
