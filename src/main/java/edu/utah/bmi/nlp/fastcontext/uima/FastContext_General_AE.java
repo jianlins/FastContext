@@ -34,6 +34,7 @@ import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIndex;
 import org.apache.uima.cas.FSIterator;
+import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
 
@@ -155,11 +156,7 @@ public class FastContext_General_AE
     public void process(JCas jcas, String docText, ArrayList<Annotation> sentences, ArrayList<Annotation> tokens,
                         IntervalST<Integer> sentenceIndex, IntervalST<Integer> tokenIndex, Class conceptClass) {
         ArrayList<Annotation> concepts = new ArrayList<>();
-        FSIndex annoIndex = jcas.getAnnotationIndex(conceptClass);
-        FSIterator annoIter = annoIndex.iterator();
-        while (annoIter.hasNext()) {
-            concepts.add((Annotation) annoIter.next());
-        }
+        concepts.addAll(JCasUtil.select(jcas, conceptClass));
         if (concepts.size() == 0) {
             return;
         }
