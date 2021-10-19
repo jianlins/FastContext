@@ -303,7 +303,7 @@ public class FastContext_General_AE
                 value = cp.getFeatureDefaultValueMap().getOrDefault(featureName, "");
 
             if (featureMethods.containsKey(featureName)) {
-                AnnotationOper.setFeatureValue(featureMethods.get(featureName), concept, value);
+                AnnotationOper.setFeatureValue(featureName, concept, value);
             } else {
                 logger.fine("Feature: " + featureName + " does not exist in Annotation " + concept.getClass().getCanonicalName());
                 continue;
